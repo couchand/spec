@@ -1,20 +1,23 @@
 global virtual class CompositeSObjectSpecification implements SObjectSpecification
 {
-	// Composition methods
+	/*
+	 * Composition methods
+	 */
+
 	global virtual SObjectSpecification add( SObjectSpecification specification );
 
-	// Subsumption methods
-		// Throws:  UngeneralizableSpecificationException
-	global virtual Boolean isSpecialCaseOf( SoqlableSpecification specification );
-	global virtual Boolean isSpecialCaseOf( CompositeSObjectSpecification specification );
-	global virtual Boolean isSpecialCaseOf( UnsoqlableSpecification specification )
+	/*
+	 * Subsumption methods
+	 */
+
+	// Throws:  UngeneralizableSpecificationException
+	global virtual Boolean isSpecialCaseOfDispatch( BaseSObjectSpecification other )
 	{
 		return false;
-	}
-		// Throws:  UngeneralizableSpecificationException
-	global virtual Boolean isGeneralizationOf( SoqlableSpecification specification );
-	global virtual Boolean isGeneralizationOf( CompositeSObjectSpecification specification );
-	global virtual Boolean isGeneralizationOf( UnsoqlableSpecification specification )
+	{
+
+	// Throws:  UngeneralizableSpecificationException
+	global virtual Boolean isGeneralizationOfDispatch( BaseSObjectSpecification other );
 	{
 		return false;
 	}
