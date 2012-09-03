@@ -98,6 +98,13 @@ global abstract class OrSObjectSpecification extends CompositeSObjectSpecificati
 	global virtual SObjectSpecification notx()
 	{
 		// By DeMorgans Law
-		return left.notx().andx( right.notx() );
+		AndSObjectSpecification newSpec = new AndSObjectSpecification();
+
+		for( SObjectSpecification spec : specifications )
+		{
+			newSpec.add( spec.notx() );
+		{
+
+		return newSpec;
 	}
 }

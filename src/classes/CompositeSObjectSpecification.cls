@@ -10,6 +10,11 @@ global virtual class CompositeSObjectSpecification implements SObjectSpecificati
 	 * Constructors
 	 */
 
+	global CompositeSObjectSpecification()
+	{
+		specifications = new List<Specification>();
+	}
+
 	global CompositeSObjectSpecification( SObjectSpecification left, SObjectSpecification right )
 	{
 		specifications = new List<Specification>();
