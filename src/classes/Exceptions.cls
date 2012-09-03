@@ -1,4 +1,4 @@
-public virtual interface Exceptions
+global virtual class Exceptions
 {
 	global class UnimplementedFeatureException implements Exception {}
 

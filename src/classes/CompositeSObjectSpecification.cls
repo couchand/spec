@@ -46,7 +46,7 @@ global virtual class CompositeSObjectSpecification implements SObjectSpecificati
 	{
 
 	// Throws:  UngeneralizableSpecificationException
-	global virtual Boolean isGeneralizationOfDispatch( BaseSObjectSpecification other );
+	global virtual Boolean isGeneralizationOfDispatch( BaseSObjectSpecification other )
 	{
 		return false;
 	}

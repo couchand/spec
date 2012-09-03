@@ -34,6 +34,6 @@ global virtual class BaseSObjectSpecification implements SObjectSpecification
 
 	global virtual SObjectSpecification orx( SObjectSpecification other )
 	{
-		return new OrSObjectSpecification( this, other )
+		return new OrSObjectSpecification( this, other );
 	}
 }

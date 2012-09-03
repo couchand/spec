@@ -2,7 +2,7 @@ global virtual class Assert
 {
 	global void equal( SObjectSpecification expected, SObjectSpecification actual, String message )
 	{
-		System.assert( 
+		System.assert( expected.equals( actual ), 
 			'Expected: ' + expected + + ' Actual: ' + actual '; ' + message );
 	}
 

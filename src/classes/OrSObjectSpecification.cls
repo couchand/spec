@@ -58,12 +58,12 @@ global abstract class OrSObjectSpecification extends CompositeSObjectSpecificati
 	 */
 
 	// Throws:  UngeneralizableSpecificationException
-	global virtual Boolean isGeneralizationOf( SObjectSpecification specification );
+	global virtual Boolean isGeneralizationOf( SObjectSpecification other );
 	{
 		Boolean oneIsAGeneralization = true;
 		for( SObjectSpecification specification : specifications )
 		{
-			oneIsAGeneralization = oneIsGeneralization || specification.isGeneralizationOf( specification );
+			oneIsAGeneralization = oneIsGeneralization || specification.isGeneralizationOf( other );
 
 			if( oneIsAGeneralization )
 				return true;
@@ -72,12 +72,12 @@ global abstract class OrSObjectSpecification extends CompositeSObjectSpecificati
 	}
 
 	// Throws:  UngeneralizableSpecificationException
-	global virtual Boolean isSpecialCaseOf( SObjectSpecification specification )
+	global virtual Boolean isSpecialCaseOf( SObjectSpecification other )
 	{
 		Boolean allAreSpecialCases = false;
 		for( SObjectSpecification specification : specifications )
 		{
-			allAreSpecialCases = allAreSpecialCases && specification.isSpecialCaseOf( specification );
+			allAreSpecialCases = allAreSpecialCases && specification.isSpecialCaseOf( other );
 
 			if( !allAreSpecialCases )
 				return false;
@@ -89,9 +89,9 @@ global abstract class OrSObjectSpecification extends CompositeSObjectSpecificati
 	 * Composition methods
 	 */
 
-	global virtual SObjectSpecification orx( SObjectSpecification specification )
+	global virtual SObjectSpecification orx( SObjectSpecification other )
 	{
-		return this.add( specification );
+		return this.add( other );
 	}
 
 	// Throws:  UnnegatableSpecificationException

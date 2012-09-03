@@ -16,7 +16,7 @@ global virtual class FieldLessThanSpecification extends FieldBoundSpecification
 	// Postcondition: the sObject will return true when
 	//   passed to isSatisfiedBy
 	// Throws: UnsatisfiableSpecificationException
-	global virtual void makeToSatisfy( SObject sObjectCandidate );
+	global virtual void makeToSatisfy( SObject sObjectCandidate )
 	{
 		try
 		{

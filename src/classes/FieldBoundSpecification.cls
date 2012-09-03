@@ -11,7 +11,7 @@ global virtual class FieldBoundSpecification extends SoqlableSObjectSpecificatio
 	 * Constructors
 	 */
 
-	global virtual FieldBoundSpecification( String field, Object value )
+	global FieldBoundSpecification( String field, Object value )
 	{
 		this.field = field;
 		this.value = value;
