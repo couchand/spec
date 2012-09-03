@@ -1,16 +1,22 @@
 global virtual class FieldLessThanSpecification extends FieldBoundSpecification
 {
-	// Verification methods
+	/*
+	 * Verification methods
+	 */
+
 	global virtual Boolean isSatisfiedBy( SObject sObjectCandidate )
 	{
 		return sObjectCandidate.get( field ) < value;
 	}
 
-	// Construction-to-order methods
+	/*
+	 * Construction-to-order methods
+	 */
+
+	// Postcondition: the sObject will return true when
+	//   passed to isSatisfiedBy
+	// Throws: UnsatisfiableSpecificationException
 	global virtual void makeToSatisfy( SObject sObjectCandidate );
-		// Postcondition: the sObject will return true when
-		//   passed to isSatisfiedBy
-		// Throws: UnsatisfiableSpecificationException
 	{
 		try
 		{
@@ -22,13 +28,17 @@ global virtual class FieldLessThanSpecification extends FieldBoundSpecification
 		}
 	}
 
-	// Subsumption methods
-		// Throws:  UngeneralizableSpecificationException
+	/*
+	 * Subsumption methods
+	 */
+
+	// Throws:  UngeneralizableSpecificationException
 	global virtual Boolean isGeneralizationOf( SoqlableSObjectSpecification specification )
 	{
 		return specification.isSpecialCaseOfDispatch( this );
 	}
-		// Throws:  UngeneralizableSpecificationException
+
+	// Throws:  UngeneralizableSpecificationException
 	global virtual Boolean isSpecialCaseOf( SoqlableSObjectSpecification specification )
 	{
 		return specification.isGeneralizationOfDispatch( this );
@@ -59,7 +69,9 @@ global virtual class FieldLessThanSpecification extends FieldBoundSpecification
 		return this.value <= specification.value;
 	}
 
-	// Composition methods
+	/*
+	 * Composition methods
+	 */
 	global SObjectSpecification notx()
 	{
 		return FieldGreaterThanOrEqualToSpecification( field, value );
