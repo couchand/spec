@@ -1,12 +1,21 @@
 global virtual class FieldLessThanSpecification extends FieldBoundSpecification
 {
 	/*
+	 * Constructors
+	 */
+
+	global FieldLessThanSpecification( String field, Object value )
+	{
+		super( field, value );
+	}
+
+	/*
 	 * Verification methods
 	 */
 
 	global virtual Boolean isSatisfiedBy( SObject sObjectCandidate )
 	{
-		return sObjectCandidate.get( field ) < value;
+		return false; // sObjectCandidate.get( field ) < value;
 	}
 
 	/*
@@ -18,14 +27,16 @@ global virtual class FieldLessThanSpecification extends FieldBoundSpecification
 	// Throws: UnsatisfiableSpecificationException
 	global virtual void makeToSatisfy( SObject sObjectCandidate )
 	{
-		try
-		{
-			sObjectCandidate.set( field, value - 1 );
-		}
-		catch( Exception ex )
-		{
-			throw new Exceptions.UnsatisfiableSpecificationException( ex );
-		}
+		throw new Exceptions.UnimplementedFeatureException();
+	}
+
+	/*
+	 * Database retrieval methods
+	 */
+
+	global virtual String toSoql()
+	{
+		throw new Exceptions.UnimplementedFeatureException();
 	}
 
 	/*

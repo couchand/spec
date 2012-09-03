@@ -1,12 +1,21 @@
 global virtual class FieldGreaterThanOrEqualToSpecification extends FieldBoundSpecification
 {
 	/*
+	 * Constructors
+	 */
+
+	global FieldGreaterThanOrEqualToSpecification( String field, Object value )
+	{
+		super( field, value );
+	}
+
+	/*
 	 * Verification methods
 	 */
 
 	global virtual Boolean isSatisfiedBy( SObject sObjectCandidate )
 	{
-		return sObjectCandidate.get( field ) >= value;
+		return false; // sObjectCandidate.get( field ) >= value;
 	}
 
 	/*
@@ -20,12 +29,21 @@ global virtual class FieldGreaterThanOrEqualToSpecification extends FieldBoundSp
 	{
 		try
 		{
-			sObjectCandidate.set( field, value );
+			sObjectCandidate.put( field, value );
 		}
 		catch( Exception ex )
 		{
 			throw new Exceptions.UnsatisfiableSpecificationException( ex );
 		}
+	}
+
+	/*
+	 * Database retrieval methods
+	 */
+
+	global virtual String toSoql()
+	{
+		throw new Exceptions.UnimplementedFeatureException();
 	}
 
 	/*
