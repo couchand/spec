@@ -1,4 +1,4 @@
-global virtual class CompositeSObjectSpecification implements SObjectSpecification
+global virtual class CompositeSObjectSpecification extends BaseSObjectSpecification
 {
 	/*
 	 * Inner properties
@@ -29,8 +29,12 @@ global virtual class CompositeSObjectSpecification implements SObjectSpecificati
 	global virtual SObjectSpecification add( SObjectSpecification specification )
 	{
 		CompositeSObjectSpecification clone = this.clone();
-		clone.specifications.add( left );
-		clone.specifications.add( right );
+
+		for( SObjectSpecification spec : specifications )
+		{
+			clone.specifications.add( spec );
+		}
+
 		clone.specifications.add( specification );
 		return clone;
 	}
@@ -39,14 +43,12 @@ global virtual class CompositeSObjectSpecification implements SObjectSpecificati
 	 * Subsumption methods
 	 */
 
-	// Throws:  UngeneralizableSpecificationException
-	global virtual Boolean isSpecialCaseOfDispatch( BaseSObjectSpecification other )
+	global virtual override Boolean isSpecialCaseOfDispatch( BaseSObjectSpecification other )
 	{
 		return false;
 	}
 
-	// Throws:  UngeneralizableSpecificationException
-	global virtual Boolean isGeneralizationOfDispatch( BaseSObjectSpecification other )
+	global virtual override Boolean isGeneralizationOfDispatch( BaseSObjectSpecification other )
 	{
 		return false;
 	}

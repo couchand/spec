@@ -1,5 +1,19 @@
-global abstract class OrSObjectSpecification extends CompositeSObjectSpecification
+global virtual class OrSObjectSpecification extends CompositeSObjectSpecification
 {
+	/*
+	 * Constructors
+	 */
+
+	global OrSObjectSpecification()
+	{
+		super();
+	}
+
+	global OrSObjectSpecification( SObjectSpecification left, SObjectSpecification right )
+	{
+		super( left, right );
+	}
+
 	/*
 	 * Verification methods
 	 */
@@ -63,7 +77,7 @@ global abstract class OrSObjectSpecification extends CompositeSObjectSpecificati
 		Boolean oneIsAGeneralization = true;
 		for( SObjectSpecification specification : specifications )
 		{
-			oneIsAGeneralization = oneIsGeneralization || specification.isGeneralizationOf( other );
+			oneIsAGeneralization = oneIsAGeneralization || specification.isGeneralizationOf( other );
 
 			if( oneIsAGeneralization )
 				return true;
@@ -89,7 +103,7 @@ global abstract class OrSObjectSpecification extends CompositeSObjectSpecificati
 	 * Composition methods
 	 */
 
-	global virtual SObjectSpecification orx( SObjectSpecification other )
+	global virtual override SObjectSpecification orx( SObjectSpecification other )
 	{
 		return this.add( other );
 	}

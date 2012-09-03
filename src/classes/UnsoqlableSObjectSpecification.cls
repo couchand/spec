@@ -14,12 +14,12 @@ global virtual class UnsoqlableSObjectSpecification extends BaseSObjectSpecifica
 		return false;
 	}
 
-	global virtual Boolean isGeneralizationOfDispatch( SObjectSpecification other )
+	global virtual override Boolean isGeneralizationOfDispatch( SObjectSpecification other )
 	{
 		return false;
 	}
 
-	global virtual Boolean isSpecialCaseOfDispatch( SObjectSpecification other )
+	global virtual override Boolean isSpecialCaseOfDispatch( SObjectSpecification other )
 	{
 		return false;
 	}

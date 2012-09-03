@@ -1,4 +1,4 @@
-global virtual class BaseSObjectSpecification implements SObjectSpecification
+global abstract class BaseSObjectSpecification implements SObjectSpecification
 {
 	/*
 	 * Equality method
@@ -6,12 +6,22 @@ global virtual class BaseSObjectSpecification implements SObjectSpecification
 
 	global virtual Boolean equalTo( SObjectSpecification other )
 	{
-		return this.isGeneralizationOf( other ) && this.isSpecialCaseOf( other );
+		return other.isGeneralizationOf( this ) && other.isSpecialCaseOf( this );
 	}
 
 	/*
 	 * Subsumption methods
 	 */
+
+	global virtual Boolean isGeneralizationOfDispatch( SObjectSpecification other )
+	{
+		return false; // not in the general case
+	}
+
+	global virtual Boolean isSpecialCaseOfDispatch( SObjectSpecification other )
+	{
+		return false; // not in the general case
+	}
 
 	global virtual Boolean isGeneralizationOfDispatch( BaseSObjectSpecification other )
 	{

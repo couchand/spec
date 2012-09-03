@@ -1,5 +1,19 @@
-global abstract class AndSObjectSpecification extends CompositeSObjectSpecification
+global virtual class AndSObjectSpecification extends CompositeSObjectSpecification
 {
+	/*
+	 * Constructors
+	 */
+
+	global AndSObjectSpecification()
+	{
+		super();
+	}
+
+	global AndSObjectSpecification( SObjectSpecification left, SObjectSpecification right )
+	{
+		super( left, right );
+	}
+
 	/*
 	 * Verification methods
 	 */
@@ -89,7 +103,7 @@ global abstract class AndSObjectSpecification extends CompositeSObjectSpecificat
 	 * Composition methods
 	 */
 
-	global virtual SObjectSpecification andx( SObjectSpecification other )
+	global virtual override SObjectSpecification andx( SObjectSpecification other )
 	{
 		return this.add( other );
 	}
