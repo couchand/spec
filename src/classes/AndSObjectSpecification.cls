@@ -1,22 +1,5 @@
 global abstract class AndSObjectSpecification extends CompositeSObjectSpecification
 {
-	// Inner properties
-	global List<SObjectSpecification> specifications;
-
-	// Constructors
-	global AndSObjectSpecification( SObjectSpecification left, SObjectSpecification right )
-	{
-		specifications = new List<Specification>();
-		specifications.add( left );
-		specifications.add( right );
-	} 
-
-	// Composition methods
-	global SObjectSpecification add( SObjectSpecification specification )
-	{
-		specifications.add( specification );
-	}
-
 	// Verification methods
 	global virtual Boolean isSatisfiedBy( SObject sObjectCandidate )
 	{
