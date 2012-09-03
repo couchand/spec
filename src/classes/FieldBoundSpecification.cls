@@ -3,71 +3,21 @@ global virtual class FieldBoundSpecification extends SoqlableSObjectSpecificatio
 	global String field;
 	global Object value;
 
-	global virtual class FieldLessThanSpecification extends FieldBoundSpecification
+	// Constructors
+	global virtual FieldBoundSpecification( String field, Object value )
 	{
-		// Verification methods
-		global Boolean isSatisfiedBy( SObject sObjectCandidate )
-		{
-			return sObjectCandidate.get( field ) < value;
-		}
+		this.field = field;
+		this.value = value;
+	}
 
-		// Construction-to-order methods
-		global void makeToSatisfy( SObject sObjectCandidate );
-			// Postcondition: the sObject will return true when
-			//   passed to isSatisfiedBy
-			// Throws: UnsatisfiableSpecificationException
-		{
-			try
-			{
-				sObjectCandidate.set( field, value - 1 );
-			}
-			catch( Exception ex )
-			{
-				throw new UnsatisfiableSpecificationException( ex );
-			}
-		}
+	// Subsumption methods
+	global virtual Boolean isGeneralizationOfDispatch( FieldBoundSpecification specification )
+	{
+		return false; // not in the general case
+	}
 
-		// Subsumption methods
-			// Throws:  UngeneralizableSpecificationException
-		global Boolean isGeneralizationOf( SoqlableSObjectSpecification specification )
-		{
-			return specification.isSpecialCaseOfDispatch( this );
-		}
-			// Throws:  UngeneralizableSpecificationException
-		global Boolean isSpecialCaseOf( SoqlableSObjectSpecification specification )
-		{
-			return specification.isGeneralizationOfDispatch( this );
-		}
-
-		global Boolean isGeneralizationOfDispatch( FieldEqualToSpecification specification )
-		{
-			return this.value > specification.value;
-		}
-
-		global Boolean isGeneralizationOfDispatch( FieldLessThanOrEqualToSpecification specification )
-		{
-			return this.value > specification.value;
-		}
-
-		global Boolean isGeneralizationOfDispatch( FieldLessThanSpecification specification )
-		{
-			return this.value >= specification.value;
-		}
-
-		global Boolean isSpecialCaseOfDispatch( FieldLessThanOrEqualToSpecification specification )
-		{
-			return this.value <= specification.value;
-		}
-
-		global Boolean isSpecialCaseOfDispatch( FieldLessThanSpecification specification )
-		{
-			return this.value <= specification.value;
-		}
-
-		// Composition methods
-		global SObjectSpecification notx()
-		{
-			return FieldGreaterThanOrEqualToSpecification( field, value );
-		}
+	global virtual Boolean isSpecialCaseOfDispatch( FieldBoundSpecification specification )
+	{
+		return false; // not in the general case
 	}
 }

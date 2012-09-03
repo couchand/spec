@@ -1,13 +1,13 @@
 global virtual class FieldLessThanSpecification extends FieldBoundSpecification
 {
 	// Verification methods
-	global Boolean isSatisfiedBy( SObject sObjectCandidate )
+	global virtual Boolean isSatisfiedBy( SObject sObjectCandidate )
 	{
 		return sObjectCandidate.get( field ) < value;
 	}
 
 	// Construction-to-order methods
-	global void makeToSatisfy( SObject sObjectCandidate );
+	global virtual void makeToSatisfy( SObject sObjectCandidate );
 		// Postcondition: the sObject will return true when
 		//   passed to isSatisfiedBy
 		// Throws: UnsatisfiableSpecificationException
@@ -24,37 +24,37 @@ global virtual class FieldLessThanSpecification extends FieldBoundSpecification
 
 	// Subsumption methods
 		// Throws:  UngeneralizableSpecificationException
-	global Boolean isGeneralizationOf( SoqlableSObjectSpecification specification )
+	global virtual Boolean isGeneralizationOf( SoqlableSObjectSpecification specification )
 	{
 		return specification.isSpecialCaseOfDispatch( this );
 	}
 		// Throws:  UngeneralizableSpecificationException
-	global Boolean isSpecialCaseOf( SoqlableSObjectSpecification specification )
+	global virtual Boolean isSpecialCaseOf( SoqlableSObjectSpecification specification )
 	{
 		return specification.isGeneralizationOfDispatch( this );
 	}
 
-	global Boolean isGeneralizationOfDispatch( FieldEqualToSpecification specification )
+	global virtual Boolean isGeneralizationOfDispatch( FieldEqualToSpecification specification )
 	{
 		return this.value > specification.value;
 	}
 
-	global Boolean isGeneralizationOfDispatch( FieldLessThanOrEqualToSpecification specification )
+	global virtual Boolean isGeneralizationOfDispatch( FieldLessThanOrEqualToSpecification specification )
 	{
 		return this.value > specification.value;
 	}
 
-	global Boolean isGeneralizationOfDispatch( FieldLessThanSpecification specification )
+	global virtual Boolean isGeneralizationOfDispatch( FieldLessThanSpecification specification )
 	{
 		return this.value >= specification.value;
 	}
 
-	global Boolean isSpecialCaseOfDispatch( FieldLessThanOrEqualToSpecification specification )
+	global virtual Boolean isSpecialCaseOfDispatch( FieldLessThanOrEqualToSpecification specification )
 	{
 		return this.value <= specification.value;
 	}
 
-	global Boolean isSpecialCaseOfDispatch( FieldLessThanSpecification specification )
+	global virtual Boolean isSpecialCaseOfDispatch( FieldLessThanSpecification specification )
 	{
 		return this.value <= specification.value;
 	}

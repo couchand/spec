@@ -1,38 +1,39 @@
 global virtual class BaseSObjectSpecification implements SObjectSpecification
 {
-	// Subsumption methods
-	global virtual Boolean isGeneralizationOf( SObjectSpecification specification )
+	/*
+	 * Equality method
+	 */
+
+	global virtual Boolean equalTo( SObjectSpecification other )
 	{
-		return specification.isSpecialCaseOf( this );
+		return this.isGeneralizationOf( other ) && this.isSpecialCaseOf( other );
 	}
-	global virtual Boolean isSpecialCaseOf( SObjectSpecification specification )
-	{
-		return specification.isGeneralizationOf( this );
-	}
-	global virtual Boolean isGeneralizationOf( BaseSObjectSpecification specification )
-	{
-		return specification.isSpecialCaseOfDispatch( this );
-	}
-	global virtual Boolean isSpecialCaseOf( BaseSObjectSpecification specification )
-	{
-		return specification.isGeneralizationDispatch( this );
-	}
-	global virtual Boolean isGeneralizationOfDispatch( BaseSObjectSpecification specification )
-	{
-		return false; // not in the general case
-	}
-	global virtual Boolean isSpecialCaseOfDispatch( BaseSObjectSpecification specification )
+
+	/*
+	 * Subsumption methods
+	 */
+
+	global virtual Boolean isGeneralizationOfDispatch( BaseSObjectSpecification other )
 	{
 		return false; // not in the general case
 	}
 
-	// Composition methods
-	global virtual SObjectSpecification andx( SObjectSpecification specification )
+	global virtual Boolean isSpecialCaseOfDispatch( BaseSObjectSpecification other )
 	{
-		return new AndSObjectSpecification( this, specification );
+		return false; // not in the general case
 	}
-	global virtual SObjectSpecification orx( SObjectSpecification specification )
+
+	/*
+	 * Composition methods
+	 */
+
+	global virtual SObjectSpecification andx( SObjectSpecification other )
 	{
-		return new OrSObjectSpecification( this, specification )
+		return new AndSObjectSpecification( this, other );
+	}
+
+	global virtual SObjectSpecification orx( SObjectSpecification other )
+	{
+		return new OrSObjectSpecification( this, other )
 	}
 }

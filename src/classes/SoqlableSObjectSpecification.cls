@@ -1,28 +1,34 @@
 global virtual class SoqlableSObjectSpecification extends BaseSObjectSpecification
 {
-	// Subsumption methods
-		// Throws:  UngeneralizableSpecificationException
-	global virtual Boolean isSpecialCaseOfDispatch( SoqlableSpecification specification );
-	global virtual Boolean isSpecialCaseOfDispatch( CompositeSObjectSpecification specification )
+	/*
+	 * Subsumption methods
+	 */
+
+	// Throws:  UngeneralizableSpecificationException
+	global virtual Boolean isSpecialCaseOfDispatch( BaseSObjectSpecification other )
 	{
-		return specification.isGeneralizationOf( this );
-	}
-	global virtual Boolean isSpecialCaseOfDispatch( UnsoqlableSpecification specification )
-	{
-		return false;
-	}
-		// Throws:  UngeneralizableSpecificationException
-	global virtual Boolean isGeneralizationOfiDispatch( SoqlableSpecification specification );
-	global virtual Boolean isGeneralizationOfDispatch( CompositeSObjectSpecification specification )
-	{
-		return specification.isSpecialCaseOfDispatch( this );
-	}
-	global virtual Boolean isGeneralizationOf( UnsoqlableSpecification specification )
-	{
-		return false;
+		return other.isGeneralizationOf( this );
 	}
 
-	// Database retrieval methods
+	// Throws:  UngeneralizableSpecificationException
+	global virtual Boolean isGeneralizationOfDispatch( BaseSObjectSpecification other )
+	{
+		return other.isSpecialCaseOfDispatch( this );
+	}
+
+	global virtual Boolean isSpecialCaseOfDispatch( SoqlableSpecification other )
+	{
+		return false; // not in the general case
+	}
+
+	global virtual Boolean isGeneralizationOf( SoqlableSpecification other )
+	{
+		return false; // not in the general case
+	}
+
+	/*
+	 * Database retrieval methods
+	 */
 	global Boolean hasCompleteSoqlDescription()
 	{
 		return true;
