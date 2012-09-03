@@ -24,6 +24,9 @@ global abstract class OrSObjectSpecification extends CompositeSObjectSpecificati
 		for( SObjectSpecification specification : specifications )
 		{
 			satisfiesOne = satisfiesOne || specification.isSatisfiedBy( sObjectCandidate );
+
+			if( satisfiesOne )
+				return true;
 		}
 		return satisfiesOne;
 	}
@@ -42,7 +45,7 @@ global abstract class OrSObjectSpecification extends CompositeSObjectSpecificati
 	// Database retrieval methods
 	global virtual String toSoql()
 	{
-		throw new Exceptions.UnsoqlableSpecificationException();	// An unusable implementation
+		throw new Exceptions.UnimplementedFeatureException();	// An unusable implementation
 	}
 	global virtual Boolean hasCompleteSoqlDescription()
 	{
@@ -50,6 +53,9 @@ global abstract class OrSObjectSpecification extends CompositeSObjectSpecificati
 		for( SObjectSpecification specification : specifications )
 		{
 			allHaveCompleteDescription = allHaveCompleteDescription && specification.hasCompleteSoqlDescription();
+
+			if( !allHaveCompleteDescription )
+				return false;
 		}
 		return allHaveCompleteDescription;
 	}
@@ -61,7 +67,10 @@ global abstract class OrSObjectSpecification extends CompositeSObjectSpecificati
 		Boolean oneIsAGeneralization = true;
 		for( SObjectSpecification specification : specifications )
 		{
-			oneIsAAGeneralization = oneIsGeneralization || specification.isGeneralizationOf( specification );
+			oneIsAGeneralization = oneIsGeneralization || specification.isGeneralizationOf( specification );
+
+			if( oneIsAGeneralization )
+				return true;
 		}
 		return oneIsAGeneralization;
 	}
@@ -72,6 +81,9 @@ global abstract class OrSObjectSpecification extends CompositeSObjectSpecificati
 		for( SObjectSpecification specification : specifications )
 		{
 			allAreSpecialCases = allAreSpecialCases && specification.isSpecialCaseOf( specification );
+
+			if( !allAreSpecialCases )
+				return false;
 		}
 		return allAreSpecialCases;
 	}
