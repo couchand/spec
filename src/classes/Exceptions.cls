@@ -1,8 +1,8 @@
 global virtual class Exceptions
 {
-	global class UnimplementedFeatureException implements Exception {}
+	global class UnimplementedFeatureException extends Exception {}
 
-	global class SpecificationException implements Exception {}
+	global class SpecificationException extends Exception {}
 
 	global class UngeneralizableSpecificationException extends SpecificationException {}
 	global class   UnnegatabableSpecificationException extends SpecificationException {}

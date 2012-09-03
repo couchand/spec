@@ -103,7 +103,7 @@ global abstract class AndSObjectSpecification extends CompositeSObjectSpecificat
 		for( SObjectSpecification spec : specifications )
 		{
 			newSpec.add( spec.notx() );
-		{
+		}
 
 		return newSpec;
 	}
