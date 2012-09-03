@@ -1,44 +1,47 @@
 global virtual class UnsoqlableSObjectSpecification extends BaseSObjectSpecification
 {
-	// Subsumption methods
-		// Throws:  UngeneralizableSpecificationException
-	global virtual Boolean isSpecialCaseOf( SoqlableSpecification specification )
+	/*
+	 * Subsumption methods
+	 */
+
+	global virtual Boolean isGeneralizationOf( SObjectSpecification other )
 	{
-		throw new Exceptions.UngeneralizableSpecificationException();
-	}
-	global virtual Boolean isSpecialCaseOf( CompositeSObjectSpecification specification )
-	{
-		throw new Exceptions.UngeneralizableSpecificationException();
-	}
-	global virtual Boolean isSpecialCaseOf( UnsoqlableSpecification specification )
-	{
-		throw new Exceptions.UngeneralizableSpecificationException();
-	}
-		// Throws:  UngeneralizableSpecificationException
-	global virtual Boolean isGeneralizationOf( SoqlableSpecification specification )
-	{
-		throw new Exceptions.UngeneralizableSpecificationException();
-	}
-	global virtual Boolean isGeneralizationOf( CompositeSObjectSpecification specification )
-	{
-		throw new Exceptions.UngeneralizableSpecificationException();
-	}
-	global virtual Boolean isGeneralizationOf( UnsoqlableSpecification specification )
-	{
-		throw new Exceptions.UngeneralizableSpecificationException();
+		return false;
 	}
 
-	// Database retrieval methods
+	global virtual Boolean isSpecialCaseOf( SObjectSpecification other )
+	{
+		return false;
+	}
+
+	global virtual Boolean isGeneralizationOfDispatch( SObjectSpecification other )
+	{
+		return false;
+	}
+
+	global virtual Boolean isSpecialCaseOfDispatch( SObjectSpecification other )
+	{
+		return false;
+	}
+
+	/*
+	 * Database retrieval methods
+	 */
+
 	global Boolean toSoql()
 	{
 		throw new Exceptions.UnsoqlableSpecificationException();
 	}
+
 	global Boolean hasCompleteSoqlDescription()
 	{
-		throw new Exceptions.UnsoqlableSpecificationException();
+		return false;
 	}
 
-	// Composition methods
+	/*
+	 * Composition methods
+	 */
+
 	global virtual SObjectSpecification notx()
 	{
 		throw new Exceptions.UnnegatableSpecificationException();
