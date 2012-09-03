@@ -24,6 +24,9 @@ global abstract class AndSObjectSpecification extends CompositeSObjectSpecificat
 		for( SObjectSpecification specification : specifications )
 		{
 			satisfiesAll = satisfiesAll && specification.isSatisfiedBy( sObjectCandidate );
+
+			if( !satisfiesAll )
+				return false;
 		}
 		return satisfiesAll;
 	}
@@ -50,6 +53,9 @@ global abstract class AndSObjectSpecification extends CompositeSObjectSpecificat
 		for( SObjectSpecification specification : specifications )
 		{
 			allHaveCompleteDescription = allHaveCompleteDescription && specification.hasCompleteSoqlDescription();
+
+			if( !allHaveCompleteDescription )
+				return false;
 		}
 		return allHaveCompleteDescription;
 	}
@@ -62,6 +68,9 @@ global abstract class AndSObjectSpecification extends CompositeSObjectSpecificat
 		for( SObjectSpecification specification : specifications )
 		{
 			allAreGeneralizations = allAreGeneralizations && specification.isGeneralizationOf( specification );
+
+			if( !allAreGeneralizations )
+				return false;
 		}
 		return allAreGeneralizations;
 	}
@@ -72,6 +81,9 @@ global abstract class AndSObjectSpecification extends CompositeSObjectSpecificat
 		for( SObjectSpecification specification : specifications )
 		{
 			oneIsASpecialCase = oneIsASpecialCase || specification.isSpecialCaseOf( specification );
+
+			if( oneIsASpecialCase )
+				return true;
 		}
 		return oneIsASpecialCase;
 	}
