@@ -1,30 +1,34 @@
-public virtual interface SObjectSpecification
+global virtual interface SObjectSpecification
 {
 	// Verification methods
-	Boolean isSatisfiedBy( SObject sObjectCandidate );
+	global Boolean isSatisfiedBy( SObject sObjectCandidate );
 
 	// Construction-to-order methods
-	void makeToSatisfy( SObject sObjectCandidate );
+	global void makeToSatisfy( SObject sObjectCandidate );
 		// Postcondition: the sObject will return true when
 		//   passed to isSatisfiedBy
 		// Throws: UnsatisfiableSpecificationException
 
 	// Database retrieval methods
-	String toSoql();
+	global String toSoql();
 		// Throws: UnsoqlableSpecificationException
-	Boolean hasCompleteSoqlDescription();
+	global Boolean hasCompleteSoqlDescription();
 		// If this returns false, database results
 		//   must be filtered by isSatisfiedBy
 
 	// Subsumption methods
-	Boolean isGeneralizationOf( SObjectSpecification specification );
+	global Boolean isGeneralizationOf( SObjectSpecification specification );
+		// Should recursively compute by calling the dispatch method
+		//   specification.isSpecialCaseOfDispatch( this )
 		// Throws:  UngeneralizableSpecificationException
-	Boolean isSpecialCaseOf( SObjectSpecification specification );
+	global Boolean isSpecialCaseOf( SObjectSpecification specification );
+		// Should recursively compute by calling the dispatch method
+		//   specification.isGeneralizationOfDispatch( this )
 		// Throws:  UngeneralizableSpecificationException
 
 	// Composition methods
-	SObjectSpecification andx( SObjectSpecification specification );
-	SObjectSpecification orx( SObjectSpecification specification );
-	SObjectSpecification notx();
+	global SObjectSpecification andx( SObjectSpecification specification );
+	global SObjectSpecification orx( SObjectSpecification specification );
+	global SObjectSpecification notx();
 		// Throws:  UnnegatableSpecificationException
 }
