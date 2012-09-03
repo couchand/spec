@@ -7,7 +7,7 @@ global virtual class SoqlableSObjectSpecification extends BaseSObjectSpecificati
 	// Throws:  UngeneralizableSpecificationException
 	global virtual Boolean isGeneralizationOfDispatch( BaseSObjectSpecification other )
 	{
-		return other.isSpecialCaseOfDispatch( this );
+		return other.isSpecialCaseOf( this );
 	}
 
 	// Throws:  UngeneralizableSpecificationException
@@ -16,7 +16,7 @@ global virtual class SoqlableSObjectSpecification extends BaseSObjectSpecificati
 		return other.isGeneralizationOf( this );
 	}
 
-	global virtual Boolean isGeneralizationOf( SoqlableSpecification other )
+	global virtual Boolean isGeneralizationOfDispatch( SoqlableSpecification other )
 	{
 		return false; // not in the general case
 	}
