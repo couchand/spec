@@ -17,4 +17,10 @@ global virtual class Assert
 		System.assert( testSpec.isSpecialCaseOf( other ),
 			'Expected ' + testSpec + ' to be a special case of ' + other + '. ' + message );
 	}
+
+	global void satisfies( SObjectSpecification testSpec, SObject testObject, String message )
+	{
+		System.assert( testSpec.isSatisfiedBy( testObject ),
+			'Expected ' + testObject + ' to satisfy ' + testSpec + '. ' + message );
+	}
 }
