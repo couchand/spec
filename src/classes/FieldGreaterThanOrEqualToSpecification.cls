@@ -1,4 +1,4 @@
-global virtual class FieldLessThanSpecification extends FieldBoundSpecification
+global virtual class FieldGreaterThanOrEqualToSpecification extends FieldBoundSpecification
 {
 	/*
 	 * Verification methods
@@ -6,7 +6,7 @@ global virtual class FieldLessThanSpecification extends FieldBoundSpecification
 
 	global virtual Boolean isSatisfiedBy( SObject sObjectCandidate )
 	{
-		return sObjectCandidate.get( field ) < value;
+		return sObjectCandidate.get( field ) >= value;
 	}
 
 	/*
@@ -20,7 +20,7 @@ global virtual class FieldLessThanSpecification extends FieldBoundSpecification
 	{
 		try
 		{
-			sObjectCandidate.set( field, value - 1 );
+			sObjectCandidate.set( field, value );
 		}
 		catch( Exception ex )
 		{
@@ -74,6 +74,6 @@ global virtual class FieldLessThanSpecification extends FieldBoundSpecification
 	 */
 	global SObjectSpecification notx()
 	{
-		return new FieldGreaterThanOrEqualToSpecification( field, value );
+		return new FieldLessThanSpecification( field, value );
 	}
 }
