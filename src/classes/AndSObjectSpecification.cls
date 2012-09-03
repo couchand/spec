@@ -1,6 +1,9 @@
 global abstract class AndSObjectSpecification extends CompositeSObjectSpecification
 {
-	// Verification methods
+	/*
+	 * Verification methods
+	 */
+
 	global virtual Boolean isSatisfiedBy( SObject sObjectCandidate )
 	{
 		Boolean satisfiesAll = true;
@@ -14,8 +17,11 @@ global abstract class AndSObjectSpecification extends CompositeSObjectSpecificat
 		return satisfiesAll;
 	}
 
-	// Construction-to-order methods
-		// Throws: UnsatisfiableSpecificationException
+	/*
+	 * Construction-to-order methods
+	 */
+
+	// Throws: UnsatisfiableSpecificationException
 	global virtual void makeToSatisfy( SObject sObjectCandidate )
 	{
 		// A less than satisfactory implementation
@@ -25,11 +31,15 @@ global abstract class AndSObjectSpecification extends CompositeSObjectSpecificat
 		}
 	}
 
-	// Database retrieval methods
+	/*
+	 * Database retrieval methods
+	 */
+
 	global virtual String toSoql()
 	{
 		throw new Exceptions.UnimplementedFeatureException();	// An unusable implementation
 	}
+
 	global virtual Boolean hasCompleteSoqlDescription()
 	{
 		Boolean allHaveCompleteDescription = true;
@@ -43,8 +53,11 @@ global abstract class AndSObjectSpecification extends CompositeSObjectSpecificat
 		return allHaveCompleteDescription;
 	}
 
-	// Subsumption methods
-		// Throws:  UngeneralizableSpecificationException
+	/*
+	 * Subsumption methods
+	 */
+
+	// Throws:  UngeneralizableSpecificationException
 	global virtual Boolean isGeneralizationOf( SObjectSpecification specification );
 	{
 		Boolean allAreGeneralizations = true;
@@ -57,7 +70,8 @@ global abstract class AndSObjectSpecification extends CompositeSObjectSpecificat
 		}
 		return allAreGeneralizations;
 	}
-		// Throws:  UngeneralizableSpecificationException
+
+	// Throws:  UngeneralizableSpecificationException
 	global virtual Boolean isSpecialCaseOf( SObjectSpecification specification )
 	{
 		Boolean oneIsASpecialCase = false;
@@ -71,12 +85,16 @@ global abstract class AndSObjectSpecification extends CompositeSObjectSpecificat
 		return oneIsASpecialCase;
 	}
 
-	// Composition methods
+	/*
+	 * Composition methods
+	 */
+
 	global virtual SObjectSpecification andx( SObjectSpecification specification )
 	{
 		return this.add( specification );
 	}
-		// Throws:  UnnegatableSpecificationException
+
+	// Throws:  UnnegatableSpecificationException
 	global virtual SObjectSpecification notx()
 	{
 		// By DeMorgans Law
