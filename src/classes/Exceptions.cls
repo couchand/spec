@@ -1,5 +1,7 @@
 public virtual interface Exceptions
 {
+	global class UnimplementedFeatureException implements Exception {}
+
 	global class SpecificationException implements Exception {}
 
 	global class UngeneralizableSpecificationException extends SpecificationException {}

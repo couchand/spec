@@ -42,7 +42,7 @@ global abstract class AndSObjectSpecification extends CompositeSObjectSpecificat
 	// Database retrieval methods
 	global virtual String toSoql()
 	{
-		throw new Exceptions.UnsoqlableSpecificationException();	// An unusable implementation
+		throw new Exceptions.UnimplementedFeatureException();	// An unusable implementation
 	}
 	global virtual Boolean hasCompleteSoqlDescription()
 	{
