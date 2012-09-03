@@ -44,6 +44,6 @@ global virtual class UnsoqlableSObjectSpecification extends BaseSObjectSpecifica
 
 	global virtual SObjectSpecification notx()
 	{
-		throw new Exceptions.UnnegatableSpecificationException();
+		throw new Exceptions.UnnegateableSpecificationException();
 	}
 }

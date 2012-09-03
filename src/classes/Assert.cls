@@ -1,9 +1,9 @@
 global virtual class Assert
 {
-	global void equal( SObjectSpecification expected, SObjectSpecification actual, String message )
+	global void equals( SObjectSpecification expected, SObjectSpecification actual, String message )
 	{
-		System.assert( expected.equals( actual ), 
-			'Expected: ' + expected + ' Actual: ' + actual '; ' + message );
+		System.assert( expected.equalTo( actual ), 
+			'Expected: ' + expected + ' Actual: ' + actual + '; ' + message );
 	}
 
 	global void generalizes( SObjectSpecification testSpec, SObjectSpecification other, String message )

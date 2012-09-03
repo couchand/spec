@@ -12,12 +12,12 @@ global virtual class CompositeSObjectSpecification implements SObjectSpecificati
 
 	global CompositeSObjectSpecification()
 	{
-		specifications = new List<Specification>();
+		specifications = new List<SObjectSpecification>();
 	}
 
 	global CompositeSObjectSpecification( SObjectSpecification left, SObjectSpecification right )
 	{
-		specifications = new List<Specification>();
+		specifications = new List<SObjectSpecification>();
 		specifications.add( left );
 		specifications.add( right );
 	}

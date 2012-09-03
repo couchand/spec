@@ -58,7 +58,7 @@ global abstract class OrSObjectSpecification extends CompositeSObjectSpecificati
 	 */
 
 	// Throws:  UngeneralizableSpecificationException
-	global virtual Boolean isGeneralizationOf( SObjectSpecification other );
+	global virtual Boolean isGeneralizationOf( SObjectSpecification other )
 	{
 		Boolean oneIsAGeneralization = true;
 		for( SObjectSpecification specification : specifications )

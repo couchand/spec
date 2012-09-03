@@ -47,6 +47,13 @@ global virtual interface SObjectSpecification
 	Boolean isSpecialCaseOfDispatch( SObjectSpecification specification );
 
 	/*
+	 * Equality method
+	 */
+
+	// Probably isGeneralizationOf && isSpecialCaseOf
+	Boolean equalTo( SObjectSpecification other );
+
+	/*
 	 * Composition methods
 	 */
 

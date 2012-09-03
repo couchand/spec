@@ -24,7 +24,7 @@ global virtual class FieldLessThanSpecification extends FieldBoundSpecification
 		}
 		catch( Exception ex )
 		{
-			throw new UnsatisfiableSpecificationException( ex );
+			throw new Exceptions.UnsatisfiableSpecificationException( ex );
 		}
 	}
 

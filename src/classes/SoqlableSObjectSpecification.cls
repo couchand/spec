@@ -16,12 +16,12 @@ global virtual class SoqlableSObjectSpecification extends BaseSObjectSpecificati
 		return other.isGeneralizationOf( this );
 	}
 
-	global virtual Boolean isGeneralizationOfDispatch( SoqlableSpecification other )
+	global virtual Boolean isGeneralizationOfDispatch( SoqlableSObjectSpecification other )
 	{
 		return false; // not in the general case
 	}
 
-	global virtual Boolean isSpecialCaseOfDispatch( SoqlableSpecification other )
+	global virtual Boolean isSpecialCaseOfDispatch( SoqlableSObjectSpecification other )
 	{
 		return false; // not in the general case
 	}
