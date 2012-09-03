@@ -5,23 +5,23 @@ global virtual class SoqlableSObjectSpecification extends BaseSObjectSpecificati
 	 */
 
 	// Throws:  UngeneralizableSpecificationException
-	global virtual Boolean isSpecialCaseOfDispatch( BaseSObjectSpecification other )
-	{
-		return other.isGeneralizationOf( this );
-	}
-
-	// Throws:  UngeneralizableSpecificationException
 	global virtual Boolean isGeneralizationOfDispatch( BaseSObjectSpecification other )
 	{
 		return other.isSpecialCaseOfDispatch( this );
 	}
 
-	global virtual Boolean isSpecialCaseOfDispatch( SoqlableSpecification other )
+	// Throws:  UngeneralizableSpecificationException
+	global virtual Boolean isSpecialCaseOfDispatch( BaseSObjectSpecification other )
+	{
+		return other.isGeneralizationOf( this );
+	}
+
+	global virtual Boolean isGeneralizationOf( SoqlableSpecification other )
 	{
 		return false; // not in the general case
 	}
 
-	global virtual Boolean isGeneralizationOf( SoqlableSpecification other )
+	global virtual Boolean isSpecialCaseOfDispatch( SoqlableSpecification other )
 	{
 		return false; // not in the general case
 	}
