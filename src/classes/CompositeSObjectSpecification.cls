@@ -1,4 +1,4 @@
-global virtual class CompositeSObjectSpecification extends BaseSObjectSpecification
+global abstract class CompositeSObjectSpecification extends BaseSObjectSpecification
 {
 	/*
 	 * Inner properties

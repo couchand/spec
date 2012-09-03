@@ -1,20 +1,8 @@
-global virtual class SoqlableSObjectSpecification extends BaseSObjectSpecification
+global abstract class SoqlableSObjectSpecification extends BaseSObjectSpecification
 {
 	/*
 	 * Subsumption methods
 	 */
-
-	// Throws:  UngeneralizableSpecificationException
-	global virtual override Boolean isGeneralizationOfDispatch( BaseSObjectSpecification other )
-	{
-		return other.isSpecialCaseOf( this );
-	}
-
-	// Throws:  UngeneralizableSpecificationException
-	global virtual override Boolean isSpecialCaseOfDispatch( BaseSObjectSpecification other )
-	{
-		return other.isGeneralizationOf( this );
-	}
 
 	global virtual Boolean isGeneralizationOfDispatch( SoqlableSObjectSpecification other )
 	{

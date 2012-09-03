@@ -1,4 +1,4 @@
-global virtual class FieldBoundSpecification extends SoqlableSObjectSpecification
+global abstract class FieldBoundSpecification extends SoqlableSObjectSpecification
 {
 	/*
 	 * Inner properties

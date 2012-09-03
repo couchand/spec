@@ -1,4 +1,4 @@
-global virtual class UnsoqlableSObjectSpecification extends BaseSObjectSpecification
+global abstract class UnsoqlableSObjectSpecification extends BaseSObjectSpecification
 {
 	/*
 	 * Subsumption methods
