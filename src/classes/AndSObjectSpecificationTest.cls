@@ -3,10 +3,18 @@ global class AndSObjectSpecificationTest
 {
 	private static testMethod void testIsSatisfiedBy()
 	{
-		AndSObjectSpecification bothFalse = new AndSObjectSpecification( new UnsatisfiedSpec(), new UnsatisfiedSpec() );
-		AndSObjectSpecification leftFalse = new AndSObjectSpecification( new UnsatisfiedSpec(), new SatisfiedSpec() );
-		AndSObjectSpecification rightFalse = new AndSObjectSpecification( new SatisfiedSpec(), new UnsatisfiedSpec() );
-		AndSObjectSpecification bothTrue = new AndSObjectSpecification( new SatisfiedSpec(), new SatisfiedSpec() );
+		AndSObjectSpecification bothFalse = new AndSObjectSpecification(
+							new TestSObjectSpecification.UnsatisfiedSpec(),
+							new TestSObjectSpecification.UnsatisfiedSpec() );
+		AndSObjectSpecification leftFalse = new AndSObjectSpecification(
+							new TestSObjectSpecification.UnsatisfiedSpec(),
+							new TestSObjectSpecification.SatisfiedSpec() );
+		AndSObjectSpecification rightFalse = new AndSObjectSpecification(
+							new TestSObjectSpecification.SatisfiedSpec(),
+							new TestSObjectSpecification.UnsatisfiedSpec() );
+		AndSObjectSpecification bothTrue = new AndSObjectSpecification(
+							new TestSObjectSpecification.SatisfiedSpec(),
+							new TestSObjectSpecification.SatisfiedSpec() );
 
 		Test.startTest();
 
@@ -25,10 +33,18 @@ global class AndSObjectSpecificationTest
 
 	private static testMethod void testHasCompleteSoqlDescription()
 	{
-		AndSObjectSpecification bothFalse = new AndSObjectSpecification( new IncompleteSoqlSpec(), new IncompleteSoqlSpec() );
-		AndSObjectSpecification leftFalse = new AndSObjectSpecification( new IncompleteSoqlSpec(), new CompleteSoqlSpec() );
-		AndSObjectSpecification rightFalse = new AndSObjectSpecification( new CompleteSoqlSpec(), new IncompleteSoqlSpec() );
-		AndSObjectSpecification bothTrue = new AndSObjectSpecification( new CompleteSoqlSpec(), new CompleteSoqlSpec() );
+		AndSObjectSpecification bothFalse = new AndSObjectSpecification(
+							new TestSObjectSpecification.IncompleteSoqlSpec(),
+							new TestSObjectSpecification.IncompleteSoqlSpec() );
+		AndSObjectSpecification leftFalse = new AndSObjectSpecification(
+							new TestSObjectSpecification.IncompleteSoqlSpec(),
+							new TestSObjectSpecification.CompleteSoqlSpec() );
+		AndSObjectSpecification rightFalse = new AndSObjectSpecification(
+							new TestSObjectSpecification.CompleteSoqlSpec(),
+							new TestSObjectSpecification.IncompleteSoqlSpec() );
+		AndSObjectSpecification bothTrue = new AndSObjectSpecification(
+							new TestSObjectSpecification.CompleteSoqlSpec(),
+							new TestSObjectSpecification.CompleteSoqlSpec() );
 
 		Test.startTest();
 
@@ -47,12 +63,20 @@ global class AndSObjectSpecificationTest
 
 	private static testMethod void testIsGeneralizationOf()
 	{
-		SObjectSpecification testSpec = new GeneralSpec();
+		SObjectSpecification testSpec = new TestSObjectSpecification.GeneralSpec();
 
-		AndSObjectSpecification bothFalse = new AndSObjectSpecification( new NotGeneralSpec(), new NotGeneralSpec() );
-		AndSObjectSpecification leftFalse = new AndSObjectSpecification( new NotGeneralSpec(), new GeneralSpec() );
-		AndSObjectSpecification rightFalse = new AndSObjectSpecification( new GeneralSpec(), new NotGeneralSpec() );
-		AndSObjectSpecification bothTrue = new AndSObjectSpecification( new GeneralSpec(), new GeneralSpec() );
+		AndSObjectSpecification bothFalse = new AndSObjectSpecification(
+							new TestSObjectSpecification.NotGeneralSpec(),
+							new TestSObjectSpecification.NotGeneralSpec() );
+		AndSObjectSpecification leftFalse = new AndSObjectSpecification(
+							new TestSObjectSpecification.NotGeneralSpec(),
+							new TestSObjectSpecification.GeneralSpec() );
+		AndSObjectSpecification rightFalse = new AndSObjectSpecification(
+							new TestSObjectSpecification.GeneralSpec(),
+							new TestSObjectSpecification.NotGeneralSpec() );
+		AndSObjectSpecification bothTrue = new AndSObjectSpecification(
+							new TestSObjectSpecification.GeneralSpec(),
+							new TestSObjectSpecification.GeneralSpec() );
 
 		Test.startTest();
 
@@ -71,12 +95,20 @@ global class AndSObjectSpecificationTest
 
 	private static testMethod void testIsSpecialCaseOf()
 	{
-		SObjectSpecification testSpec = new SpecialSpec();
+		SObjectSpecification testSpec = new TestSObjectSpecification.SpecialSpec();
 
-		AndSObjectSpecification bothFalse = new AndSObjectSpecification( new NotSpecialSpec(), new NotSpecialSpec() );
-		AndSObjectSpecification leftFalse = new AndSObjectSpecification( new NotSpecialSpec(), new SpecialSpec() );
-		AndSObjectSpecification rightFalse = new AndSObjectSpecification( new SpecialSpec(), new NotSpecialSpec() );
-		AndSObjectSpecification bothTrue = new AndSObjectSpecification( new SpecialSpec(), new SpecialSpec() );
+		AndSObjectSpecification bothFalse = new AndSObjectSpecification(
+							new TestSObjectSpecification.NotSpecialSpec(),
+							new TestSObjectSpecification.NotSpecialSpec() );
+		AndSObjectSpecification leftFalse = new AndSObjectSpecification(
+							new TestSObjectSpecification.NotSpecialSpec(),
+							new TestSObjectSpecification.SpecialSpec() );
+		AndSObjectSpecification rightFalse = new AndSObjectSpecification(
+							new TestSObjectSpecification.SpecialSpec(),
+							new TestSObjectSpecification.NotSpecialSpec() );
+		AndSObjectSpecification bothTrue = new AndSObjectSpecification(
+							new TestSObjectSpecification.SpecialSpec(),
+							new TestSObjectSpecification.SpecialSpec() );
 
 		Test.startTest();
 
@@ -91,65 +123,5 @@ global class AndSObjectSpecificationTest
 		System.assertEquals( true, leftFalseActual, 'one specification must be a generalization' );
 		System.assertEquals( true, rightFalseActual, 'one specification must be a generalization' );
 		System.assertEquals( true, bothTrueActual, 'one specification must be a generalization' );
-	}
-
-	global class UnsatisfiedSpec extends TestSObjectSpecification
-	{
-		global override Boolean isSatisfiedBy( SObject sObjectCandidate )
-		{
-			return false;
-		}
-	}
-	global class SatisfiedSpec extends TestSObjectSpecification
-	{
-		global override Boolean isSatisfiedBy( SObject sObjectCandidate )
-		{
-			return true;
-		}
-	}
-
-	global class IncompleteSoqlSpec extends TestSObjectSpecification
-	{
-		global override Boolean hasCompleteSoqlDescription()
-		{
-			return false;
-		}
-	}
-	global class CompleteSoqlSpec extends TestSObjectSpecification
-	{
-		global override Boolean hasCompleteSoqlDescription()
-		{
-			return true;
-		}
-	}
-
-	global class NotGeneralSpec extends TestSObjectSpecification
-	{
-		global override Boolean isGeneralizationOf( SObjectSpecification other )
-		{
-			return false;
-		}
-	}
-	global class GeneralSpec extends TestSObjectSpecification
-	{
-		global override Boolean isGeneralizationOf( SObjectSpecification other )
-		{
-			return true;
-		}
-	}
-
-	global class NotSpecialSpec extends TestSObjectSpecification
-	{
-		global override Boolean isSpecialCaseOf( SObjectSpecification other )
-		{
-			return false;
-		}
-	}
-	global class SpecialSpec extends TestSObjectSpecification
-	{
-		global override Boolean isSpecialCaseOf( SObjectSpecification other )
-		{
-			return true;
-		}
 	}
 }
