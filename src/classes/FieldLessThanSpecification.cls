@@ -15,9 +15,7 @@ global virtual class FieldLessThanSpecification extends FieldBoundSpecification
 
 	global virtual Boolean isSatisfiedBy( SObject sObjectCandidate )
 	{
-		al.ObjectComparator comparator = new al.PrimitiveComparator();
-
-		return -1 == comparator.compare( sObjectCandidate.get( field ), value );
+		return -1 == new al.PrimitiveComparator().compare( sObjectCandidate.get( field ), value );
 	}
 
 	/*
@@ -56,18 +54,19 @@ global virtual class FieldLessThanSpecification extends FieldBoundSpecification
 	{
 		return specification.isGeneralizationOfDispatch( this );
 	}
-/*
-	global virtual Boolean isGeneralizationOfDispatch( FieldEqualToSpecification specification )
-	{
-		return this.value > specification.value;
-	}
 
+	global virtual Boolean isGeneralizationOfDispatch( FieldLessThanSpecification other )
+	{
+system.assert(false,''+this+other);
+		return false;
+	}
+/*
 	global virtual Boolean isGeneralizationOfDispatch( FieldLessThanOrEqualToSpecification specification )
 	{
 		return this.value > specification.value;
 	}
 
-	global virtual Boolean isGeneralizationOfDispatch( FieldLessThanSpecification specification )
+	global virtual Boolean isGeneralizationOfDispatch( FieldEqualToSpecification specification )
 	{
 		return this.value >= specification.value;
 	}
@@ -76,12 +75,12 @@ global virtual class FieldLessThanSpecification extends FieldBoundSpecification
 	{
 		return this.value <= specification.value;
 	}
-
-	global virtual Boolean isSpecialCaseOfDispatch( FieldLessThanSpecification specification )
-	{
-		return this.value <= specification.value;
-	}
 */
+	global virtual Boolean isSpecialCaseOfDispatch( FieldLessThanSpecification other )
+	{system.assert(false,''+this+other);
+		return 0 >= new al.PrimitiveComparator().compare( value, other.value );
+	}
+
 	/*
 	 * Composition methods
 	 */

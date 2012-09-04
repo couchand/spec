@@ -6,7 +6,7 @@ global class FieldLessThanSpecificationTest
 	final static Double SATISFYING_VALUE = 8.0;
 	final static Double NON_SATISFYING_VALUE = 9.0;
 
-	static FieldLessThanSpecification testSpecification;
+	static SObjectSpecification testSpecification;
 
 	private static void setup()
 	{
@@ -54,5 +54,24 @@ global class FieldLessThanSpecificationTest
 			'The cutoff value of the inverse is the same' );
 		System.assertEquals( FIELD_NAME, actualFGTESpec.field,
 			'The field name of the inverse is the same' );
+	}
+
+	private static testMethod void testIsGeneralizationOf()
+	{
+		setup();
+
+		SObjectSpecification moreGeneralSpec = new FieldLessThanSpecification( FIELD_NAME, NON_SATISFYING_VALUE );
+
+		Test.startTest();
+
+			Boolean actualTestIsGeneralizationOfMoreGeneral = testSpecification.isGeneralizationOf( moreGeneralSpec );
+			Boolean actualMoreGeneralIsGeneralizationOfTest = moreGeneralSpec.isGeneralizationOf( testSpecification );
+
+		Test.stopTest();
+
+		System.assertEquals( false, actualTestIsGeneralizationOfMoreGeneral,
+			'A FLT spec with a lower number is not a generalization of one with a higher number' );
+		System.assertEquals( true, actualMoreGeneralIsGeneralizationOfTest,
+			'A FLT spec with a higher number is a generalization of one with a lower number' );
 	}
 }
