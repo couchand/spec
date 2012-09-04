@@ -6,37 +6,14 @@ global class PolymorphismTest
 		{
 			v.visit( this );
 		}
-
-		global virtual void accept( VisitorChild v )
-		{
-			v.visit( this );
-		}
 	}
 
 	global virtual class Parent extends Grandparent
 	{
-		global virtual override void accept( Visitor v )
-		{
-			v.visit( this );
-		}
-
-		global virtual override void accept( VisitorChild v )
-		{
-			v.visit( this );
-		}
 	}
 
 	global virtual class Child extends Parent
 	{
-		global virtual override void accept( Visitor v )
-		{
-			v.visit( this );
-		}
-
-		global virtual override void accept( VisitorChild v )
-		{
-			v.visit( this );
-		}
 	}
 
 	global abstract class Visitor
@@ -51,6 +28,13 @@ global class PolymorphismTest
 
 	global virtual class VisitorChild extends Visitor
 	{
+		global virtual override void visit( Grandparent g )
+		{
+			if( g instanceof Child ) this.visit( (Child)g );
+			else if( g instanceof Parent ) this.visit( (Parent)g );
+			else super.visit( g );
+		}
+
 		global virtual void visit( Parent p )
 		{
 			pVisits++;
