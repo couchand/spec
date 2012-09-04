@@ -15,7 +15,9 @@ global virtual class FieldLessThanSpecification extends FieldBoundSpecification
 
 	global virtual Boolean isSatisfiedBy( SObject sObjectCandidate )
 	{
-		return false; // sObjectCandidate.get( field ) < value;
+		al.ObjectComparator comparator = new al.PrimitiveComparator();
+
+		return -1 == comparator.compare( sObjectCandidate.get( field ), value );
 	}
 
 	/*

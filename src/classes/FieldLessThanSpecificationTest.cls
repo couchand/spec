@@ -1,0 +1,36 @@
+@isTest
+global class FieldLessThanSpecificationTest
+{
+	final static String FIELD_NAME = 'Amount';
+	final static Double CUTOFF_VALUE = 9.0;
+	final static Double SATISFYING_VALUE = 8.0;
+	final static Double NON_SATISFYING_VALUE = 9.0;
+
+	static FieldLessThanSpecification testSpecification;
+
+	private static void setup()
+	{
+		testSpecification = new FieldLessThanSpecification( FIELD_NAME, CUTOFF_VALUE );
+	}
+
+	private static testMethod void testIsSatisfiedBy()
+	{
+		setup();
+
+		Opportunity testSatisfyingOpportunity = new Opportunity();
+		testSatisfyingOpportunity.put( FIELD_NAME, SATISFYING_VALUE );
+
+		Opportunity testNonsatisfyingOpportunity = new Opportunity();
+		testNonsatisfyingOpportunity.put( FIELD_NAME, NON_SATISFYING_VALUE );
+
+		Test.startTest();
+
+			Boolean actualShouldSatisfy = testSpecification.isSatisfiedBy( testSatisfyingOpportunity );
+			Boolean actualShouldNotSatisfy = testSpecification.isSatisfiedBy( testNonsatisfyingOpportunity );
+
+		Test.stopTest();
+
+		System.assertEquals( true, actualShouldSatisfy, 'The value below cutoff should satisfy the specification' );
+		System.assertEquals( false, actualShouldNotSatisfy, 'The value at cutoff should not satisfy the specification' );
+	}
+}
