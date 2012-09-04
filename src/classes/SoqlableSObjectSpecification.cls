@@ -17,7 +17,7 @@ global abstract class SoqlableSObjectSpecification extends BaseSObjectSpecificat
 	/*
 	 * Database retrieval methods
 	 */
-	global Boolean hasCompleteSoqlDescription()
+	global virtual Boolean hasCompleteSoqlDescription()
 	{
 		return true;
 	}
