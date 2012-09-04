@@ -28,7 +28,7 @@ global abstract class UnsoqlableSObjectSpecification extends BaseSObjectSpecific
 	 * Database retrieval methods
 	 */
 
-	global Boolean toSoql()
+	global String toSoql()
 	{
 		throw new Exceptions.UnsoqlableSpecificationException();
 	}

@@ -1,58 +1,18 @@
 @isTest
 global class AndSObjectSpecificationTest
 {
-	global class UnsatisfiedSpec extends UnsoqlableSObjectSpecification
+	global class UnsatisfiedSpec extends TestSObjectSpecification
 	{
-		Boolean isSatisfiedBy( SObject sObjectCandidate )
+		global override Boolean isSatisfiedBy( SObject sObjectCandidate )
 		{
 			return false;
-		}
-
-		void makeToSatisfy( SObject sObjectCandidate )
-		{
-			throw new Exceptions.UnsatisfiableSpecificationException();
-		}
-
-		String toSoql()
-		{
-			return '';
-		}
-
-		Boolean equalTo( SObjectSpecification other )
-		{
-			return false;
-		}
-
-		SObjectSpecification notx()
-		{
-			return new SatisfiedSpec();
 		}
 	}
-
-	global class SatisfiedSpec extends UnsoqlableSObjectSpecification
+	global class SatisfiedSpec extends TestSObjectSpecification
 	{
-		Boolean isSatisfiedBy( SObject sObjectCandidate )
+		global override Boolean isSatisfiedBy( SObject sObjectCandidate )
 		{
 			return true;
-		}
-
-		void makeToSatisfy( SObject sObjectCandidate )
-		{
-		}
-
-		String toSoql()
-		{
-			return '';
-		}
-
-		Boolean equalTo( SObjectSpecification other )
-		{
-			return false;
-		}
-
-		SObjectSpecification notx()
-		{
-			return new UnsatisfiedSpec();
 		}
 	}
 }
