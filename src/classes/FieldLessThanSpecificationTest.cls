@@ -33,4 +33,26 @@ global class FieldLessThanSpecificationTest
 		System.assertEquals( true, actualShouldSatisfy, 'The value below cutoff should satisfy the specification' );
 		System.assertEquals( false, actualShouldNotSatisfy, 'The value at cutoff should not satisfy the specification' );
 	}
+
+	private static testMethod void testNot()
+	{
+		setup();
+
+		Test.startTest();
+
+			SObjectSpecification actualNot = testSpecification.notx();
+
+		Test.stopTest();
+
+		System.assert( actualNot instanceOf FieldGreaterThanOrEqualToSpecification,
+			'The inverse of a FLT spec is a FGTE spec' );
+
+		FieldGreaterThanOrEqualToSpecification actualFGTESpec =
+			(FieldGreaterThanOrEqualToSpecification) actualNot;
+
+		System.assertEquals( CUTOFF_VALUE, actualFGTESpec.value,
+			'The cutoff value of the inverse is the same' );
+		System.assertEquals( FIELD_NAME, actualFGTESpec.field,
+			'The field name of the inverse is the same' );
+	}
 }
