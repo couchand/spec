@@ -44,7 +44,7 @@ global virtual class FieldGreaterThanOrEqualToSpecification extends FieldBoundSp
 
 	global virtual Boolean isSatisfiedBy( SObject sObjectCandidate )
 	{
-		return false; // sObjectCandidate.get( field ) >= value;
+		return PrimitiveMath.greaterThanOrEqualTo( sObjectCandidate.get( field ), value );
 	}
 
 	/*
@@ -90,12 +90,12 @@ global virtual class FieldGreaterThanOrEqualToSpecification extends FieldBoundSp
 	{
 		return specification.isGeneralizationOfDispatch( this );
 	}
-/*
-	global virtual Boolean isGeneralizationOfDispatch( FieldEqualToSpecification specification )
-	{
-		return this.value > specification.value;
-	}
 
+	global virtual Boolean isGeneralizationOfDispatch( FieldGreaterThanOrEqualToSpecification other )
+	{
+		return PrimitiveMath.lessThanOrEqualTo( value, other.value );
+	}
+/*
 	global virtual Boolean isGeneralizationOfDispatch( FieldLessThanOrEqualToSpecification specification )
 	{
 		return this.value > specification.value;
@@ -110,12 +110,12 @@ global virtual class FieldGreaterThanOrEqualToSpecification extends FieldBoundSp
 	{
 		return this.value <= specification.value;
 	}
-
-	global virtual Boolean isSpecialCaseOfDispatch( FieldLessThanSpecification specification )
-	{
-		return this.value <= specification.value;
-	}
 */
+	global virtual Boolean isSpecialCaseOfDispatch( FieldGreaterThanOrEqualToSpecification other )
+	{
+		return PrimitiveMath.greaterThanOrEqualTo( value, other.value );
+	}
+
 	/*
 	 * Composition methods
 	 */
