@@ -1,0 +1,19 @@
+global virtual class PrimitiveMath
+{
+	global static al.PrimitiveComparator comparator
+	{
+		get
+		{
+			if( null == comparator )
+			{
+				comparator = new al.PrimitiveComparator();
+			}
+			return comparator;
+		}
+	}
+
+	global static Boolean lessThan( Object left, Object right )
+	{
+		return -1 == comparator.compare( left, right );
+	}
+}
