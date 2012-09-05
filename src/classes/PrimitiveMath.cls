@@ -26,4 +26,19 @@ global virtual class PrimitiveMath
 	{
 		return 0 == comparator.compare( left, right );
 	}
+
+	global static Boolean greaterThanOrEqualTo( Object left, Object right )
+	{
+		return 0 <= comparator.compare( left, right );
+	}
+
+	global static Boolean greaterThan( Object left, Object right )
+	{
+		return 1 == comparator.compare( left, right );
+	}
+
+	global static Boolean notEqualTo( Object left, Object right )
+	{
+		return 0 != comparator.compare( left, right );
+	}
 }
