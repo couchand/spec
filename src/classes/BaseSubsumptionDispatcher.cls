@@ -100,7 +100,7 @@ global class BaseSubsumptionDispatcher implements SubsumptionDispatcher
 	{
 		if( isFLT( left ) && isFLT( right ) )
 		{
-
+			return ((FieldLessThanSpecification)left).isGeneralizationOfDispatch( (FieldLessThanSpecification)right );
 		}
 
 		return false;
