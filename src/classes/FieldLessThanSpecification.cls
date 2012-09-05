@@ -86,27 +86,26 @@ global virtual class FieldLessThanSpecification extends FieldBoundSpecification
 
 	global virtual Boolean isGeneralizationOfDispatch( FieldLessThanSpecification other )
 	{
-system.assert(false,''+this+other);
-		return false;
+		return 0 <= new al.PrimitiveComparator().compare( value, other.value );
 	}
 /*
-	global virtual Boolean isGeneralizationOfDispatch( FieldLessThanOrEqualToSpecification specification )
+	global virtual Boolean isGeneralizationOfDispatch( FieldLessThanOrEqualToSpecification other )
 	{
-		return this.value > specification.value;
+		return this.value > other.value;
 	}
 
-	global virtual Boolean isGeneralizationOfDispatch( FieldEqualToSpecification specification )
+	global virtual Boolean isGeneralizationOfDispatch( FieldEqualToSpecification other )
 	{
-		return this.value >= specification.value;
+		return this.value > other.value;
 	}
 
-	global virtual Boolean isSpecialCaseOfDispatch( FieldLessThanOrEqualToSpecification specification )
+	global virtual Boolean isSpecialCaseOfDispatch( FieldLessThanOrEqualToSpecification other )
 	{
-		return this.value <= specification.value;
+		return this.value <= other.value;
 	}
 */
 	global virtual Boolean isSpecialCaseOfDispatch( FieldLessThanSpecification other )
-	{system.assert(false,''+this+other);
+	{
 		return 0 >= new al.PrimitiveComparator().compare( value, other.value );
 	}
 

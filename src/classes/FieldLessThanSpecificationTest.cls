@@ -35,7 +35,7 @@ global class FieldLessThanSpecificationTest
 	final static Double SATISFYING_VALUE = 8.0;
 	final static Double NON_SATISFYING_VALUE = 9.0;
 
-	static SObjectSpecification testSpecification;
+	static FieldLessThanSpecification testSpecification;
 
 	private static void setup()
 	{
@@ -85,16 +85,16 @@ global class FieldLessThanSpecificationTest
 			'The field name of the inverse is the same' );
 	}
 
-	private static testMethod void testIsGeneralizationOf()
+	private static testMethod void testIsGeneralizationOfDispatch_FLT()
 	{
 		setup();
 
-		SObjectSpecification moreGeneralSpec = new FieldLessThanSpecification( FIELD_NAME, NON_SATISFYING_VALUE );
+		FieldLessThanSpecification moreGeneralSpec = new FieldLessThanSpecification( FIELD_NAME, NON_SATISFYING_VALUE );
 
 		Test.startTest();
 
-			Boolean actualTestIsGeneralizationOfMoreGeneral = testSpecification.isGeneralizationOf( moreGeneralSpec );
-			Boolean actualMoreGeneralIsGeneralizationOfTest = moreGeneralSpec.isGeneralizationOf( testSpecification );
+			Boolean actualTestIsGeneralizationOfMoreGeneral = testSpecification.isGeneralizationOfDispatch( moreGeneralSpec );
+			Boolean actualMoreGeneralIsGeneralizationOfTest = moreGeneralSpec.isGeneralizationOfDispatch( testSpecification );
 
 		Test.stopTest();
 
