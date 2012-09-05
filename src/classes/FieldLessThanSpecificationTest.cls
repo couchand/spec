@@ -31,9 +31,13 @@
 global class FieldLessThanSpecificationTest
 {
 	final static String FIELD_NAME = 'Amount';
+
 	final static Double CUTOFF_VALUE = 9.0;
+
 	final static Double SATISFYING_VALUE = 8.0;
 	final static Double NON_SATISFYING_VALUE = 9.0;
+
+	final static Double GENERALIZING_NUMBER = 12.0;
 
 	static FieldLessThanSpecification testSpecification;
 
@@ -89,18 +93,37 @@ global class FieldLessThanSpecificationTest
 	{
 		setup();
 
-		FieldLessThanSpecification moreGeneralSpec = new FieldLessThanSpecification( FIELD_NAME, NON_SATISFYING_VALUE );
+		FieldLessThanSpecification moreGeneralSpec = new FieldLessThanSpecification( FIELD_NAME, GENERALIZING_NUMBER );
 
 		Test.startTest();
 
-			Boolean actualTestIsGeneralizationOfMoreGeneral = testSpecification.isGeneralizationOfDispatch( moreGeneralSpec );
-			Boolean actualMoreGeneralIsGeneralizationOfTest = moreGeneralSpec.isGeneralizationOfDispatch( testSpecification );
+			Boolean specificIsGeneralizationOfGeneral = testSpecification.isGeneralizationOfDispatch( moreGeneralSpec );
+			Boolean generalIsGeneralizationOfSpecific = moreGeneralSpec.isGeneralizationOfDispatch( testSpecification );
 
 		Test.stopTest();
 
-		System.assertEquals( false, actualTestIsGeneralizationOfMoreGeneral,
+		System.assert( !specificIsGeneralizationOfGeneral,
 			'A FLT spec with a lower number is not a generalization of one with a higher number' );
-		System.assertEquals( true, actualMoreGeneralIsGeneralizationOfTest,
+		System.assert( generalIsGeneralizationOfSpecific,
+			'A FLT spec with a higher number is a generalization of one with a lower number' );
+	}
+
+	private static testMethod void testIsSpecialCaseOfDispatch_FLT()
+	{
+		setup();
+
+		FieldLessThanSpecification moreGeneralSpec = new FieldLessThanSpecification( FIELD_NAME, GENERALIZING_NUMBER );
+
+		Test.startTest();
+
+			Boolean specificIsSpecialCaseOfGeneral = testSpecification.isSpecialCaseOfDispatch( moreGeneralSpec );
+			Boolean generalIsSpecialCaseOfSpecific = moreGeneralSpec.isSpecialCaseOfDispatch( testSpecification );
+
+		Test.stopTest();
+
+		System.assert( specificIsSpecialCaseOfGeneral,
+			'A FLT spec with a lower number is not a generalization of one with a higher number' );
+		System.assert( !generalIsSpecialCaseOfSpecific,
 			'A FLT spec with a higher number is a generalization of one with a lower number' );
 	}
 }

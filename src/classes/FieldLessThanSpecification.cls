@@ -44,7 +44,7 @@ global virtual class FieldLessThanSpecification extends FieldBoundSpecification
 
 	global virtual Boolean isSatisfiedBy( SObject sObjectCandidate )
 	{
-		return -1 == new al.PrimitiveComparator().compare( sObjectCandidate.get( field ), value );
+		return PrimitiveMath.lessThan( sObjectCandidate.get( field ), value );
 	}
 
 	/*
@@ -86,7 +86,7 @@ global virtual class FieldLessThanSpecification extends FieldBoundSpecification
 
 	global virtual Boolean isGeneralizationOfDispatch( FieldLessThanSpecification other )
 	{
-		return 0 <= new al.PrimitiveComparator().compare( value, other.value );
+		return PrimitiveMath.greaterThanOrEqualTo( value, other.value );
 	}
 /*
 	global virtual Boolean isGeneralizationOfDispatch( FieldLessThanOrEqualToSpecification other )
@@ -106,7 +106,7 @@ global virtual class FieldLessThanSpecification extends FieldBoundSpecification
 */
 	global virtual Boolean isSpecialCaseOfDispatch( FieldLessThanSpecification other )
 	{
-		return 0 >= new al.PrimitiveComparator().compare( value, other.value );
+		return PrimitiveMath.lessThanOrEqualTo( value, other.value );
 	}
 
 	/*
