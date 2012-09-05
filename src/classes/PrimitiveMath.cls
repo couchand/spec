@@ -16,4 +16,14 @@ global virtual class PrimitiveMath
 	{
 		return -1 == comparator.compare( left, right );
 	}
+
+	global static Boolean lessThanOrEqualTo( Object left, Object right )
+	{
+		return 0 >= comparator.compare( left, right );
+	}
+
+	global static Boolean equalTo( Object left, Object right )
+	{
+		return 0 == comparator.compare( left, right );
+	}
 }
