@@ -27,15 +27,8 @@
  *	SOFTWARE.
 */
 
-global virtual class Exceptions
+global interface SubsumptionDispatcher
 {
-	global virtual class UnimplementedFeatureException extends Exception {}
-	global virtual class UnknownClassException extends Exception {}
-
-	global virtual class SpecificationException extends Exception {}
-
-	global virtual class UngeneralizableSpecificationException extends SpecificationException {}
-	global virtual class    UnnegateableSpecificationException extends SpecificationException {}
-	global virtual class   UnsatisfiableSpecificationException extends SpecificationException {}
-	global virtual class      UnsoqlableSpecificationException extends SpecificationException {}
+	Boolean isGeneralizationOf( SObjectSpecification left, SObjectSpecification right );
+	Boolean isSpecialCaseOf( SObjectSpecification left, SObjectSpecification right );
 }

@@ -27,15 +27,24 @@
  *	SOFTWARE.
 */
 
-global virtual class Exceptions
+@isTest
+global class BaseSubsumptionDispatcherTest
 {
-	global virtual class UnimplementedFeatureException extends Exception {}
-	global virtual class UnknownClassException extends Exception {}
+	global static testMethod void testTwoFLTSpecs()
+	{
+		SObjectSpecification moreGeneral, moreSpecific;
 
-	global virtual class SpecificationException extends Exception {}
+		moreGeneral = new FieldLessThanSpecification( 'Amount', 5 );
+		moreSpecific = new FieldLessThanSpecification( 'Amount', 3 );
 
-	global virtual class UngeneralizableSpecificationException extends SpecificationException {}
-	global virtual class    UnnegateableSpecificationException extends SpecificationException {}
-	global virtual class   UnsatisfiableSpecificationException extends SpecificationException {}
-	global virtual class      UnsoqlableSpecificationException extends SpecificationException {}
+		Test.startTest();
+
+			Boolean generalGeneralizesSpecific = moreGeneral.isGeneralizationOf( moreSpecific );
+			Boolean specificGeneralizesGeneral = moreSpecific.isGeneralizationOf( moreGeneral );
+
+		Test.stopTest();
+
+		System.assert( generalGeneralizesSpecific, 'A FLT spec with a higher bound generalizes one with a lower bound.' );
+		System.assert( !specificGeneralizesGeneral, 'A FLT spec with a lower bound does not generalize one with a higher bound.' );
+	}
 }
