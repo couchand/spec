@@ -41,4 +41,14 @@ global virtual class PrimitiveMath
 	{
 		return 0 != comparator.compare( left, right );
 	}
+
+	global static Object increment( Object valueToIncrement )
+	{
+		throw new Exceptions.UnimplementedFeatureException();
+	}
+
+	global static Object decrement( Object valueToDecrement )
+	{
+		throw new Exceptions.UnimplementedFeatureException();
+	}
 }
