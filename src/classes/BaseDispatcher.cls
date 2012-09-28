@@ -61,12 +61,12 @@ global class BaseDispatcher implements SubsumptionDispatcher
 	{
 		mustBeBaseSpecification( left );
 		mustBeBaseSpecification( right );
-
+/*
 		if( isSoqlable( left ) && isSoqlable( right ) )
 		{
-			return isGeneralizationOfSoqlables( left, right );
+			return ((SoqlableSpecification)left).isGeneralizationOf( (SoqlableSpecification)right );
 		}
-/*
+
 		else if( isComposite( left ) && isComposite( right ) )
 		{
 			return isGeneralizationOfComposites( left, right );
@@ -88,21 +88,6 @@ global class BaseDispatcher implements SubsumptionDispatcher
 			return isGeneralizationOfUnsoqlable( right, left );
 		}
 */
-		return false;
-	}
-
-	global Boolean isFLT( SObjectSpecification spec )
-	{
-		return spec instanceof FieldLessThanSpecification;
-	}
-
-	global Boolean isGeneralizationOfSoqlables( SObjectSpecification left, SObjectSpecification right )
-	{
-		if( isFLT( left ) && isFLT( right ) )
-		{
-			return ((FieldLessThanSpecification)left).isGeneralizationOfDispatch( (FieldLessThanSpecification)right );
-		}
-
 		return false;
 	}
 
