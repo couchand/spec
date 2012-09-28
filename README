@@ -4,6 +4,7 @@ An implementation of the specification pattern in Apex
 
 
  * Overview of Specification Pattern
+ * How To Use Specifications
  * Further Reading
  * Implementation Specifics
 
@@ -31,6 +32,58 @@ An implementation of the specification pattern in Apex
 	a given Specification is a generalization or special
 	case of another.
 
+ * How To Use Specifications
+
+	The selection use of Specifications is probably the
+	quickest to directly apply to your existing Apex code.
+	Any time you would directly make a query, instead
+	develop an appropriate Specification.  This encourages
+	the use of reusable code.
+
+<code>
+  // Previously
+  List<Opportunity> opportunities =
+    [SELECT Id FROM Opportunity
+     WHERE Amount > 5.0 AND StageName = 'Closed/Won'];
+
+  // Now
+  SObjectSpecification opportunitySpec =
+    new TypeSpecification( 'Opportunity' );
+  SObjectSpecification amountMoreThanFive =
+    new FieldGreaterThanSpecification( 'Amount', 5.0 );
+  SObjectSpecification stageClosedWon =
+    new FieldEqualSpecification( 'StageName', 'Closed/Won' );
+  SObjectSpecification interestingOpportunitySpec =
+    opportunitySpec.and( amountMoreThanFive ).and( stageClosedWon );
+
+  List<Opportunity> opportunities =
+    interestingOpportunitySpec.findSatisfiers();
+</code>
+
+	They also make short work of trigger filtering.
+
+<code>
+  // Previously
+  List<Opportunity> interestingOpportunities =
+    new List<Opportunity>();
+
+  for( Opportunity anOpportunity : Trigger.new )
+  {
+    if( anOpportunity.Amount > 5.0 &&
+        anOpportunity.StageName == 'Closed/Won' )
+    {
+      interestingOpportunities.add( anOpportunity );
+    }
+  }
+
+  doSomethingImportant( interestingOpportunities );
+
+  // Now
+  List<Opportunity> interestingOpportunties =
+    interestingOpportunitySpec.findSatisfiers( Trigger.new );
+  doSomethingImportant( interestingOpportunities );
+</code>
+
  * Further Reading
 
    * Specifications, Martin Fowler, martinfowler.com/apsupp/spec.pdf
@@ -48,8 +101,10 @@ An implementation of the specification pattern in Apex
 	methods go through a ping-pong down the hierarchy.
 
 <code>
-  BaseSpecification lessThanFive = new FieldLessThanSpecification( 'Amount', 5.0 );
-  BaseSpecification lessThanThree = new FieldLessThanSpecification( 'Amount', 3.0 );
+  BaseSpecification lessThanFive =
+    new FieldLessThanSpecification( 'Amount', 5.0 );
+  BaseSpecification lessThanThree =
+    new FieldLessThanSpecification( 'Amount', 3.0 );
 
 > lessThanThree.isSpecialCaseOf( lessThanFive );
   > (new BaseDispatcher()).isSpecialCaseOf( lessThanThree, lessThanFive );
