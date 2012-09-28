@@ -61,12 +61,12 @@ global class BaseDispatcher implements SubsumptionDispatcher
 	{
 		mustBeBaseSpecification( left );
 		mustBeBaseSpecification( right );
-/*
+
 		if( isSoqlable( left ) && isSoqlable( right ) )
 		{
-			return ((SoqlableSpecification)left).isGeneralizationOf( (SoqlableSpecification)right );
+			return (new SoqlableDispatcher()).isGeneralizationOf( (SoqlableSpecification) left, (SoqlableSpecification)right );
 		}
-
+/*
 		else if( isComposite( left ) && isComposite( right ) )
 		{
 			return isGeneralizationOfComposites( left, right );

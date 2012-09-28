@@ -27,7 +27,7 @@
  *	SOFTWARE.
 */
 
-global abstract class FieldBoundDispatcher extends SoqlableDispatcher
+global class FieldBoundDispatcher
 {
 	global Boolean isFLT( SObjectSpecification spec )
 	{

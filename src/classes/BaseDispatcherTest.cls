@@ -37,12 +37,10 @@ global class BaseDispatcherTest
 		moreGeneral = new FieldLessThanSpecification( 'Amount', 5 );
 		moreSpecific = new FieldLessThanSpecification( 'Amount', 3 );
 
-		BaseDispatcher dispatcher = new BaseDispatcher();
-
 		Test.startTest();
 
-			Boolean generalGeneralizesSpecific = dispatcher.isGeneralizationOf( moreGeneral, moreSpecific );
-			Boolean specificGeneralizesGeneral = dispatcher.isGeneralizationOf( moreSpecific, moreGeneral );
+			Boolean generalGeneralizesSpecific = moreGeneral.isGeneralizationOf( moreSpecific );
+			Boolean specificGeneralizesGeneral = moreSpecific.isGeneralizationOf( moreGeneral );
 
 		Test.stopTest();
 

@@ -75,17 +75,18 @@ global virtual class FieldLessThanSpecification extends FieldBoundSpecification
 	// Throws:  UngeneralizableSpecificationException
 	global virtual Boolean isGeneralizationOf( SObjectSpecification specification )
 	{
-		return (new FieldBoundDispatcher()).isGeneralizationOf( this, specification );
+		return (new BaseDispatcher()).isGeneralizationOf( this, specification );
 	}
 
 	// Throws:  UngeneralizableSpecificationException
 	global virtual Boolean isSpecialCaseOf( SObjectSpecification specification )
 	{
-		return (new FieldBoundDispatcher()).isSpecialCaseOf( this, specification );
+		return (new BaseDispatcher()).isSpecialCaseOf( this, specification );
 	}
 
 	global virtual Boolean isGeneralizationOfDispatch( FieldLessThanSpecification other )
 	{
+System.debug('here');
 		return PrimitiveMath.greaterThanOrEqualTo( value, other.value );
 	}
 /*

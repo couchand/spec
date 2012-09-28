@@ -27,7 +27,7 @@
  *	SOFTWARE.
 */
 
-global abstract class FieldBoundSpecification extends SoqlableSObjectSpecification
+global abstract class FieldBoundSpecification extends SoqlableSpecification
 {
 	/*
 	 * Inner properties

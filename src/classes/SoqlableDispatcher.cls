@@ -27,7 +27,7 @@
  *	SOFTWARE.
 */
 
-global class SoqlableDispatcher extends BaseDispatcher
+global class SoqlableDispatcher
 {
 	global Boolean isFieldBound( SObjectSpecification spec )
 	{
@@ -36,6 +36,11 @@ global class SoqlableDispatcher extends BaseDispatcher
 
 	global Boolean isGeneralizationOf( SoqlableSpecification left, SoqlableSpecification right )
 	{
+		if( isFieldBound( left ) && isFieldBound( right ) )
+		{
+			return (new FieldBoundDispatcher()).isGeneralizationOf( (FieldBoundSpecification)left, (FieldBoundSpecification)right );
+		}
+
 		return false; // not in the general case
 	}
 
