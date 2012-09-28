@@ -141,7 +141,7 @@ global virtual class AndSpecification extends CompositeSpecification
 	global virtual SObjectSpecification notx()
 	{
 		// By DeMorgans Law
-		OrSObjectSpecification newSpec = new OrSObjectSpecification();
+		OrSpecification newSpec = new OrSpecification();
 
 		for( SObjectSpecification spec : specifications )
 		{
