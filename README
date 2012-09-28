@@ -72,3 +72,6 @@ An implementation of the specification pattern in Apex
       > return lessThanThree.bound < lessThanFive.bound;
 > true
 </code>
+
+	That is, unless we only implement the husk subsumption
+	methods on BaseSpecification and do the ping-pong.
