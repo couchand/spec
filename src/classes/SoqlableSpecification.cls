@@ -27,18 +27,18 @@
  *	SOFTWARE.
 */
 
-global abstract class SoqlableSObjectSpecification extends BaseSObjectSpecification
+global abstract class SoqlableSpecification extends BaseSpecification
 {
 	/*
 	 * Subsumption methods
 	 */
 
-	global virtual Boolean isGeneralizationOfDispatch( SoqlableSObjectSpecification other )
+	global virtual Boolean isGeneralizationOfDispatch( SoqlableSpecification other )
 	{
 		return false; // not in the general case
 	}
 
-	global virtual Boolean isSpecialCaseOfDispatch( SoqlableSObjectSpecification other )
+	global virtual Boolean isSpecialCaseOfDispatch( SoqlableSpecification other )
 	{
 		return false; // not in the general case
 	}

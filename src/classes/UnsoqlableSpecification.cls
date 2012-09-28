@@ -27,7 +27,7 @@
  *	SOFTWARE.
 */
 
-global abstract class UnsoqlableSObjectSpecification extends BaseSObjectSpecification
+global abstract class UnsoqlableSpecification extends BaseSpecification
 {
 	/*
 	 * Subsumption methods
