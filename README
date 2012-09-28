@@ -3,11 +3,17 @@ Spec
 An implementation of the specification pattern in Apex
 
 
+ * License
  * Overview of Specification Pattern
  * How To Use Specifications
  * Further Reading
  * Implementation Specifics
 
+
+ * License
+
+	This project is released under the MIT/X11 license.
+	Please see the file LICENSE for details.
 
  * Overview of Specification Pattern
 
