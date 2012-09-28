@@ -27,7 +27,7 @@
  *	SOFTWARE.
 */
 
-global abstract class CompositeSObjectSpecification extends BaseSObjectSpecification
+global abstract class CompositeSpecification extends BaseSpecification
 {
 	/*
 	 * Inner properties
@@ -39,12 +39,12 @@ global abstract class CompositeSObjectSpecification extends BaseSObjectSpecifica
 	 * Constructors
 	 */
 
-	global CompositeSObjectSpecification()
+	global CompositeSpecification()
 	{
 		specifications = new List<SObjectSpecification>();
 	}
 
-	global CompositeSObjectSpecification( SObjectSpecification left, SObjectSpecification right )
+	global CompositeSpecification( SObjectSpecification left, SObjectSpecification right )
 	{
 		specifications = new List<SObjectSpecification>();
 		specifications.add( left );
@@ -57,7 +57,7 @@ global abstract class CompositeSObjectSpecification extends BaseSObjectSpecifica
 
 	global virtual SObjectSpecification add( SObjectSpecification specification )
 	{
-		CompositeSObjectSpecification clone = this.clone();
+		CompositeSpecification clone = this.clone();
 
 		for( SObjectSpecification spec : specifications )
 		{
@@ -72,12 +72,12 @@ global abstract class CompositeSObjectSpecification extends BaseSObjectSpecifica
 	 * Subsumption methods
 	 */
 
-	global virtual override Boolean isSpecialCaseOfDispatch( BaseSObjectSpecification other )
+	global virtual override Boolean isSpecialCaseOfDispatch( BaseSpecification other )
 	{
 		return false;
 	}
 
-	global virtual override Boolean isGeneralizationOfDispatch( BaseSObjectSpecification other )
+	global virtual override Boolean isGeneralizationOfDispatch( BaseSpecification other )
 	{
 		return false;
 	}

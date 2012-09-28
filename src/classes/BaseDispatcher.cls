@@ -27,9 +27,9 @@
  *	SOFTWARE.
 */
 
-global class BaseSubsumptionDispatcher implements SubsumptionDispatcher
+global class BaseDispatcher implements SubsumptionDispatcher
 {
-	global void mustBeBaseSObjectSpecification( SObjectSpecification spec )
+	global void mustBeBaseSpecification( SObjectSpecification spec )
 	{
 		if( !isBase( spec ) )
 		{
@@ -39,28 +39,28 @@ global class BaseSubsumptionDispatcher implements SubsumptionDispatcher
 
 	global Boolean isBase( SObjectSpecification spec )
 	{
-		return spec instanceof BaseSObjectSpecification;
+		return spec instanceof BaseSpecification;
 	}
 
 	global Boolean isComposite( SObjectSpecification spec )
 	{
-		return spec instanceof CompositeSObjectSpecification;
+		return spec instanceof CompositeSpecification;
 	}
 
 	global Boolean isSoqlable( SObjectSpecification spec )
 	{
-		return spec instanceof SoqlableSObjectSpecification;
+		return spec instanceof SoqlableSpecification;
 	}
 
 	global Boolean isUnsoqlable( SObjectSpecification spec )
 	{
-		return spec instanceof UnsoqlableSObjectSpecification;
+		return spec instanceof UnsoqlableSpecification;
 	}
 
 	global Boolean isGeneralizationOf( SObjectSpecification left, SObjectSpecification right )
 	{
-		mustBeBaseSObjectSpecification( left );
-		mustBeBaseSObjectSpecification( right );
+		mustBeBaseSpecification( left );
+		mustBeBaseSpecification( right );
 
 		if( isSoqlable( left ) && isSoqlable( right ) )
 		{

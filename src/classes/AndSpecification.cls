@@ -27,18 +27,18 @@
  *	SOFTWARE.
 */
 
-global virtual class AndSObjectSpecification extends CompositeSObjectSpecification
+global virtual class AndSpecification extends CompositeSpecification
 {
 	/*
 	 * Constructors
 	 */
 
-	global AndSObjectSpecification()
+	global AndSpecification()
 	{
 		super();
 	}
 
-	global AndSObjectSpecification( SObjectSpecification left, SObjectSpecification right )
+	global AndSpecification( SObjectSpecification left, SObjectSpecification right )
 	{
 		super( left, right );
 	}

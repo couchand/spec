@@ -27,7 +27,7 @@
  *	SOFTWARE.
 */
 
-global abstract class BaseSObjectSpecification implements SObjectSpecification
+global abstract class BaseSpecification implements SObjectSpecification
 {
 	/*
 	 * Equality method
@@ -52,12 +52,12 @@ global abstract class BaseSObjectSpecification implements SObjectSpecification
 		return false; // not in the general case
 	}
 
-	global virtual Boolean isGeneralizationOfDispatch( BaseSObjectSpecification other )
+	global virtual Boolean isGeneralizationOfDispatch( BaseSpecification other )
 	{
 		return false; // not in the general case
 	}
 
-	global virtual Boolean isSpecialCaseOfDispatch( BaseSObjectSpecification other )
+	global virtual Boolean isSpecialCaseOfDispatch( BaseSpecification other )
 	{
 		return false; // not in the general case
 	}
@@ -68,11 +68,11 @@ global abstract class BaseSObjectSpecification implements SObjectSpecification
 
 	global virtual SObjectSpecification andx( SObjectSpecification other )
 	{
-		return new AndSObjectSpecification( this, other );
+		return new AndSpecification( this, other );
 	}
 
 	global virtual SObjectSpecification orx( SObjectSpecification other )
 	{
-		return new OrSObjectSpecification( this, other );
+		return new OrSpecification( this, other );
 	}
 }

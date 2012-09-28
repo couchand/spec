@@ -27,7 +27,7 @@
  *	SOFTWARE.
 */
 
-global virtual class TestSObjectSpecification extends UnsoqlableSObjectSpecification
+global virtual class MockSpecification extends UnsoqlableSpecification
 {
 	global virtual Boolean isSatisfiedBy( SObject sObjectCandidate )
 	{
@@ -39,14 +39,14 @@ global virtual class TestSObjectSpecification extends UnsoqlableSObjectSpecifica
 		throw new Exceptions.UnsatisfiableSpecificationException();
 	}
 
-	global class UnsatisfiedSpec extends TestSObjectSpecification
+	global class UnsatisfiedSpec extends MockSpecification
 	{
 		global override Boolean isSatisfiedBy( SObject sObjectCandidate )
 		{
 			return false;
 		}
 	}
-	global class SatisfiedSpec extends TestSObjectSpecification
+	global class SatisfiedSpec extends MockSpecification
 	{
 		global override Boolean isSatisfiedBy( SObject sObjectCandidate )
 		{
@@ -54,14 +54,14 @@ global virtual class TestSObjectSpecification extends UnsoqlableSObjectSpecifica
 		}
 	}
 
-	global class IncompleteSoqlSpec extends TestSObjectSpecification
+	global class IncompleteSoqlSpec extends MockSpecification
 	{
 		global override Boolean hasCompleteSoqlDescription()
 		{
 			return false;
 		}
 	}
-	global class CompleteSoqlSpec extends TestSObjectSpecification
+	global class CompleteSoqlSpec extends MockSpecification
 	{
 		global override Boolean hasCompleteSoqlDescription()
 		{
@@ -69,14 +69,14 @@ global virtual class TestSObjectSpecification extends UnsoqlableSObjectSpecifica
 		}
 	}
 
-	global class NotGeneralSpec extends TestSObjectSpecification
+	global class NotGeneralSpec extends MockSpecification
 	{
 		global override Boolean isGeneralizationOf( SObjectSpecification other )
 		{
 			return false;
 		}
 	}
-	global class GeneralSpec extends TestSObjectSpecification
+	global class GeneralSpec extends MockSpecification
 	{
 		global override Boolean isGeneralizationOf( SObjectSpecification other )
 		{
@@ -84,7 +84,7 @@ global virtual class TestSObjectSpecification extends UnsoqlableSObjectSpecifica
 		}
 	}
 
-	global class NotSpecialSpec extends TestSObjectSpecification
+	global class NotSpecialSpec extends MockSpecification
 	{
 		global override Boolean isSpecialCaseOf( SObjectSpecification other )
 		{
@@ -92,7 +92,7 @@ global virtual class TestSObjectSpecification extends UnsoqlableSObjectSpecifica
 		}
 	}
 
-	global class SpecialSpec extends TestSObjectSpecification
+	global class SpecialSpec extends MockSpecification
 	{
 		global override Boolean isSpecialCaseOf( SObjectSpecification other )
 		{

@@ -28,7 +28,7 @@
 */
 
 @isTest
-global class BaseSubsumptionDispatcherTest
+global class BaseDispatcherTest
 {
 	global static testMethod void testTwoFLTSpecs()
 	{
@@ -37,7 +37,7 @@ global class BaseSubsumptionDispatcherTest
 		moreGeneral = new FieldLessThanSpecification( 'Amount', 5 );
 		moreSpecific = new FieldLessThanSpecification( 'Amount', 3 );
 
-		BaseSubsumptionDispatcher dispatcher = new BaseSubsumptionDispatcher();
+		BaseDispatcher dispatcher = new BaseDispatcher();
 
 		Test.startTest();
 

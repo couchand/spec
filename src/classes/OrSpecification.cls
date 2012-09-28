@@ -27,18 +27,18 @@
  *	SOFTWARE.
 */
 
-global virtual class OrSObjectSpecification extends CompositeSObjectSpecification
+global virtual class OrSpecification extends CompositeSpecification
 {
 	/*
 	 * Constructors
 	 */
 
-	global OrSObjectSpecification()
+	global OrSpecification()
 	{
 		super();
 	}
 
-	global OrSObjectSpecification( SObjectSpecification left, SObjectSpecification right )
+	global OrSpecification( SObjectSpecification left, SObjectSpecification right )
 	{
 		super( left, right );
 	}
@@ -141,7 +141,7 @@ global virtual class OrSObjectSpecification extends CompositeSObjectSpecificatio
 	global virtual SObjectSpecification notx()
 	{
 		// By DeMorgans Law
-		AndSObjectSpecification newSpec = new AndSObjectSpecification();
+		AndSpecification newSpec = new AndSpecification();
 
 		for( SObjectSpecification spec : specifications )
 		{

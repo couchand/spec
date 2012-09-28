@@ -28,22 +28,22 @@
 */
 
 @isTest
-global class AndSObjectSpecificationTest
+global class AndSpecificationTest
 {
 	private static testMethod void testIsSatisfiedBy()
 	{
-		AndSObjectSpecification bothFalse = new AndSObjectSpecification(
-							new TestSObjectSpecification.UnsatisfiedSpec(),
-							new TestSObjectSpecification.UnsatisfiedSpec() );
-		AndSObjectSpecification leftFalse = new AndSObjectSpecification(
-							new TestSObjectSpecification.UnsatisfiedSpec(),
-							new TestSObjectSpecification.SatisfiedSpec() );
-		AndSObjectSpecification rightFalse = new AndSObjectSpecification(
-							new TestSObjectSpecification.SatisfiedSpec(),
-							new TestSObjectSpecification.UnsatisfiedSpec() );
-		AndSObjectSpecification bothTrue = new AndSObjectSpecification(
-							new TestSObjectSpecification.SatisfiedSpec(),
-							new TestSObjectSpecification.SatisfiedSpec() );
+		AndSpecification bothFalse = new AndSpecification(
+							new MockSpecification.UnsatisfiedSpec(),
+							new MockSpecification.UnsatisfiedSpec() );
+		AndSpecification leftFalse = new AndSpecification(
+							new MockSpecification.UnsatisfiedSpec(),
+							new MockSpecification.SatisfiedSpec() );
+		AndSpecification rightFalse = new AndSpecification(
+							new MockSpecification.SatisfiedSpec(),
+							new MockSpecification.UnsatisfiedSpec() );
+		AndSpecification bothTrue = new AndSpecification(
+							new MockSpecification.SatisfiedSpec(),
+							new MockSpecification.SatisfiedSpec() );
 
 		Test.startTest();
 
@@ -62,18 +62,18 @@ global class AndSObjectSpecificationTest
 
 	private static testMethod void testHasCompleteSoqlDescription()
 	{
-		AndSObjectSpecification bothFalse = new AndSObjectSpecification(
-							new TestSObjectSpecification.IncompleteSoqlSpec(),
-							new TestSObjectSpecification.IncompleteSoqlSpec() );
-		AndSObjectSpecification leftFalse = new AndSObjectSpecification(
-							new TestSObjectSpecification.IncompleteSoqlSpec(),
-							new TestSObjectSpecification.CompleteSoqlSpec() );
-		AndSObjectSpecification rightFalse = new AndSObjectSpecification(
-							new TestSObjectSpecification.CompleteSoqlSpec(),
-							new TestSObjectSpecification.IncompleteSoqlSpec() );
-		AndSObjectSpecification bothTrue = new AndSObjectSpecification(
-							new TestSObjectSpecification.CompleteSoqlSpec(),
-							new TestSObjectSpecification.CompleteSoqlSpec() );
+		AndSpecification bothFalse = new AndSpecification(
+							new MockSpecification.IncompleteSoqlSpec(),
+							new MockSpecification.IncompleteSoqlSpec() );
+		AndSpecification leftFalse = new AndSpecification(
+							new MockSpecification.IncompleteSoqlSpec(),
+							new MockSpecification.CompleteSoqlSpec() );
+		AndSpecification rightFalse = new AndSpecification(
+							new MockSpecification.CompleteSoqlSpec(),
+							new MockSpecification.IncompleteSoqlSpec() );
+		AndSpecification bothTrue = new AndSpecification(
+							new MockSpecification.CompleteSoqlSpec(),
+							new MockSpecification.CompleteSoqlSpec() );
 
 		Test.startTest();
 
@@ -92,20 +92,20 @@ global class AndSObjectSpecificationTest
 
 	private static testMethod void testIsGeneralizationOf()
 	{
-		SObjectSpecification testSpec = new TestSObjectSpecification.GeneralSpec();
+		SObjectSpecification testSpec = new MockSpecification.GeneralSpec();
 
-		AndSObjectSpecification bothFalse = new AndSObjectSpecification(
-							new TestSObjectSpecification.NotGeneralSpec(),
-							new TestSObjectSpecification.NotGeneralSpec() );
-		AndSObjectSpecification leftFalse = new AndSObjectSpecification(
-							new TestSObjectSpecification.NotGeneralSpec(),
-							new TestSObjectSpecification.GeneralSpec() );
-		AndSObjectSpecification rightFalse = new AndSObjectSpecification(
-							new TestSObjectSpecification.GeneralSpec(),
-							new TestSObjectSpecification.NotGeneralSpec() );
-		AndSObjectSpecification bothTrue = new AndSObjectSpecification(
-							new TestSObjectSpecification.GeneralSpec(),
-							new TestSObjectSpecification.GeneralSpec() );
+		AndSpecification bothFalse = new AndSpecification(
+							new MockSpecification.NotGeneralSpec(),
+							new MockSpecification.NotGeneralSpec() );
+		AndSpecification leftFalse = new AndSpecification(
+							new MockSpecification.NotGeneralSpec(),
+							new MockSpecification.GeneralSpec() );
+		AndSpecification rightFalse = new AndSpecification(
+							new MockSpecification.GeneralSpec(),
+							new MockSpecification.NotGeneralSpec() );
+		AndSpecification bothTrue = new AndSpecification(
+							new MockSpecification.GeneralSpec(),
+							new MockSpecification.GeneralSpec() );
 
 		Test.startTest();
 
@@ -124,20 +124,20 @@ global class AndSObjectSpecificationTest
 
 	private static testMethod void testIsSpecialCaseOf()
 	{
-		SObjectSpecification testSpec = new TestSObjectSpecification.SpecialSpec();
+		SObjectSpecification testSpec = new MockSpecification.SpecialSpec();
 
-		AndSObjectSpecification bothFalse = new AndSObjectSpecification(
-							new TestSObjectSpecification.NotSpecialSpec(),
-							new TestSObjectSpecification.NotSpecialSpec() );
-		AndSObjectSpecification leftFalse = new AndSObjectSpecification(
-							new TestSObjectSpecification.NotSpecialSpec(),
-							new TestSObjectSpecification.SpecialSpec() );
-		AndSObjectSpecification rightFalse = new AndSObjectSpecification(
-							new TestSObjectSpecification.SpecialSpec(),
-							new TestSObjectSpecification.NotSpecialSpec() );
-		AndSObjectSpecification bothTrue = new AndSObjectSpecification(
-							new TestSObjectSpecification.SpecialSpec(),
-							new TestSObjectSpecification.SpecialSpec() );
+		AndSpecification bothFalse = new AndSpecification(
+							new MockSpecification.NotSpecialSpec(),
+							new MockSpecification.NotSpecialSpec() );
+		AndSpecification leftFalse = new AndSpecification(
+							new MockSpecification.NotSpecialSpec(),
+							new MockSpecification.SpecialSpec() );
+		AndSpecification rightFalse = new AndSpecification(
+							new MockSpecification.SpecialSpec(),
+							new MockSpecification.NotSpecialSpec() );
+		AndSpecification bothTrue = new AndSpecification(
+							new MockSpecification.SpecialSpec(),
+							new MockSpecification.SpecialSpec() );
 
 		Test.startTest();
 
