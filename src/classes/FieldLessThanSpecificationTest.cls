@@ -38,6 +38,7 @@ global class FieldLessThanSpecificationTest
 	final static Double NON_SATISFYING_VALUE = 9.0;
 
 	final static Double GENERALIZING_NUMBER = 12.0;
+	final static Double SPECIAL_CASE_NUMBER = 2.0;
 
 	static FieldLessThanSpecification testSpecification;
 
@@ -126,4 +127,46 @@ global class FieldLessThanSpecificationTest
 		System.assert( !generalIsSpecialCaseOfSpecific,
 			'A FLT spec with a higher number is a generalization of one with a lower number' );
 	}
+
+	private static testMethod void testIsGeneralizationOfDispatch_FLTE()
+	{
+		setup();
+
+		FieldLessThanOrEqualToSpecification moreGeneralSpec =
+			new FieldLessThanOrEqualToSpecification( FIELD_NAME, GENERALIZING_NUMBER );
+		FieldLessThanOrEqualToSpecification moreSpecificSpec =
+			new FieldLessThanOrEqualToSpecification( FIELD_NAME, SPECIAL_CASE_NUMBER );
+
+		Test.startTest();
+
+			Boolean specificIsGeneralizationOfGeneral = testSpecification.isGeneralizationOfDispatch( moreGeneralSpec );
+			Boolean generalIsGeneralizationOfSpecific = testSpecification.isGeneralizationOfDispatch( moreSpecificSpec );
+
+		Test.stopTest();
+
+		System.assert( !specificIsGeneralizationOfGeneral,
+			'A FLTE spec with a lower number is not a generalization of an FLT with a higher number' );
+		System.assert( generalIsGeneralizationOfSpecific,
+			'A FLTE spec with a higher number is a generalization of an FLT with a lower number' );
+	}
+/*
+	private static testMethod void testIsSpecialCaseOfDispatch_FLTE()
+	{
+		setup();
+
+		FieldLessThanSpecification moreGeneralSpec = new FieldLessThanSpecification( FIELD_NAME, GENERALIZING_NUMBER );
+
+		Test.startTest();
+
+			Boolean specificIsSpecialCaseOfGeneral = testSpecification.isSpecialCaseOfDispatch( moreGeneralSpec );
+			Boolean generalIsSpecialCaseOfSpecific = moreGeneralSpec.isSpecialCaseOfDispatch( testSpecification );
+
+		Test.stopTest();
+
+		System.assert( specificIsSpecialCaseOfGeneral,
+			'A FLT spec with a lower number is not a generalization of one with a higher number' );
+		System.assert( !generalIsSpecialCaseOfSpecific,
+			'A FLT spec with a higher number is a generalization of one with a lower number' );
+	}
+*/
 }

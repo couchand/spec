@@ -27,13 +27,13 @@
  *	SOFTWARE.
 */
 
-global virtual class FieldLessThanSpecification extends FieldBoundSpecification
+global virtual class FieldLessThanOrEqualToSpecification extends FieldBoundSpecification
 {
 	/*
 	 * Constructors
 	 */
 
-	global FieldLessThanSpecification( String field, Object value )
+	global FieldLessThanOrEqualToSpecification( String field, Object value )
 	{
 		super( field, value );
 	}
@@ -44,7 +44,7 @@ global virtual class FieldLessThanSpecification extends FieldBoundSpecification
 
 	global virtual Boolean isSatisfiedBy( SObject sObjectCandidate )
 	{
-		return PrimitiveMath.lessThan( sObjectCandidate.get( field ), value );
+		return PrimitiveMath.lessThanOrEqualTo( sObjectCandidate.get( field ), value );
 	}
 
 	/*
@@ -86,17 +86,17 @@ global virtual class FieldLessThanSpecification extends FieldBoundSpecification
 
 	global virtual Boolean isGeneralizationOfDispatch( FieldLessThanSpecification other )
 	{
-		return PrimitiveMath.greaterThanOrEqualTo( value, other.value );
+		return PrimitiveMath.greaterThan( value, other.value );
 	}
 
 	global virtual Boolean isGeneralizationOfDispatch( FieldLessThanOrEqualToSpecification other )
 	{
-		return PrimitiveMath.greaterThan( value, other.value );
+		return PrimitiveMath.greaterThanOrEqualTo( value, other.value );
 	}
 /*
 	global virtual Boolean isGeneralizationOfDispatch( FieldEqualToSpecification other )
 	{
-		return PrimitiveMath.greaterThan( value, other.value );
+		return PrimitiveMath.greaterThanOrEqualTo( value, other.value );
 	}
 */
 	global virtual Boolean isSpecialCaseOfDispatch( FieldLessThanOrEqualToSpecification other )
@@ -106,7 +106,7 @@ global virtual class FieldLessThanSpecification extends FieldBoundSpecification
 
 	global virtual Boolean isSpecialCaseOfDispatch( FieldLessThanSpecification other )
 	{
-		return PrimitiveMath.lessThanOrEqualTo( value, other.value );
+		return PrimitiveMath.lessThan( value, other.value );
 	}
 
 	/*

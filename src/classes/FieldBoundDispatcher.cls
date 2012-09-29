@@ -33,12 +33,12 @@ global class FieldBoundDispatcher
 	{
 		return spec instanceof FieldLessThanSpecification;
 	}
-/*
+
 	global Boolean isFLTE( SObjectSpecification spec )
 	{
-		return spec instanceof FieldLessThanOrEqualSpecification;
+		return spec instanceof FieldLessThanOrEqualToSpecification;
 	}
-
+/*
 	global Boolean isFE( SObjectSpecification spec )
 	{
 		return spec instanceof FieldEqualSpecification;
@@ -64,7 +64,18 @@ global class FieldBoundDispatcher
 	{
 		if( isFLT( left ) && isFLT( right ) )
 		{
-			return ((FieldLessThanSpecification)left).isGeneralizationOfDispatch( (FieldLessThanSpecification)right );
+			return ((FieldLessThanSpecification)left).isGeneralizationOfDispatch
+			(
+				(FieldLessThanSpecification)right
+			);
+		}
+
+		if( isFLT( left ) && isFLTE( right ) )
+		{
+			return((FieldLessThanSpecification)left).isGeneralizationOfDispatch
+			(
+				(FieldLessThanOrEqualToSpecification)right
+			);
 		}
 
 		return false;

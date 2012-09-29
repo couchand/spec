@@ -19,7 +19,6 @@ global virtual class PrimitiveMath
 
 	global static Boolean lessThanOrEqualTo( Object left, Object right )
 	{
-system.debug( '' + left + ' <= ' + right + ' is ' + (0 >= comparator.compare( left, right ) ) );
 		return 0 >= comparator.compare( left, right );
 	}
 
@@ -30,7 +29,6 @@ system.debug( '' + left + ' <= ' + right + ' is ' + (0 >= comparator.compare( le
 
 	global static Boolean greaterThanOrEqualTo( Object left, Object right )
 	{
-system.debug( '' + left + ' >= ' + right + ' is ' + (0 <= comparator.compare( left, right ) ) );
 		return 0 <= comparator.compare( left, right );
 	}
 
