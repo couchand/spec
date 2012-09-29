@@ -1,0 +1,4 @@
+#!/bin/bash
+head src/package.xml -n3 > new_package.xml
+ls src/classes/ -1 | grep "cls$" | sed 's/\.cls/<\/members>/' | sed 's/^/        <members>/' >> new_package.xml
+tail src/package.xml -n4 >> new_package.xml
