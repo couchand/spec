@@ -51,6 +51,13 @@
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>
+    <listViews>
+        <fullName>All_Specs</fullName>
+        <columns>NAME</columns>
+        <columns>JSON_Representation__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All Specs</label>
+    </listViews>
     <nameField>
         <label>Specification Name</label>
         <type>Text</type>
@@ -58,4 +65,15 @@
     <pluralLabel>Specifications</pluralLabel>
     <searchLayouts/>
     <sharingModel>ReadWrite</sharingModel>
+    <webLinks>
+        <fullName>Edit_In_Builder</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>url</linkType>
+        <masterLabel>Edit In Builder</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <url>/apex/SpecBuilder?id={!Specification__c.Id}</url>
+    </webLinks>
 </CustomObject>
