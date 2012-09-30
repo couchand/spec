@@ -1,0 +1,38 @@
+<apex:page title="Specification Builder" controller="SpecificationController" action="{!init}">
+	<apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" />
+	<script type="text/javascript">
+function loadSpecification(){
+
+	var specification;
+
+	Spec.SpecificationController.getSpecification( '{!specificationId}', function( result, event ){
+console.log(event);
+console.log(result);
+		if( event.status ){
+			specification = result;
+		}
+		else if( event.type === 'exception' ){
+			console.log( event.message );
+		}
+		else{
+			console.log( event.message );
+		}
+
+	});
+
+	return specification;
+}
+
+function displaySpecification( specification ){
+
+	document.write( specification );
+}
+console.log('foo');
+$(function(){
+console.log('bar');
+	var specification = loadSpecification();
+	displaySpecification( specification );
+
+});
+	</script>
+</apex:page>
