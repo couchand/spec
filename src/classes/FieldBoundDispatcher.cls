@@ -72,7 +72,7 @@ global class FieldBoundDispatcher
 
 		if( isFLT( left ) && isFLTE( right ) )
 		{
-			return((FieldLessThanSpecification)left).isGeneralizationOfDispatch
+			return ((FieldLessThanSpecification)left).isGeneralizationOfDispatch
 			(
 				(FieldLessThanOrEqualToSpecification)right
 			);
