@@ -29,7 +29,17 @@
 
 global class TypeSpecification extends SoqlableSpecification
 {
-	String type;
+	/*
+	 * Properties
+	 */
+
+	global static String NODE_TYPE = 'type';
+	global String node = NODE_TYPE;
+
+	global String type;
+
+	// Only for complex construction
+	global TypeSpecification() {}
 
 	global TypeSpecification( String type )
 	{

@@ -30,6 +30,13 @@
 global virtual class AndSpecification extends CompositeSpecification
 {
 	/*
+	 * Properties
+	 */
+
+	public static String NODE_TYPE = 'and';
+	public String node = NODE_TYPE;
+
+	/*
 	 * Constructors
 	 */
 

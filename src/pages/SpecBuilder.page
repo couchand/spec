@@ -25,7 +25,7 @@ console.log(result);
 
 function displaySpecification( specification ){
 
-	document.write( specification );
+	console.log( specification );
 }
 console.log('foo');
 $(function(){

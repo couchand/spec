@@ -53,9 +53,17 @@ global class SpecificationController
 
 	global static SObjectSpecification fetchSpec( String specId )
 	{
-		SObjectSpecification spec;
+		List<Spec__Specification__c> specStorage = [	SELECT JSON_Representation__c
+								  FROM Spec__Specification__c
+								 WHERE Id = :specId ];
 
-		return spec;
+		if( specStorage.isEmpty() )
+		{
+			throw new InvalidIdException();
+		}
+
+		String jsonRepresentation = specStorage[0].JSON_Representation__c;
+		return SpecificationFactory.buildFromJson( jsonRepresentation );
 	}
 
 	global static String serializeSpec( SObjectSpecification spec )

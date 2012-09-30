@@ -30,6 +30,12 @@
 global virtual class OrSpecification extends CompositeSpecification
 {
 	/*
+	 * Properties
+	 */
+
+	public static String NODE_TYPE = 'or';
+	public String node = NODE_TYPE;
+	/*
 	 * Constructors
 	 */
 

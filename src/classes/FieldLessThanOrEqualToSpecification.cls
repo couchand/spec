@@ -30,6 +30,13 @@
 global virtual class FieldLessThanOrEqualToSpecification extends FieldBoundSpecification
 {
 	/*
+	 * Properties
+	 */
+
+	public static String NODE_TYPE = 'flte';
+	public String node = NODE_TYPE;
+
+	/*
 	 * Constructors
 	 */
 
