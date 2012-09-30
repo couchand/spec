@@ -1,13 +1,18 @@
 <apex:page title="Specification Builder" controller="SpecificationController" action="{!init}">
 	<apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" />
 	<script type="text/javascript">
-function loadSpecification(){
 
-	var specification;
+var	$j = jQuery.noConflict()
+	specificationId = '{!specificationId}';
 
-	Spec.SpecificationController.getSpecification( '{!specificationId}', function( result, event ){
+function loadSpecification( callback ){
+
+	Spec.SpecificationController.getSpecification( specificationId, function( result, event ){
 console.log(event);
 console.log(result);
+
+		var specification;
+
 		if( event.status ){
 			specification = result;
 		}
@@ -18,21 +23,78 @@ console.log(result);
 			console.log( event.message );
 		}
 
+		callback( $j('<div>').html( specification ).text() );
 	});
-
-	return specification;
 }
 
-function displaySpecification( specification ){
+function displaySpecification( specificationString ){
 
-	console.log( specification );
+	console.log( specificationString );
+
+	var specification = $j.parseJSON( specificationString );
+
+	if( specification ){
+
+		console.log( specification );
+
+		renderSpec( specification, $j('#specification_container') );
+	}
 }
-console.log('foo');
-$(function(){
-console.log('bar');
-	var specification = loadSpecification();
-	displaySpecification( specification );
+
+function renderSpec( specification, $container ){
+
+	var $new_div = $j('<div>'), $list, $list_el;
+
+	if( 'and' === specification.node || 'or' === specification.node ){
+		if( 'and' === specification.node ){
+
+			$new_div.text('And');
+		}
+		else{
+
+			$new_div.text('Or');
+		}
+
+		$list = $j('<ul>');
+
+		$j.each( specification.specifications, function( index, element ){
+
+			$list_el = $j('<li>');
+			renderSpec( element, $list_el );
+			$list.append( $list_el );
+		});
+
+		$new_div.append( $list );
+	}
+	else if( 'type' === specification.node ){
+
+		var node_text = 'Type: ' + specification.type;
+		$new_div.text( node_text );
+	}
+	else if( 'flt' === specification.node ){
+
+		var node_text = specification.field + ' < ' + specification.value;
+		$new_div.text( node_text );
+	}
+	else if( 'flte' === specification.node ){
+
+		var node_text = specification.field + ' <= ' + specification.value;
+		$new_div.text( node_text );
+	}
+
+	$new_div.appendTo( $container );
+}
+
+$j(function(){
+
+	if( '' != specificationId ){
+
+		var specification = loadSpecification( displaySpecification );
+	}
 
 });
+
 	</script>
+	<div id="specification_container">
+	</div>
 </apex:page>

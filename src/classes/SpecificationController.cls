@@ -2,7 +2,7 @@ global class SpecificationController
 {
 	global String specificationId { get; set; }
 
-	global void init()
+	global SpecificationController()
 	{
 		String candidateId = ApexPages.currentPage().getParameters().get('id');
 
@@ -11,7 +11,11 @@ global class SpecificationController
 			validateId( candidateId );
 			specificationId = candidateId;
 		}
-		else
+	}
+
+	global void init()
+	{
+		if( null == specificationId )
 		{
 			SObjectSpecification newSpec = createNewSpec();
 			specificationId = storeSpec( newSpec );
