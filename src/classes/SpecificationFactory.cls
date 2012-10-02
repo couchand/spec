@@ -41,23 +41,32 @@ global class SpecificationFactory
 
 		SObjectSpecification spec = (SObjectSpecification)t.newInstance();
 
-		if( anyMap.containsKey( TYPE_KEY ) )
+		if( spec instanceof TypeSpecification && anyMap.containsKey( TYPE_KEY ) )
 		{
 			((TypeSpecification)spec).type = (String)anyMap.get( TYPE_KEY );
 		}
-		if( anyMap.containsKey( FIELD_KEY ) )
+		if( spec instanceof FieldBoundSpecification )
 		{
-			((FieldBoundSpecification)spec).field = (String)anyMap.get( FIELD_KEY );
-		}
-		if( anyMap.containsKey( VALUE_KEY ) )
-		{
-			((FieldBoundSpecification)spec).value = anyMap.get( VALUE_KEY );
-		}
-		if( anyMap.containsKey( CHILDREN_KEY ) )
-		{
-			for( Object childMap : (List<Object>)anyMap.get( CHILDREN_KEY ) )
+			FieldBoundSpecification fieldBoundSpec = (FieldBoundSpecification)spec;
+
+			if( anyMap.containsKey( FIELD_KEY ) )
 			{
-				((CompositeSpecification)spec).add( buildFromAnyMap( (Map<String, Object>)childMap ) );
+				fieldBoundSpec.field = (String)anyMap.get( FIELD_KEY );
+			}
+			if( anyMap.containsKey( VALUE_KEY ) )
+			{
+				fieldBoundSpec.value = anyMap.get( VALUE_KEY );
+			}
+		}
+		if( spec instanceof CompositeSpecification && anyMap.containsKey( CHILDREN_KEY ) )
+		{
+			CompositeSpecification compositeSpec = (CompositeSpecification)spec;
+
+			for( Object child : (List<Object>)anyMap.get( CHILDREN_KEY ) )
+			{
+				Map<String, Object> childMap = (Map<String, Object>)child;
+				SObjectSpecification childSpec = buildFromAnyMap( childMap );
+				compositeSpec.specifications.add( childSpec );
 			}
 		}
 
