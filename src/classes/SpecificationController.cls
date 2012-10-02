@@ -22,20 +22,27 @@ global class SpecificationController
 		}
 	}
 
-	global SObjectSpecification createNewSpec()
+	global static SObjectSpecification createNewSpec()
 	{
 		AndSpecification newSpec = new AndSpecification();
 		newSpec.add( new TypeSpecification( 'Opportunity' ) );
 		return newSpec;
 	}
 
-	global String storeSpec( SObjectSpecification newSpec )
+	global static String storeSpec( SObjectSpecification newSpec )
 	{
 		Spec__Specification__c specStorage = new Spec__Specification__c();
 		specStorage.JSON_Representation__c = JSON.serialize( newSpec );
 		insert specStorage;
 
 		return specStorage.Id;
+	}
+
+	global static void storeSpec( SObjectSpecification newSpec, String specId )
+	{
+		Spec__Specification__c specStorage = new Spec__Specification__c( Id = specId );
+		specStorage.JSON_Representation__c = JSON.serialize( newSpec );
+		update specStorage;
 	}
 
 	@RemoteAction
@@ -48,9 +55,26 @@ global class SpecificationController
 		return serializeSpec( spec );
 	}
 
+	@RemoteAction
+	global static String setSpec( String specId, String jsonRepresentation )
+	{
+		validateId( specId );
+
+		SObjectSpecification spec = SpecificationFactory.buildFromJson( jsonRepresentation );
+
+		storeSpec( spec, specId );
+
+		return serializeSpec( spec );
+	}
+
 	global static void validateId( String specId )
 	{
 //		throw new InvalidIdException();
+	}
+
+	global static void validateType( String type )
+	{
+//		throw new InvalidTypeException();
 	}
 
 	global class InvalidIdException extends Exception {}
