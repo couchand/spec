@@ -73,6 +73,19 @@ global class SpecificationFactory
 		return spec;
 	}
 
-	global class IllegalStructureException extends Exception {}
-	global class IllegalNodeException extends Exception {}
+	global class IllegalStructureException extends Exception
+	{
+		global override String getMessage()
+		{
+			return 'Illegal Structure Exception';
+		}
+	}
+
+	global class IllegalNodeException extends Exception
+	{
+		global override String getMessage()
+		{
+			return 'Illegal Node Exception';
+		}
+	}
 }
