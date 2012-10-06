@@ -47,7 +47,7 @@
     </fields>
     <fields>
         <fullName>Type__c</fullName>
-        <externalId>false</externalId>
+        <externalId>true</externalId>
         <label>Type</label>
         <length>80</length>
         <required>true</required>
