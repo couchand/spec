@@ -178,11 +178,23 @@ $j(function(){
 	if( '' != specificationId ){
 
 		var specification = loadSpecification( displaySpecification );
+		loadType(function(type){
+			$j('[id$="object_select"]').val( type.toLowerCase() );
+		});
+		loadName(function(name){
+			$j('#specification_name').val( name );
+		});
 	}
 
 });
 
 	</script>
+	<input type="text" id="specification_name" />
+	<apex:form >
+		<apex:selectList id="object_select" size="1">
+			<apex:selectOptions value="{!sObjectTypes}" />
+		</apex:selectList>
+	</apex:form>
 	<div id="specification_container">
 	</div>
 </apex:page>

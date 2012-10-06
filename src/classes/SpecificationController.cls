@@ -2,6 +2,26 @@ global class SpecificationController
 {
 	global String specificationId { get; set; }
 
+	global static List<SelectOption> sObjectTypes
+	{
+		get
+		{
+			if( null == sObjectTypes )
+			{
+				sObjectTypes = new List<SelectOption>();
+
+				for( String sObjectType : Schema.getGlobalDescribe().keySet() )
+				{
+					sObjectTypes.add( new SelectOption( sObjectType, SObjectType ) );
+				}
+
+				sObjectTypes.sort();
+			}
+
+			return sObjectTypes;
+		}
+	}
+
 	global SpecificationController()
 	{
 		String candidateId = ApexPages.currentPage().getParameters().get('id');
