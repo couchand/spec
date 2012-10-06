@@ -56,7 +56,7 @@ global class SpecificationController
 	}
 
 	@RemoteAction
-	global static String setSpec( String specId, String jsonRepresentation )
+	global static String setSpecification( String specId, String jsonRepresentation )
 	{
 		validateId( specId );
 

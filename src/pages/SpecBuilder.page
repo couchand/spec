@@ -8,8 +8,6 @@ var	$j = jQuery.noConflict()
 function loadSpecification( callback ){
 
 	Spec.SpecificationController.getSpecification( specificationId, function( result, event ){
-console.log(event);
-console.log(result);
 
 		var specification;
 
@@ -27,6 +25,27 @@ console.log(result);
 	});
 }
 
+function updateSpecification( specificationJson, callback ){
+
+	var specificationString = JSON.stringify( specificationJson );
+	Spec.SpecificationController.setSpecification( specificationId, specificationString, function( result, event ){
+
+		if( !event.status ){
+
+			console.log( event.message );
+		}
+		else {
+			callback( $j('<div>').html( result ).text() );
+		}
+	});
+}
+
+function saveSpecification(){
+
+	var specification = serializeSpec( $j('.spec_node').first() );
+	updateSpecification( specification, displaySpecification );
+}
+
 function displaySpecification( specificationString ){
 
 	console.log( specificationString );
@@ -37,22 +56,78 @@ function displaySpecification( specificationString ){
 
 		console.log( specification );
 
-		renderSpec( specification, $j('#specification_container') );
+		renderSpec( specification, $j('#specification_container').empty() );
 	}
+}
+
+function serializeSpec( $node ){
+
+	var specification;
+
+	if( $node.hasClass('spec_node') ){
+
+		specification = {};
+
+		if( $node.hasClass('and_node') || $node.hasClass('or_node') ){
+
+			if( $node.hasClass('and_node') ){
+
+				specification.node = 'and';
+			}
+			else {
+
+				specification.node = 'or';
+			}
+
+			specification.specifications = [];
+
+			$node.children('ul').children().each(function( index, element ){
+
+				specification.specifications[ index ] = serializeSpec( $j(element).find('.spec_node') );
+			});
+		}
+		else if( $node.hasClass('type_node') ){
+
+			specification.node = 'type';
+			specification.type = $node.data('type');
+		}
+		else if( $node.hasClass('flt_node') || $node.hasClass('flte_node') ){
+
+			if( $node.hasClass('flt_node') ){
+
+				specification.node = 'flt';
+			}
+			else if( $node.hasClass('flte_node') ){
+
+				specification.node = 'flte';
+			}
+
+			specification.field = $node.data('field');
+			specification.value = $node.data('value');
+		}
+		else{
+
+			specification.node = 'unknown';
+		}
+	}
+
+	return specification;
 }
 
 function renderSpec( specification, $container ){
 
-	var $new_div = $j('<div>'), $list, $list_el;
+	var $new_div = $j('<div>').addClass('spec_node'), $list, $list_el;
 
 	if( 'and' === specification.node || 'or' === specification.node ){
 		if( 'and' === specification.node ){
 
-			$new_div.text('And');
+			$new_div.text('And')
+				.addClass('and_node');
 		}
 		else{
 
-			$new_div.text('Or');
+			$new_div.text('Or')
+				.addClass('or_node');
 		}
 
 		$list = $j('<ul>');
@@ -68,18 +143,23 @@ function renderSpec( specification, $container ){
 	}
 	else if( 'type' === specification.node ){
 
-		var node_text = 'Type: ' + specification.type;
-		$new_div.text( node_text );
+		$new_div.text( 'Type: ' + specification.type )
+			.addClass('type_node')
+			.data( 'type', specification.type );
 	}
 	else if( 'flt' === specification.node ){
 
-		var node_text = specification.field + ' < ' + specification.value;
-		$new_div.text( node_text );
+		$new_div.text( specification.field + ' < ' + specification.value )
+			.addClass('flt_node')
+			.data( 'field', specification.field )
+			.data( 'value', specification.value );
 	}
 	else if( 'flte' === specification.node ){
 
-		var node_text = specification.field + ' <= ' + specification.value;
-		$new_div.text( node_text );
+		$new_div.text( specification.field + ' <= ' + specification.value )
+			.addClass('flte_node')
+			.data( 'field', specification.field )
+			.data( 'value', specification.value );
 	}
 
 	$new_div.appendTo( $container );
