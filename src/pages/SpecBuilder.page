@@ -5,24 +5,32 @@
 var	$j = jQuery.noConflict()
 	specificationId = '{!specificationId}';
 
-function loadSpecification( callback ){
+function remoteCall( remote_method, parameter, callback ){
 
-	Spec.SpecificationController.getSpecification( specificationId, function( result, event ){
-
-		var specification;
+	remote_method( parameter, function( result, event ){
 
 		if( event.status ){
-			specification = result;
-		}
-		else if( event.type === 'exception' ){
-			console.log( event.message );
+			callback( $j('<div>').html( result ).text() );
 		}
 		else{
 			console.log( event.message );
 		}
-
-		callback( $j('<div>').html( specification ).text() );
 	});
+}
+
+function loadName( callback ){
+
+	remoteCall( Spec.SpecificationController.getName, specificationId, callback );
+}
+
+function loadType( callback ){
+
+	remoteCall( Spec.SpecificationController.getType, specificationId, callback );
+}
+
+function loadSpecification( callback ){
+
+	remoteCall( Spec.SpecificationController.getSpecification, specificationId, callback );
 }
 
 function updateSpecification( specificationJson, callback ){
