@@ -18,20 +18,21 @@ global class SpecificationController
 		if( null == specificationId )
 		{
 			SObjectSpecification newSpec = createNewSpec();
-			specificationId = storeSpec( newSpec );
+			specificationId = storeSpec( 'My New Spec', 'Opportunity', newSpec );
 		}
 	}
 
 	global static SObjectSpecification createNewSpec()
 	{
 		AndSpecification newSpec = new AndSpecification();
-		newSpec.add( new TypeSpecification( 'Opportunity' ) );
 		return newSpec;
 	}
 
-	global static String storeSpec( SObjectSpecification newSpec )
+	global static String storeSpec( String name, String type, SObjectSpecification newSpec )
 	{
 		Spec__Specification__c specStorage = new Spec__Specification__c();
+		specStorage.Name = name;
+		specStorage.Type__c = type;
 		specStorage.JSON_Representation__c = JSON.serialize( newSpec );
 		insert specStorage;
 
@@ -40,9 +41,56 @@ global class SpecificationController
 
 	global static void storeSpec( SObjectSpecification newSpec, String specId )
 	{
-		Spec__Specification__c specStorage = new Spec__Specification__c( Id = specId );
-		specStorage.JSON_Representation__c = JSON.serialize( newSpec );
+		updateSpecField( 'JSON_Representation__c', JSON.serialize( newSpec ), specId );
+	}
+
+	global static void updateSpecField( String field, String value, String specId )
+	{
+		Specification__c specStorage = new Specification__c( Id = specId );
+		specStorage.put( field, value );
 		update specStorage;
+	}
+
+	@RemoteAction
+	global static void updateName( String name, String specId )
+	{
+		validateId( specId );
+		updateSpecField( 'Name', name, specId );
+	}
+
+	@RemoteAction
+	global static String getName( String specId )
+	{
+		validateId( specId );
+		return fetchSpecStorage( specId ).Name;
+	}
+
+	@RemoteAction
+	global static void updateType( String type, String specId )
+	{
+		validateId( specId );
+		updateSpecField( 'Type__c', type, specId );
+	}
+
+	@RemoteAction
+	global static String getType( String specId )
+	{
+		validateId( specId );
+		return fetchSpecStorage( specId ).Type__c;
+	}
+
+	global static Spec__Specification__c fetchSpecStorage( String specId )
+	{
+		List<Spec__Specification__c> specStorage = [	SELECT Name, Type__c
+								  FROM Spec__Specification__c
+								 WHERE Id = :specId ];
+
+		if( specStorage.isEmpty() )
+		{
+			throw new InvalidIdException();
+		}
+
+		return specStorage[0];
 	}
 
 	@RemoteAction
