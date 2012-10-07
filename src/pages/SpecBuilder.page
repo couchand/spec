@@ -10,18 +10,20 @@
 
 #specification ul {
 
-	padding-left: 40px;
-	min-width: 200px;
-	min-height: 30px;
+	padding: 0 0 20px 40px;
 }
 
-#specification #specification_container .spec-accept {
+#specification #specification_container .spec-accept > .placeholder {
 
+	width: 200px;
+	height: 20px;
 	background-color: lightGray;
 }
 
-#specification #specification_container .spec-hover {
+#specification #specification_container .spec-hover > .placeholder {
 
+	width: 200px;
+	height: 20px;
 	background-color: lightBlue;
 }
 
@@ -31,21 +33,19 @@
 	margin-left: 40px;
 }
 
-
 #specification_palette {
 
 	position:fixed;
-	bottom: 0;
+	top: 150px;
 	right: 0;
 	width: 400px;
-	height: 190px;
-	background-color: white;
 	z-index: 9999;
 }
 
 #specification_palette .type {
 
 	border: thin solid black;
+	background-color: white;
 	width: 100%;
 	padding: 2px 0 3px 5px;
 	margin-bottom: 3px;
@@ -188,9 +188,11 @@ function saveSpecification(){
 	specification.node = 'and';
 	specification.specifications = [];
 
-	$j('#specification_container').children('ul').children('li').each(function(){
+	$j('#specification_container').children('ul').children('li:not(.placeholder)').each(function(){
 		specification.specifications.push( serializeSpec( $j(this).children('.spec_node') ) );
 	});
+
+console.log( specification );
 
 	updateSpecification( specification, displaySpecification );
 }
@@ -210,7 +212,18 @@ function displaySpecification( specification ){
 				accept: '.example',
 				greedy: true,
 				drop: function( event, ui ){
+console.log( $j( this ) );
+console.log( ui.draggable );
+console.log( event );
+console.log( ui );
+
 					addToSpec( $j( this ), ui.draggable );
+				},
+				activate: function( event, ui ){
+					$j( this ).append( $j('<li>').addClass('placeholder') );
+				},
+				deactivate: function( event, ui ){
+					$j( this ).find( '.placeholder' ).remove();
 				}
 			});
 	}
@@ -241,7 +254,7 @@ function serializeSpec( $node ){
 
 			specification.specifications = [];
 
-			$node.children('ul').children().each(function( index, element ){
+			$node.children('ul').children('li:not(.placeholder)').each(function( index, element ){
 
 				specification.specifications[ index ] = serializeSpec( $j(element).find('.spec_node') );
 			});
