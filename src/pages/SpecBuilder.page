@@ -58,6 +58,11 @@
 	padding-left: 3px;
 }
 
+.handle {
+
+	cursor: pointer;
+}
+
 #specification_palette .example:hover .handle {
 
 	background-color: lightGray;
@@ -312,11 +317,34 @@ function pageInit(){
 	}
 }
 
+function addToSpec( $example ){
+
+	var $list_el = $j('<li>'), spec = {};
+
+	if( $example.hasClass('field_bound') ){
+
+		spec.node = $example.find('#field_bound_operator').val();
+		spec.field = $example.find('#field_bound_field').val();
+		spec.value = $example.find('#field_bound_value').val();
+	}
+	else if( $example.hasClass('composite') ){
+
+		spec.node = $example.find('#composite_operator').val();
+		spec.specifications = [];
+	}
+
+	renderSpec( spec, $list_el );
+
+	$j('#specification_container ul').first().append( $list_el );
+}
+
 $j(function(){
 
 
 	$j('#object_select').change( saveSObjectType );
 	$j('#specification_name').change( saveName );
+
+	$j('.example .handle').click(function(){ addToSpec( $j( this ).closest('.example') ); });
 
 	pageInit();
 
@@ -339,7 +367,7 @@ $j(function(){
 	<div id="specification_palette">
 		<div class="type">
 			<h4 class="name">Field Bound Specification</h4>
-			<div class="example">
+			<div class="example field_bound">
 				<div class="handle">+</div>
 				<select id="field_bound_field">
 				</select>
@@ -352,7 +380,7 @@ $j(function(){
 		</div>
 		<div class="type">
 			<h4 class="name">Composite Specification</h4>
-			<div class="example">
+			<div class="example composite">
 				<div class="handle">+</div>
 				<select id="composite_operator">
 					<option value="or" selected="selected">Or</option>
