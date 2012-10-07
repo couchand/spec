@@ -2,6 +2,8 @@ global class SpecificationController
 {
 	global String specificationId { get; set; }
 
+	global List<String> sObjectFields { get; set; }
+
 	global static List<SelectOption> sObjectTypes
 	{
 		get
@@ -22,6 +24,18 @@ global class SpecificationController
 		}
 	}
 
+	global void loadFields( String type )
+	{
+		sObjectFields = new List<String>();
+
+		for( String sObjectField : Schema.getGlobalDescribe().get( type ).getDescribe().fields.getMap().keySet() )
+		{
+			sObjectFields.add( sObjectField );
+		}
+
+		sObjectFields.sort();
+	}
+
 	global SpecificationController()
 	{
 		String candidateId = ApexPages.currentPage().getParameters().get('id');
@@ -30,6 +44,8 @@ global class SpecificationController
 		{
 			validateId( candidateId );
 			specificationId = candidateId;
+
+			loadFields( getType( specificationId ) );
 		}
 	}
 

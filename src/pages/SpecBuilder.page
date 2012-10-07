@@ -1,8 +1,33 @@
 <apex:page title="Specification Builder" controller="SpecificationController" action="{!init}">
+	<style>
+
+#specification_palette {
+
+	position:fixed;
+	bottom: 0;
+	right: 0;
+	width: 400px;
+	height: 190px;
+	background-color: white;
+	z-index: 9999;
+}
+
+#specification_palette .type {
+
+	border: thin solid black;
+	width: 100%;
+}
+
+#specification_palette input {
+	width: 100px;
+}
+
+	</style>
+
 	<apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" />
 	<script type="text/javascript">
 
-var	$j = jQuery.noConflict()
+var	$j = jQuery.noConflict(),
 	specificationId = '{!specificationId}';
 
 function remoteCall( remote_method, parameter, callback ){
@@ -173,7 +198,7 @@ function renderSpec( specification, $container ){
 	$new_div.appendTo( $container );
 }
 
-$j(function(){
+function pageInit(){
 
 	if( '' != specificationId ){
 
@@ -185,6 +210,11 @@ $j(function(){
 			$j('#specification_name').val( name );
 		});
 	}
+}
+
+$j(function(){
+
+	pageInit();
 
 });
 
@@ -196,5 +226,31 @@ $j(function(){
 		</apex:selectList>
 	</apex:form>
 	<div id="specification_container">
+	</div>
+	<div id="specification_palette">
+		<div class="type">
+			<h4 class="name">Field Bound Specification</h4>
+			<div class="example">
+				<select id="field_bound_field">
+					<apex:repeat rendered="{!null != sObjectFields}" value="{!sObjectFields}" var="field">
+						<option value="{!field}">{!field}</option>
+					</apex:repeat>
+				</select>
+				<select id="field_bound_operator">
+					<option value="flt" selected="selected">&lt;</option>
+					<option value="flte">&#61;</option>
+				</select>
+				<input type="text" id="field_bound_value" />
+			</div>
+		</div>
+		<div class="type">
+			<h4 class="name">Composite Specification</h4>
+			<div class="specification_example">
+				<select id="composite_operator">
+					<option value="or" selected="selected">Or</option>
+					<option value="and">And</option>
+				</select>
+			</div>
+		</div>
 	</div>
 </apex:page>
