@@ -2,31 +2,25 @@ global class SpecificationController
 {
 	global String specificationId { get; set; }
 
-	global List<String> sObjectFields { get; set; }
-
-	global static List<SelectOption> sObjectTypes
+	@RemoteAction
+	global static List<String> getSObjectTypes()
 	{
-		get
+		List<String> sObjectTypes = new List<String>();
+
+		for( String sObjectType : Schema.getGlobalDescribe().keySet() )
 		{
-			if( null == sObjectTypes )
-			{
-				sObjectTypes = new List<SelectOption>();
-
-				for( String sObjectType : Schema.getGlobalDescribe().keySet() )
-				{
-					sObjectTypes.add( new SelectOption( sObjectType, SObjectType ) );
-				}
-
-				sObjectTypes.sort();
-			}
-
-			return sObjectTypes;
+			sObjectTypes.add( sObjectType );
 		}
+
+		sObjectTypes.sort();
+
+		return sObjectTypes;
 	}
 
-	global void loadFields( String type )
+	@RemoteAction
+	global static List<String> getSObjectFields( String type )
 	{
-		sObjectFields = new List<String>();
+		List<String> sObjectFields = new List<String>();
 
 		for( String sObjectField : Schema.getGlobalDescribe().get( type ).getDescribe().fields.getMap().keySet() )
 		{
@@ -34,6 +28,8 @@ global class SpecificationController
 		}
 
 		sObjectFields.sort();
+
+		return sObjectFields;
 	}
 
 	global SpecificationController()
@@ -44,8 +40,6 @@ global class SpecificationController
 		{
 			validateId( candidateId );
 			specificationId = candidateId;
-
-			loadFields( getType( specificationId ) );
 		}
 	}
 

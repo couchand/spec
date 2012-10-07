@@ -30,12 +30,25 @@
 var	$j = jQuery.noConflict(),
 	specificationId = '{!specificationId}';
 
-function remoteCall( remote_method, parameter, callback ){
+function remoteCallJson( remote_method, parameter, callback ){
+
+	remoteCall( remote_method, parameter, callback, function(i){ return i; } );
+}
+
+function remoteCall( remote_method, parameter, callback, escape ){
+
+	if( 'undefined' === typeof escape ){
+
+		escape = function( result ){
+
+			return $j('<div>').html( result ).text();
+		};
+	}
 
 	remote_method( parameter, function( result, event ){
 
 		if( event.status ){
-			callback( $j('<div>').html( result ).text() );
+			callback( escape( result ) );
 		}
 		else{
 			console.log( event.message );
@@ -56,6 +69,11 @@ function loadType( callback ){
 function loadSpecification( callback ){
 
 	remoteCall( Spec.SpecificationController.getSpecification, specificationId, callback );
+}
+
+function loadFields( sObjectType, callback ){
+
+	remoteCallJson( Spec.SpecificationController.getSObjectFields, sObjectType, callback );
 }
 
 function updateSpecification( specificationJson, callback ){
@@ -205,6 +223,13 @@ function pageInit(){
 		var specification = loadSpecification( displaySpecification );
 		loadType(function(type){
 			$j('[id$="object_select"]').val( type.toLowerCase() );
+			$j('#field_bound_field').empty();
+			loadFields(type, function(fields){
+console.log(fields);
+				$j.each(fields, function(index, field){
+					$j('#field_bound_field').append( $j('<option>').attr('value', field).text(field) );
+				});
+			});
 		});
 		loadName(function(name){
 			$j('#specification_name').val( name );
@@ -220,11 +245,11 @@ $j(function(){
 
 	</script>
 	<input type="text" id="specification_name" />
-	<apex:form >
-		<apex:selectList id="object_select" size="1">
-			<apex:selectOptions value="{!sObjectTypes}" />
-		</apex:selectList>
-	</apex:form>
+	<select id="object_select">
+		<apex:repeat value="{!sObjectTypes}" var="sObjectType">
+			<option value="{!sObjectType}">{!sObjectType}</option>
+		</apex:repeat>
+	</select>
 	<div id="specification_container">
 	</div>
 	<div id="specification_palette">
@@ -232,9 +257,6 @@ $j(function(){
 			<h4 class="name">Field Bound Specification</h4>
 			<div class="example">
 				<select id="field_bound_field">
-					<apex:repeat rendered="{!null != sObjectFields}" value="{!sObjectFields}" var="field">
-						<option value="{!field}">{!field}</option>
-					</apex:repeat>
 				</select>
 				<select id="field_bound_operator">
 					<option value="flt" selected="selected">&lt;</option>
