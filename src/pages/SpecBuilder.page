@@ -11,6 +11,18 @@
 #specification ul {
 
 	padding-left: 40px;
+	min-width: 200px;
+	min-height: 30px;
+}
+
+#specification #specification_container .spec-accept {
+
+	background-color: lightGray;
+}
+
+#specification #specification_container .spec-hover {
+
+	background-color: lightBlue;
 }
 
 #specification input,
@@ -50,17 +62,24 @@
 #specification_palette .example .handle {
 
 	position: absolute;
-	left: -25px;
-	width: 26px;
+	left: -45px;
+	width: 46px;
 	top: 0px;
 	height: 100%;
 	font-size: 25px;
-	padding-left: 3px;
+	padding-left: 5px;
+	border-radius: 5px 0 0 5px;
 }
 
 .handle {
 
 	cursor: pointer;
+}
+
+.handle .add-quick,
+.handle .add-drag {
+
+	display: inline-block;
 }
 
 #specification_palette .example:hover .handle {
@@ -75,6 +94,7 @@
 	</style>
 
 	<apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" />
+	<apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js" />
 	<script type="text/javascript">
 
 var	$j = jQuery.noConflict(),
@@ -181,7 +201,18 @@ function displaySpecification( specification ){
 
 		console.log( specification );
 
-		$j('#specification_container').empty().append( buildCompositeList( specification.specifications ) );
+		$j('#specification_container')
+			.empty()
+			.append( buildCompositeList( specification.specifications ) )
+			.find('ul').droppable({
+				activeClass: 'spec-accept',
+				hoverClass: 'spec-hover',
+				accept: '.example',
+				greedy: true,
+				drop: function( event, ui ){
+					addToSpec( $j( this ), ui.draggable );
+				}
+			});
 	}
 	else {
 
@@ -353,9 +384,19 @@ $j(function(){
 	$j('#object_select').change( saveSObjectType );
 	$j('#specification_name').change( saveName );
 
-	$j('.example .handle').click(function(){
+	$j('.example .add-quick').click(function( event ){
 
-		addToSpec( $j('#specification_container ul').first(), $j( this ).closest('.example') );
+		var $example = $j( this ).closest('.example');
+
+		if( !$example.hasClass('ui-draggable-dragging') ){
+			addToSpec( $j('#specification_container ul').first(), $example );
+		}
+	});
+
+	$j('.example').draggable({
+		handle: '.add-drag',
+		cursor: 'move',
+		revert: true
 	});
 
 	pageInit();
@@ -380,7 +421,10 @@ $j(function(){
 		<div class="type">
 			<h4 class="name">Field Bound Specification</h4>
 			<div class="example field_bound">
-				<div class="handle">+</div>
+				<div class="handle">
+					<div class="add-quick">&laquo;</div>
+					<div class="add-drag">+</div>
+				</div>
 				<select id="field_bound_field">
 				</select>
 				<select id="field_bound_operator">
@@ -393,7 +437,10 @@ $j(function(){
 		<div class="type">
 			<h4 class="name">Composite Specification</h4>
 			<div class="example composite">
-				<div class="handle">+</div>
+				<div class="handle">
+					<div class="add-quick">&laquo;</div>
+					<div class="add-drag">+</div>
+				</div>
 				<select id="composite_operator">
 					<option value="or" selected="selected">Or</option>
 					<option value="and">And</option>
