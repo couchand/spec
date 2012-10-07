@@ -1,6 +1,25 @@
 <apex:page title="Specification Builder" controller="SpecificationController" action="{!init}">
 	<style>
 
+#specification h3 {
+
+	display: block;
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+
+#specification ul {
+
+	padding-left: 40px;
+}
+
+#specification input,
+#specification select {
+
+	margin-left: 40px;
+}
+
+
 #specification_palette {
 
 	position:fixed;
@@ -278,13 +297,18 @@ $j(function(){
 });
 
 	</script>
-	<input type="text" id="specification_name" />
-	<select id="object_select">
-		<apex:repeat value="{!sObjectTypes}" var="sObjectType">
-			<option value="{!sObjectType}">{!sObjectType}</option>
-		</apex:repeat>
-	</select>
-	<div id="specification_container">
+	<div id="specification">
+		<h3><label for="specification_name">Spec Name</label></h3>
+		<input type="text" id="specification_name" /><br />
+		<h3><label for="object_select">Object Type</label></h3>
+		<select id="object_select">
+			<apex:repeat value="{!sObjectTypes}" var="sObjectType">
+				<option value="{!sObjectType}">{!sObjectType}</option>
+			</apex:repeat>
+		</select>
+		<h3>Componenents</h3>
+		<div id="specification_container">
+		</div>
 	</div>
 	<div id="specification_palette">
 		<div class="type">
