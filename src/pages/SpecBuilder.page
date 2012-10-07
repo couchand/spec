@@ -120,11 +120,15 @@ function saveSpecification(){
 
 function displaySpecification( specification ){
 
-	if( specification ){
+	if( specification && 'and' === specification.node ){
 
 		console.log( specification );
 
-		renderSpec( specification, $j('#specification_container').empty() );
+		$j('#specification_container').empty().append( buildCompositeList( specification.specifications ) );
+	}
+	else {
+
+		console.log('Illegal specification.  Unable to render');
 	}
 }
 
@@ -182,9 +186,23 @@ function serializeSpec( $node ){
 	return specification;
 }
 
+function buildCompositeList( specifications ){
+
+	var $list = $j('<ul>'), $list_el;
+
+	$j.each( specifications, function( index, element ){
+
+		$list_el = $j('<li>');
+		renderSpec( element, $list_el );
+		$list.append( $list_el );
+	});
+
+	return $list;
+}
+
 function renderSpec( specification, $container ){
 
-	var $new_div = $j('<div>').addClass('spec_node'), $list, $list_el;
+	var $new_div = $j('<div>').addClass('spec_node');
 
 	if( 'and' === specification.node || 'or' === specification.node ){
 		if( 'and' === specification.node ){
@@ -198,16 +216,7 @@ function renderSpec( specification, $container ){
 				.addClass('or_node');
 		}
 
-		$list = $j('<ul>');
-
-		$j.each( specification.specifications, function( index, element ){
-
-			$list_el = $j('<li>');
-			renderSpec( element, $list_el );
-			$list.append( $list_el );
-		});
-
-		$new_div.append( $list );
+		$new_div.append( buildCompositeList( specification.specifications ) );
 	}
 	else if( 'type' === specification.node ){
 
