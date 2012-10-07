@@ -49,13 +49,19 @@ global class SpecificationController
 		}
 	}
 
-	global void init()
+	global PageReference init()
 	{
 		if( null == specificationId )
 		{
 			SObjectSpecification newSpec = createNewSpec();
 			specificationId = storeSpec( 'My New Spec', 'Opportunity', newSpec );
+
+			PageReference pageRef = new PageReference( '/apex/SpecBuilder?id=' + specificationId );
+			pageRef.setRedirect( true );
+			return pageRef;
 		}
+
+		return null;
 	}
 
 	global static SObjectSpecification createNewSpec()
