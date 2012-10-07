@@ -91,6 +91,26 @@ function updateSpecification( specificationJson, callback ){
 	});
 }
 
+function logBoth( a, b ){
+
+	console.log(a);
+	console.log(b);
+}
+
+function saveSObjectType(){
+
+	var type = $j('#object_select').val();
+
+	Spec.SpecificationController.setSObjectType( specificationId, type, logBoth );
+}
+
+function saveName(){
+
+	var name = $j('#specification_name').val();
+
+	Spec.SpecificationController.setName( specificationId, name, logBoth );
+}
+
 function saveSpecification(){
 
 	var specification = serializeSpec( $j('.spec_node').first() );
@@ -218,7 +238,8 @@ function pageInit(){
 
 		var specification = loadSpecification( displaySpecification );
 		loadType(function(type){
-			$j('[id$="object_select"]').val( type.toLowerCase() );
+			$j('#object_select').val( type.toLowerCase() )
+						.change( saveSObjectType );
 			$j('#field_bound_field').empty();
 			loadFields(type, function(fields){
 				$j.each(fields, function(index, field){
@@ -227,7 +248,8 @@ function pageInit(){
 			});
 		});
 		loadName(function(name){
-			$j('#specification_name').val( name );
+			$j('#specification_name').val( name )
+							.change( saveName );
 		});
 	}
 }

@@ -88,7 +88,7 @@ global class SpecificationController
 	}
 
 	@RemoteAction
-	global static void updateName( String name, String specId )
+	global static void setName( String specId, String name )
 	{
 		validateId( specId );
 		updateSpecField( 'Name', name, specId );
@@ -102,7 +102,7 @@ global class SpecificationController
 	}
 
 	@RemoteAction
-	global static void updateType( String type, String specId )
+	global static void setSObjectType( String specId, String type )
 	{
 		validateId( specId );
 		updateSpecField( 'Type__c', type, specId );
