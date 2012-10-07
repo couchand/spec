@@ -44,6 +44,23 @@
 	padding: 2px 0 2px 10px;
 	margin-top: 2px;
 	background-color: lightGray;
+	position: relative;
+}
+
+#specification_palette .example .handle {
+
+	position: absolute;
+	left: -25px;
+	width: 26px;
+	top: 0px;
+	height: 100%;
+	font-size: 25px;
+	padding-left: 3px;
+}
+
+#specification_palette .example:hover .handle {
+
+	background-color: lightGray;
 }
 
 #specification_palette input {
@@ -323,11 +340,12 @@ $j(function(){
 		<div class="type">
 			<h4 class="name">Field Bound Specification</h4>
 			<div class="example">
+				<div class="handle">+</div>
 				<select id="field_bound_field">
 				</select>
 				<select id="field_bound_operator">
 					<option value="flt" selected="selected">&lt;</option>
-					<option value="flte">&#61;</option>
+					<option value="flte">&lt;=</option>
 				</select>
 				<input type="text" id="field_bound_value" />
 			</div>
@@ -335,6 +353,7 @@ $j(function(){
 		<div class="type">
 			<h4 class="name">Composite Specification</h4>
 			<div class="example">
+				<div class="handle">+</div>
 				<select id="composite_operator">
 					<option value="or" selected="selected">Or</option>
 					<option value="and">And</option>
