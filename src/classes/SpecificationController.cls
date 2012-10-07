@@ -130,17 +130,17 @@ global class SpecificationController
 	}
 
 	@RemoteAction
-	global static String getSpecification( String specId )
+	global static SObjectSpecification getSpecification( String specId )
 	{
 		validateId( specId );
 
 		SObjectSpecification spec = fetchSpec( specId );
 
-		return serializeSpec( spec );
+		return spec;
 	}
 
 	@RemoteAction
-	global static String setSpecification( String specId, String jsonRepresentation )
+	global static SObjectSpecification setSpecification( String specId, String jsonRepresentation )
 	{
 		validateId( specId );
 
@@ -148,7 +148,7 @@ global class SpecificationController
 
 		storeSpec( spec, specId );
 
-		return serializeSpec( spec );
+		return spec;
 	}
 
 	global static void validateId( String specId )

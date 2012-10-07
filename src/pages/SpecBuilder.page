@@ -68,7 +68,7 @@ function loadType( callback ){
 
 function loadSpecification( callback ){
 
-	remoteCall( Spec.SpecificationController.getSpecification, specificationId, callback );
+	remoteCallJson( Spec.SpecificationController.getSpecification, specificationId, callback );
 }
 
 function loadFields( sObjectType, callback ){
@@ -86,7 +86,7 @@ function updateSpecification( specificationJson, callback ){
 			console.log( event.message );
 		}
 		else {
-			callback( $j('<div>').html( result ).text() );
+			callback( result );
 		}
 	});
 }
@@ -97,11 +97,7 @@ function saveSpecification(){
 	updateSpecification( specification, displaySpecification );
 }
 
-function displaySpecification( specificationString ){
-
-	console.log( specificationString );
-
-	var specification = $j.parseJSON( specificationString );
+function displaySpecification( specification ){
 
 	if( specification ){
 
@@ -225,7 +221,6 @@ function pageInit(){
 			$j('[id$="object_select"]').val( type.toLowerCase() );
 			$j('#field_bound_field').empty();
 			loadFields(type, function(fields){
-console.log(fields);
 				$j.each(fields, function(index, field){
 					$j('#field_bound_field').append( $j('<option>').attr('value', field).text(field) );
 				});
