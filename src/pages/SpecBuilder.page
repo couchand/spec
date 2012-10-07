@@ -102,6 +102,7 @@ function saveSObjectType(){
 	var type = $j('#object_select').val();
 
 	Spec.SpecificationController.setSObjectType( specificationId, type, logBoth );
+	refreshFieldList( type );
 }
 
 function saveName(){
@@ -232,29 +233,36 @@ function renderSpec( specification, $container ){
 	$new_div.appendTo( $container );
 }
 
+function refreshFieldList( type ){
+
+	$j('#field_bound_field').empty();
+	loadFields(type, function(fields){
+		$j.each(fields, function(index, field){
+			$j('#field_bound_field').append( $j('<option>').attr('value', field).text(field) );
+		});
+	});
+}
+
 function pageInit(){
 
 	if( '' != specificationId ){
 
 		var specification = loadSpecification( displaySpecification );
-		loadType(function(type){
-			$j('#object_select').val( type.toLowerCase() )
-						.change( saveSObjectType );
-			$j('#field_bound_field').empty();
-			loadFields(type, function(fields){
-				$j.each(fields, function(index, field){
-					$j('#field_bound_field').append( $j('<option>').attr('value', field).text(field) );
-				});
-			});
+		loadType(function( type ){
+			$j('#object_select').val( type.toLowerCase() );
+			refreshFieldList( type );
 		});
-		loadName(function(name){
-			$j('#specification_name').val( name )
-							.change( saveName );
+		loadName(function( name ){
+			$j('#specification_name').val( name );
 		});
 	}
 }
 
 $j(function(){
+
+
+	$j('#object_select').change( saveSObjectType );
+	$j('#specification_name').change( saveName );
 
 	pageInit();
 
