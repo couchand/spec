@@ -324,7 +324,7 @@ function pageInit(){
 	}
 }
 
-function addToSpec( $example ){
+function addToSpec( $list, $example ){
 
 	var $list_el = $j('<li>'), spec = {};
 
@@ -342,7 +342,7 @@ function addToSpec( $example ){
 
 	renderSpec( spec, $list_el );
 
-	$j('#specification_container ul').first().append( $list_el );
+	$list.append( $list_el );
 
 	saveSpecification();
 }
@@ -353,7 +353,10 @@ $j(function(){
 	$j('#object_select').change( saveSObjectType );
 	$j('#specification_name').change( saveName );
 
-	$j('.example .handle').click(function(){ addToSpec( $j( this ).closest('.example') ); });
+	$j('.example .handle').click(function(){
+
+		addToSpec( $j('#specification_container ul').first(), $j( this ).closest('.example') );
+	});
 
 	pageInit();
 
