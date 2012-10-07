@@ -164,7 +164,14 @@ function saveName(){
 
 function saveSpecification(){
 
-	var specification = serializeSpec( $j('.spec_node').first() );
+	var specification  = {};
+	specification.node = 'and';
+	specification.specifications = [];
+
+	$j('#specification_container').children('ul').children('li').each(function(){
+		specification.specifications.push( serializeSpec( $j(this).children('.spec_node') ) );
+	});
+
 	updateSpecification( specification, displaySpecification );
 }
 
@@ -336,6 +343,8 @@ function addToSpec( $example ){
 	renderSpec( spec, $list_el );
 
 	$j('#specification_container ul').first().append( $list_el );
+
+	saveSpecification();
 }
 
 $j(function(){
