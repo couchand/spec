@@ -10,7 +10,7 @@
 
 #specification ul {
 
-	padding: 0 0 20px 40px;
+	padding: 0 0 10px 40px;
 }
 
 #specification #specification_container .spec-accept > .placeholder {
@@ -79,7 +79,18 @@
 .handle .add-quick,
 .handle .add-drag {
 
-	display: inline-block;
+	position: absolute;
+}
+
+.handle .add-quick {
+
+	left: 5px;
+	top: -1px;
+}
+
+.handle .add-drag {
+
+	left: 22px;
 }
 
 #specification_palette .example:hover .handle {
@@ -192,8 +203,6 @@ function saveSpecification(){
 		specification.specifications.push( serializeSpec( $j(this).children('.spec_node') ) );
 	});
 
-console.log( specification );
-
 	updateSpecification( specification, displaySpecification );
 }
 
@@ -212,11 +221,6 @@ function displaySpecification( specification ){
 				accept: '.example',
 				greedy: true,
 				drop: function( event, ui ){
-console.log( $j( this ) );
-console.log( ui.draggable );
-console.log( event );
-console.log( ui );
-
 					addToSpec( $j( this ), ui.draggable );
 				},
 				activate: function( event, ui ){
@@ -308,12 +312,12 @@ function renderSpec( specification, $container ){
 	if( 'and' === specification.node || 'or' === specification.node ){
 		if( 'and' === specification.node ){
 
-			$new_div.text('And')
+			$new_div.text('All of these:')
 				.addClass('and_node');
 		}
 		else{
 
-			$new_div.text('Or')
+			$new_div.text('Any of these:')
 				.addClass('or_node');
 		}
 
