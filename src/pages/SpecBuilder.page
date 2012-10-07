@@ -35,6 +35,15 @@
 
 	border: thin solid black;
 	width: 100%;
+	padding: 2px 0 3px 5px;
+	margin-bottom: 3px;
+}
+
+#specification_palette .example {
+
+	padding: 2px 0 2px 10px;
+	margin-top: 2px;
+	background-color: lightGray;
 }
 
 #specification_palette input {
@@ -325,7 +334,7 @@ $j(function(){
 		</div>
 		<div class="type">
 			<h4 class="name">Composite Specification</h4>
-			<div class="specification_example">
+			<div class="example">
 				<select id="composite_operator">
 					<option value="or" selected="selected">Or</option>
 					<option value="and">And</option>
