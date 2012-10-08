@@ -2,6 +2,36 @@ global class SpecificationController
 {
 	global String specificationId { get; set; }
 
+	global String query
+	{
+		get
+		{
+			if( null != specificationId )
+			{
+				SObjectSpecification spec = fetchSpec( specificationId );
+System.debug(spec);
+				spec = spec.andx( new TypeSpecification( getType( specificationId ) ) );
+System.debug(spec);
+				return spec.toSoql();
+			}
+			return '';
+		}
+		private set;
+	}
+
+	global List<SObject> satisfiers
+	{
+		get
+		{
+			if( null != specificationId )
+			{
+				return Database.query( query );
+			}
+			return new List<SObject>();
+		}
+		private set;
+	}
+
 	@RemoteAction
 	global static List<String> getSObjectTypes()
 	{

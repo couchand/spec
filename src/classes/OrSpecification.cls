@@ -84,7 +84,7 @@ global virtual class OrSpecification extends CompositeSpecification
 	 * Database retrieval methods
 	 */
 
-	global virtual String toSoql()
+	global virtual override Query toSoqlQuery()
 	{
 		throw new Exceptions.UnimplementedFeatureException();	// An unusable implementation
 	}

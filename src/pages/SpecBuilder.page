@@ -39,7 +39,7 @@
 	top: 150px;
 	right: 0;
 	width: 400px;
-	z-index: 9999;
+	z-index: 49;
 }
 
 #specification_palette .type {
@@ -430,6 +430,11 @@ $j(function(){
 				<option value="{!sObjectType}">{!sObjectType}</option>
 			</apex:repeat>
 		</select>
+		<h3>Query</h3>
+		<apex:form id="form">
+			<apex:actionFunction name="refresh" rerender="form" />
+			<apex:outputText value="{!query}" />
+		</apex:form>
 		<h3>Componenents</h3>
 		<div id="specification_container">
 		</div>

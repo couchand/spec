@@ -57,7 +57,7 @@ global abstract class UnsoqlableSpecification extends BaseSpecification
 	 * Database retrieval methods
 	 */
 
-	global virtual String toSoql()
+	global virtual override Query toSoqlQuery()
 	{
 		throw new Exceptions.UnsoqlableSpecificationException();
 	}

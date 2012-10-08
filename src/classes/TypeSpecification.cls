@@ -56,9 +56,9 @@ global class TypeSpecification extends SoqlableSpecification
 		throw new Exceptions.UnimplementedFeatureException();
 	}
 
-	global String toSoql()
+	global virtual override Query toSoqlQuery()
 	{
-		throw new Exceptions.UnimplementedFeatureException();
+		return new Query( type );
 	}
  
 	global SObjectSpecification notx()

@@ -75,4 +75,15 @@ global abstract class BaseSpecification implements SObjectSpecification
 	{
 		return new OrSpecification( this, other );
 	}
+
+	/*
+	 * Database retrieval methods
+	 */
+
+	global abstract Query toSoqlQuery();
+
+	global virtual String toSoql()
+	{
+		return toSoqlQuery().toSoqlBuilder().selectAll().toSoql();
+	}
 }

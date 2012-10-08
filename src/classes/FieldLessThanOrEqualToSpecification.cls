@@ -70,7 +70,7 @@ global virtual class FieldLessThanOrEqualToSpecification extends FieldBoundSpeci
 	 * Database retrieval methods
 	 */
 
-	global virtual String toSoql()
+	global virtual override Query toSoqlQuery()
 	{
 		throw new Exceptions.UnimplementedFeatureException();
 	}

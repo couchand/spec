@@ -85,9 +85,17 @@ global virtual class AndSpecification extends CompositeSpecification
 	 * Database retrieval methods
 	 */
 
-	global virtual String toSoql()
+	global virtual override Query toSoqlQuery()
 	{
-		throw new Exceptions.UnimplementedFeatureException();	// An unusable implementation
+		Query master = new Query();
+
+		for( SObjectSpecification specification : specifications )
+		{
+			BaseSpecification baseSpec = (BaseSpecification)specification;	// A limiting implementation
+			master.andx( baseSpec.toSoqlQuery() );
+		}
+
+		return master;
 	}
 
 	global virtual Boolean hasCompleteSoqlDescription()

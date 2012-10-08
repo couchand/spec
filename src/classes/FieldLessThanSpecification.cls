@@ -76,9 +76,9 @@ global virtual class FieldLessThanSpecification extends FieldBoundSpecification
 	 * Database retrieval methods
 	 */
 
-	global virtual String toSoql()
+	global virtual override Query toSoqlQuery()
 	{
-		throw new Exceptions.UnimplementedFeatureException();
+		return new Query().wherex( new al.FieldCondition( field ).lessThan( value ) );
 	}
 
 	/*
