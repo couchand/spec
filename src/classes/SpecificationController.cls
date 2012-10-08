@@ -11,7 +11,7 @@ global class SpecificationController
 				BaseSpecification spec = (BaseSpecification)fetchSpec( specificationId );
 System.debug(spec);
 				al.SoqlBuilder builder = new al.SoqlBuilder();
-				builder.selectx('Id');
+				builder.selectx('Id').selectx('Name');
 				builder.fromx( getType( specificationId ) );
 				builder.wherex( spec.toCondition() );
 System.debug(builder);
@@ -22,16 +22,33 @@ System.debug(builder);
 		private set;
 	}
 
-	global List<SObject> satisfiers
+	global class Result
+	{
+		global SObject obj;
+		global String Id { get { return (String)obj.get('Id'); } private set; }
+		global String Name { get { return (String)obj.get('Name'); } private set; }
+
+		global Result( SObject obj )
+		{
+			this.obj = obj;
+		}
+	}
+
+	global List<Result> satisfiers
 	{
 		get
 		{
 			String theQuery = query;
 			if( '' != theQuery )
 			{
-				return Database.query( theQuery );
+				satisfiers = new List<Result>();
+				for( SObject obj : Database.query( theQuery ) )
+				{
+					satisfiers.add( new Result( obj ) );
+				}
+				return satisfiers;
 			}
-			return new List<SObject>();
+			return new List<Result>();
 		}
 		private set;
 	}

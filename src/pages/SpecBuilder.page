@@ -375,13 +375,17 @@ function pageInit(){
 
 function addToSpec( $list, $example ){
 
-	var $list_el = $j('<li>'), spec = {};
+	var $list_el = $j('<li>'), spec = {}, floatValue;
 
 	if( $example.hasClass('field_bound') ){
 
 		spec.node = $example.find('#field_bound_operator').val();
 		spec.field = $example.find('#field_bound_field').val();
 		spec.value = $example.find('#field_bound_value').val();
+		floatValue = parseFloat( spec.value );
+		if( floatValue ){
+			spec.value = floatValue;
+		}
 	}
 	else if( $example.hasClass('composite') ){
 
@@ -433,12 +437,20 @@ $j(function(){
 		</select>
 		<h3>Query</h3>
 		<apex:form id="form">
-			<apex:actionFunction name="afRefresh" rerender="form" />
+			<apex:actionFunction name="afRefresh" rerender="form, satisfier_table" />
 			<apex:outputText value="{!query}" />
 		</apex:form>
-		<h3>Componenents</h3>
+		<h3>Components</h3>
 		<div id="specification_container">
 		</div>
+	</div>
+	<div id="satisfiers">
+		<apex:pageBlock id="satisfier_table">
+			<apex:pageBlockTable value="{!satisfiers}" var="object">
+				<apex:column value="{!object.Id}" />
+				<apex:column value="{!object.Name}" />
+			</apex:pageBlockTable>
+		</apex:pageBlock>
 	</div>
 	<div id="specification_palette">
 		<div class="type">
