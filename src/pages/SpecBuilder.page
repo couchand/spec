@@ -435,7 +435,7 @@ $j(function(){
 				<option value="{!sObjectType}">{!sObjectType}</option>
 			</apex:repeat>
 		</select>
-		<h3>Components</h3>
+		<h3>Criteria</h3>
 		<div id="specification_container">
 		</div>
 	</div>
