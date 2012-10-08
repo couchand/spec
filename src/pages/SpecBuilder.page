@@ -447,8 +447,10 @@ $j(function(){
 	<div id="satisfiers">
 		<apex:pageBlock id="satisfier_table">
 			<apex:pageBlockTable value="{!satisfiers}" var="object">
-				<apex:column value="{!object.Id}" />
-				<apex:column value="{!object.Name}" />
+				<apex:column value="{!object.Id}" headerValue="Id" />
+				<apex:column value="{!object.Name}" headerValue="Name" />
+				<apex:column value="{!object.field3val}" headerValue="{!field3}" rendered="{!hasField3}" />
+				<apex:column value="{!object.field4val}" headerValue="{!field4}" rendered="{!hasField4}" />
 			</apex:pageBlockTable>
 		</apex:pageBlock>
 	</div>

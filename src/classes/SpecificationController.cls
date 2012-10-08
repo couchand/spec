@@ -8,13 +8,31 @@ global class SpecificationController
 		{
 			if( null != specificationId )
 			{
-				BaseSpecification spec = (BaseSpecification)fetchSpec( specificationId );
-System.debug(spec);
+				AndSpecification spec = (AndSpecification)fetchSpec( specificationId );
+
+				for( SObjectSpecification child : spec.specifications )
+				{
+					if( child instanceof FieldBoundSpecification )
+					{
+						FieldBoundSpecification fieldBound = (FieldBoundSpecification)child;
+
+						if( !hasField3 )
+						{
+							field3 = fieldBound.field;
+						}
+						else if( field3 != fieldBound.field && !hasField4 )
+						{
+							field4 = fieldBound.field;
+						}
+					}
+				}
+
 				al.SoqlBuilder builder = new al.SoqlBuilder();
 				builder.selectx('Id').selectx('Name');
+				if( hasField3 ) builder.selectx( field3 );
+				if( hasField4 ) builder.selectx( field4 );
 				builder.fromx( getType( specificationId ) );
 				builder.wherex( spec.toCondition() );
-System.debug(builder);
 				return builder.toSoql();
 			}
 			return '';
@@ -22,15 +40,28 @@ System.debug(builder);
 		private set;
 	}
 
+	global String field3 { get; set; }
+	global Boolean hasField3 { get { return null != field3; } private set; }
+	global String field4 { get; set; }
+	global Boolean hasField4 { get { return null != field4; } private set ; }
+
 	global class Result
 	{
 		global SObject obj;
 		global String Id { get { return (String)obj.get('Id'); } private set; }
 		global String Name { get { return (String)obj.get('Name'); } private set; }
+		global String field3 { get; set; }
+		global Boolean hasField3 { get { return null != field3; } private set; }
+		global Object field3val { get { return hasField3 ? obj.get( field3 ) : null; } private set; }
+		global String field4 { get; set; }
+		global Boolean hasField4 { get { return null != field4; } private set ; }
+		global Object field4val { get { return hasField4 ? obj.get( field4 ) : null; } private set; }
 
-		global Result( SObject obj )
+		global Result( SObject obj, String field3, String field4 )
 		{
 			this.obj = obj;
+			this.field3 = field3;
+			this.field4 = field4;
 		}
 	}
 
@@ -44,7 +75,7 @@ System.debug(builder);
 				satisfiers = new List<Result>();
 				for( SObject obj : Database.query( theQuery ) )
 				{
-					satisfiers.add( new Result( obj ) );
+					satisfiers.add( new Result( obj, field3, field4 ) );
 				}
 				return satisfiers;
 			}
