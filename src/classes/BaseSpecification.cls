@@ -80,10 +80,11 @@ global abstract class BaseSpecification implements SObjectSpecification
 	 * Database retrieval methods
 	 */
 
-	global abstract Query toSoqlQuery();
+	global abstract al.Condition toCondition();
 
 	global virtual String toSoql()
 	{
-		return toSoqlQuery().toSoqlBuilder().selectAll().toSoql();
+//		return toSoqlQuery().toSoqlBuilder().selectAll().toSoql();
+		throw new Exceptions.UnimplementedFeatureException();
 	}
 }

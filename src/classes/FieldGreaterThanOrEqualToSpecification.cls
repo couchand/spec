@@ -70,7 +70,7 @@ global virtual class FieldGreaterThanOrEqualToSpecification extends FieldBoundSp
 	 * Database retrieval methods
 	 */
 
-	global virtual override Query toSoqlQuery()
+	global virtual override al.Condition toCondition()
 	{
 		throw new Exceptions.UnimplementedFeatureException();
 	}

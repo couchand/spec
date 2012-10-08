@@ -85,14 +85,14 @@ global virtual class AndSpecification extends CompositeSpecification
 	 * Database retrieval methods
 	 */
 
-	global virtual override Query toSoqlQuery()
+	global virtual override al.Condition toCondition()
 	{
-		Query master = new Query();
+		al.AndCondition master = new al.AndCondition();
 
 		for( SObjectSpecification specification : specifications )
 		{
 			BaseSpecification baseSpec = (BaseSpecification)specification;	// A limiting implementation
-			master.andx( baseSpec.toSoqlQuery() );
+			master.add( baseSpec.toCondition() );
 		}
 
 		return master;

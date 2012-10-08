@@ -8,11 +8,14 @@ global class SpecificationController
 		{
 			if( null != specificationId )
 			{
-				SObjectSpecification spec = fetchSpec( specificationId );
+				BaseSpecification spec = (BaseSpecification)fetchSpec( specificationId );
 System.debug(spec);
-				spec = spec.andx( new TypeSpecification( getType( specificationId ) ) );
-System.debug(spec);
-				return spec.toSoql();
+				al.SoqlBuilder builder = new al.SoqlBuilder();
+				builder.selectx('Id');
+				builder.fromx( getType( specificationId ) );
+				builder.wherex( spec.toCondition() );
+System.debug(builder);
+				return builder.toSoql();
 			}
 			return '';
 		}
@@ -23,9 +26,10 @@ System.debug(spec);
 	{
 		get
 		{
-			if( null != specificationId )
+			String theQuery = query;
+			if( '' != theQuery )
 			{
-				return Database.query( query );
+				return Database.query( theQuery );
 			}
 			return new List<SObject>();
 		}

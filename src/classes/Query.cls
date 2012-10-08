@@ -109,4 +109,4 @@ global class Query
 
 		return newQuery;
 	}
-}	
+}

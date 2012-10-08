@@ -167,6 +167,7 @@ function updateSpecification( specificationJson, callback ){
 			console.log( event.message );
 		}
 		else {
+			afRefresh();
 			callback( result );
 		}
 	});
@@ -432,7 +433,7 @@ $j(function(){
 		</select>
 		<h3>Query</h3>
 		<apex:form id="form">
-			<apex:actionFunction name="refresh" rerender="form" />
+			<apex:actionFunction name="afRefresh" rerender="form" />
 			<apex:outputText value="{!query}" />
 		</apex:form>
 		<h3>Componenents</h3>
