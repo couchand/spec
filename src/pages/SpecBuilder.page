@@ -435,17 +435,19 @@ $j(function(){
 				<option value="{!sObjectType}">{!sObjectType}</option>
 			</apex:repeat>
 		</select>
-		<h3>Query</h3>
-		<apex:form id="form">
-			<apex:actionFunction name="afRefresh" rerender="form, satisfier_table" />
-			<apex:outputText value="{!query}" />
-		</apex:form>
 		<h3>Components</h3>
 		<div id="specification_container">
 		</div>
 	</div>
 	<div id="satisfiers">
-		<apex:pageBlock id="satisfier_table">
+		<apex:pageBlock id="pageBlock">
+			<apex:pageBlockSection columns="1">
+				<h3>Query</h3>
+				<apex:form >
+					<apex:actionFunction name="afRefresh" rerender="pageBlock" />
+					<apex:outputText value="{!query}" />
+				</apex:form>
+			</apex:pageBlockSection>
 			<apex:pageBlockTable value="{!satisfiers}" var="object">
 				<apex:column value="{!object.Id}" headerValue="Id" />
 				<apex:column value="{!object.Name}" headerValue="Name" />
