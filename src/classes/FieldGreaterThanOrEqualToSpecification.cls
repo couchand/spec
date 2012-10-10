@@ -86,27 +86,32 @@ global virtual class FieldGreaterThanOrEqualToSpecification extends FieldBoundSp
 
 	global virtual Boolean isGeneralizationOfDispatch( FieldGreaterThanOrEqualToSpecification other )
 	{
-		return PrimitiveMath.lessThanOrEqualTo( value, other.value );
+		return field == other.field
+		    && PrimitiveMath.lessThanOrEqualTo( value, other.value );
 	}
 /*
 	global virtual Boolean isGeneralizationOfDispatch( FieldGreaterThanSpecification other )
 	{
-		return PrimitiveMath.lessThan( value, other.value );
+		return field == other.field
+		    && PrimitiveMath.lessThan( value, other.value );
 	}
 
 	global virtual Boolean isGeneralizationOfDispatch( FieldEqualToSpecification other )
 	{
-		return PrimitiveMath.lessThanOrEqualTo( value, other.value );
+		return field == other.field
+		    && PrimitiveMath.lessThanOrEqualTo( value, other.value );
 	}
 */
 	global virtual Boolean isSpecialCaseOfDispatch( FieldGreaterThanOrEqualToSpecification other )
 	{
-		return PrimitiveMath.greaterThanOrEqualTo( value, other.value );
+		return field == other.field
+		    && PrimitiveMath.greaterThanOrEqualTo( value, other.value );
 	}
 /*
 	global virtual Boolean isSpecialCaseOfDispatch( FieldGreaterThanSpecification other )
 	{
-		return PrimitiveMath.greaterThan( value, other.value );
+		return field == other.field
+		    && PrimitiveMath.greaterThan( value, other.value );
 	}
 */
 	/*
