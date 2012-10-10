@@ -98,6 +98,11 @@ global virtual class FieldLessThanOrEqualToSpecification extends FieldBoundSpeci
 	{
 		return PrimitiveMath.greaterThanOrEqualTo( value, other.value );
 	}
+
+	global virtual Boolean isGeneralizationOfDispatch( FieldNotEqualToSpecification other )
+	{
+		return PrimitiveMath.lessThan( value, other.value );
+	}
 */
 	global virtual Boolean isSpecialCaseOfDispatch( FieldLessThanOrEqualToSpecification other )
 	{
@@ -114,6 +119,6 @@ global virtual class FieldLessThanOrEqualToSpecification extends FieldBoundSpeci
 	 */
 	global SObjectSpecification notx()
 	{
-		return new FieldGreaterThanOrEqualToSpecification( field, value );
+		return null;//new FieldGreaterThanSpecification( field, value );
 	}
 }
