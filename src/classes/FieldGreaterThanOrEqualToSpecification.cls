@@ -89,13 +89,13 @@ global virtual class FieldGreaterThanOrEqualToSpecification extends FieldBoundSp
 		return field == other.field
 		    && PrimitiveMath.lessThanOrEqualTo( value, other.value );
 	}
-/*
+
 	global virtual Boolean isGeneralizationOfDispatch( FieldGreaterThanSpecification other )
 	{
 		return field == other.field
-		    && PrimitiveMath.lessThan( value, other.value );
+		    && PrimitiveMath.lessThanOrEqualTo( value, other.value );
 	}
-
+/*
 	global virtual Boolean isGeneralizationOfDispatch( FieldEqualToSpecification other )
 	{
 		return field == other.field
@@ -107,13 +107,13 @@ global virtual class FieldGreaterThanOrEqualToSpecification extends FieldBoundSp
 		return field == other.field
 		    && PrimitiveMath.greaterThanOrEqualTo( value, other.value );
 	}
-/*
+
 	global virtual Boolean isSpecialCaseOfDispatch( FieldGreaterThanSpecification other )
 	{
 		return field == other.field
 		    && PrimitiveMath.greaterThan( value, other.value );
 	}
-*/
+
 	/*
 	 * Composition methods
 	 */
