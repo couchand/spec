@@ -176,9 +176,46 @@ global class FieldEqualToTest
 		System.assertEquals( false, actualIsSpecialCase, 'Specs on other fields are unrelated' );
 	}
 
-	global static testMethod void isSpecialCaseOfDispatchTest_FNE()
+	global static testMethod void isSpecialCaseOfDispatchTest_FNE_True()
 	{
-		// @TODO: implement
+		FieldEqualTo bigOpportunitySpec = new FieldEqualTo( 'Amount', A_LOT_OF_MONEY );
+		FieldNotEqualTo otherSpec = new FieldNotEqualTo( 'Amount', NOT_A_LOT_OF_MONEY );
+
+		Test.startTest();
+
+			Boolean actualIsSpecialCase = bigOpportunitySpec.isSpecialCaseOfDispatch( otherSpec );
+
+		Test.stopTest();
+
+		System.assertEquals( true, actualIsSpecialCase, 'fe is special case of fne of different edge case' );
+	}
+
+	global static testMethod void isSpecialCaseOfDispatchTest_FNE_False()
+	{
+		FieldEqualTo bigOpportunitySpec = new FieldEqualTo( 'Amount', A_LOT_OF_MONEY );
+		FieldNotEqualTo otherSpec = new FieldNotEqualTo( 'Amount', A_LOT_OF_MONEY );
+
+		Test.startTest();
+
+			Boolean actualIsSpecialCase = bigOpportunitySpec.isSpecialCaseOfDispatch( otherSpec );
+
+		Test.stopTest();
+
+		System.assertEquals( false, actualIsSpecialCase, 'fe is not special case of fne with same value' );
+	}
+
+	global static testMethod void isSpecialCaseOfDispatchTest_FNE_OtherField()
+	{
+		FieldEqualTo bigOpportunitySpec = new FieldEqualTo( 'Amount', A_LOT_OF_MONEY );
+		FieldNotEqualTo otherSpec = new FieldNotEqualTo( 'Probability', 50 );
+
+		Test.startTest();
+
+			Boolean actualIsSpecialCase = bigOpportunitySpec.isSpecialCaseOfDispatch( otherSpec );
+
+		Test.stopTest();
+
+		System.assertEquals( false, actualIsSpecialCase, 'Specs on other fields are unrelated' );
 	}
 
 	/*
