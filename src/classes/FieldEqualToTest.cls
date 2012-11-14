@@ -92,10 +92,34 @@ global class FieldEqualToTest
 	 * Subsumption methods
 	 */
 
-	global static testMethod void isGeneralizationOfDispatchTest()
+	global static testMethod void isGeneralizationOfDispatchTest_True()
 	{
-		// @TODO: implement
+		FieldEqualTo bigOpportunitySpec = new FieldEqualTo( 'Amount', A_LOT_OF_MONEY );
+		FieldEqualTo otherSpec = new FieldEqualTo( 'Amount', A_LOT_OF_MONEY );
+
+		Test.startTest();
+
+			Boolean actualIsGeneralization = bigOpportunitySpec.isGeneralizationOfDispatch( otherSpec );
+
+		Test.stopTest();
+
+		System.assertEquals( true, actualIsGeneralization, 'fe identity is generalization' );
 	}
+
+	global static testMethod void isGeneralizationOfDispatchTest_False()
+	{
+		FieldEqualTo bigOpportunitySpec = new FieldEqualTo( 'Amount', A_LOT_OF_MONEY );
+		FieldEqualTo otherSpec = new FieldEqualTo( 'Amount', NOT_A_LOT_OF_MONEY );
+
+		Test.startTest();
+
+			Boolean actualIsGeneralization = bigOpportunitySpec.isGeneralizationOfDispatch( otherSpec );
+
+		Test.stopTest();
+
+		System.assertEquals( false, actualIsGeneralization, 'fe with other value is not generalization' );
+	}
+
 
 	global static testMethod void isSpecialCaseOfDispatchTest_FE()
 	{
