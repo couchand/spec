@@ -120,6 +120,19 @@ global class FieldEqualToTest
 		System.assertEquals( false, actualIsGeneralization, 'fe with other value is not generalization' );
 	}
 
+	global static testMethod void isGeneralizationOfDispatchTest_OtherField()
+	{
+		FieldEqualTo bigOpportunitySpec = new FieldEqualTo( 'Amount', A_LOT_OF_MONEY );
+		FieldEqualTo otherSpec = new FieldEqualTo( 'Probability', 50 );
+
+		Test.startTest();
+
+			Boolean actualIsGeneralization = bigOpportunitySpec.isGeneralizationOfDispatch( otherSpec );
+
+		Test.stopTest();
+
+		System.assertEquals( false, actualIsGeneralization, 'Specs on other fields are unrelated' );
+	}
 
 	global static testMethod void isSpecialCaseOfDispatchTest_FE()
 	{
