@@ -134,9 +134,46 @@ global class FieldEqualToTest
 		System.assertEquals( false, actualIsGeneralization, 'Specs on other fields are unrelated' );
 	}
 
-	global static testMethod void isSpecialCaseOfDispatchTest_FE()
+	global static testMethod void isSpecialCaseOfDispatchTest_True()
 	{
-		// @TODO: implement
+		FieldEqualTo bigOpportunitySpec = new FieldEqualTo( 'Amount', A_LOT_OF_MONEY );
+		FieldEqualTo otherSpec = new FieldEqualTo( 'Amount', A_LOT_OF_MONEY );
+
+		Test.startTest();
+
+			Boolean actualIsSpecialCase = bigOpportunitySpec.isSpecialCaseOfDispatch( otherSpec );
+
+		Test.stopTest();
+
+		System.assertEquals( true, actualIsSpecialCase, 'fe identity is generalization' );
+	}
+
+	global static testMethod void isSpecialCaseOfDispatchTest_False()
+	{
+		FieldEqualTo bigOpportunitySpec = new FieldEqualTo( 'Amount', A_LOT_OF_MONEY );
+		FieldEqualTo otherSpec = new FieldEqualTo( 'Amount', NOT_A_LOT_OF_MONEY );
+
+		Test.startTest();
+
+			Boolean actualIsSpecialCase = bigOpportunitySpec.isSpecialCaseOfDispatch( otherSpec );
+
+		Test.stopTest();
+
+		System.assertEquals( false, actualIsSpecialCase, 'fe with other value is not generalization' );
+	}
+
+	global static testMethod void isSpecialCaseOfDispatchTest_OtherField()
+	{
+		FieldEqualTo bigOpportunitySpec = new FieldEqualTo( 'Amount', A_LOT_OF_MONEY );
+		FieldEqualTo otherSpec = new FieldEqualTo( 'Probability', 50 );
+
+		Test.startTest();
+
+			Boolean actualIsSpecialCase = bigOpportunitySpec.isSpecialCaseOfDispatch( otherSpec );
+
+		Test.stopTest();
+
+		System.assertEquals( false, actualIsSpecialCase, 'Specs on other fields are unrelated' );
 	}
 
 	global static testMethod void isSpecialCaseOfDispatchTest_FNE()
