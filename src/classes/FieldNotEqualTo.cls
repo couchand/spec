@@ -63,7 +63,12 @@ global virtual class FieldNotEqualTo extends FieldBoundSpecification
 	 * Database retrieval methods
 	 */
 
-	global virtual String toSoql()
+	global virtual override al.Condition toCondition()
+	{
+		throw new Exceptions.UnimplementedFeatureException();
+	}
+
+	global virtual override String toSoql()
 	{
 		throw new Exceptions.UnimplementedFeatureException();
 	}
