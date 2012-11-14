@@ -30,13 +30,15 @@
 @isTest
 global class FieldEqualToTest
 {
+	final static Decimal A_LOT_OF_MONEY = 1000000.00;
+	final static Decimal NOT_A_LOT_OF_MONEY = 10.00;
+
 	/*
 	 * Verification methods
 	 */
 
 	global static testMethod void isSatisfiedByTest_True()
 	{
-		final Decimal A_LOT_OF_MONEY = 1000000.00;
 		Opportunity bigOpportunity = new Opportunity( Amount = A_LOT_OF_MONEY );
 		FieldEqualTo bigOpportunitySpec = new FieldEqualTo( 'Amount', A_LOT_OF_MONEY );
 
@@ -51,8 +53,6 @@ global class FieldEqualToTest
 
 	global static testMethod void isSatisfiedByTest_False()
 	{
-		final Decimal A_LOT_OF_MONEY = 1000000.00;
-		final Decimal NOT_A_LOT_OF_MONEY = 10.00;
 		Opportunity smallOpportunity = new Opportunity( Amount = NOT_A_LOT_OF_MONEY );
 		FieldEqualTo bigOpportunitySpec = new FieldEqualTo( 'Amount', A_LOT_OF_MONEY );
 
@@ -112,6 +112,15 @@ global class FieldEqualToTest
 	 */
 	global static testMethod void notxTest()
 	{
-		// @TODO: implement
+		FieldEqualTo bigOpportunitySpec = new FieldEqualTo( 'Amount', A_LOT_OF_MONEY );
+
+		Test.startTest();
+
+			SObjectSpecification actualNot = bigOpportunitySpec.notx();
+
+		Test.stopTest();
+
+		System.assert( actualNot instanceof FieldNotEqualTo, 'The inverse of a FE is a FNE' );
+		System.assertEquals( A_LOT_OF_MONEY, ((FieldNotEqualTo)actualNot).value, 'The edge case of the inverse should be the same' );
 	}
 }
