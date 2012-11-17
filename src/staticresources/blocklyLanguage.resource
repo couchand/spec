@@ -232,6 +232,13 @@ Blockly.Language.spec_operation_item = {
   }
 };
 
+Blockly.JavaScript.spec_operation = function() {
+
+	var operation = this.getTitleValue('OP');
+	var code = '{ "node": "' + operation + '" }';
+	return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
 Blockly.Language.spec_negate = {
   // Negation.
   category: 'Logic',
