@@ -30,5 +30,9 @@ Builder.init = function(blockly) {
  */
 Builder.reloadMatches = function(){
 
+	var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
+
 	// Do something
+
+	console.log( xml );
 };

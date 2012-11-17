@@ -11,6 +11,7 @@
       width: 100%;
     }
   </style>
+  <input type="button" onClick="Builder.reloadMatches()" value="find matches" />
   <div class="main">
     <iframe src="/apex/BlocklyFrame"></iframe>
   </div>
