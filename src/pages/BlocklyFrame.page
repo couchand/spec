@@ -1,6 +1,7 @@
 <apex:page showHeader="false" sidebar="false">
   <apex:includeScript value="{!$Resource.blockly}" />
   <apex:includeScript value="{!$Resource.blocklyCommon}" />
+  <apex:includeScript value="{!$Resource.blocklyGenerators}" />
   <apex:includeScript value="{!$Resource.blocklyLanguage}" />
 
   <style>
