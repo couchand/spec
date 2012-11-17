@@ -20,7 +20,7 @@ Builder.init = function(blockly) {
   // Load the editor with a starting block.
   var xml = Blockly.Xml.textToDom(
       '<xml>' +
-      '  <block type="logic_operation" x="85" y="100"></block>' +
+      '  <block type="spec_operation" x="85" y="100"></block>' +
       '</xml>');
   Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
 };

@@ -1,4 +1,4 @@
-<apex:page >
+<apex:page showHeader="false" sidebar="false">
   <apex:includeScript value="{!$Resource.blockly}" />
   <apex:includeScript value="{!$Resource.blocklyLanguage}" />
 
@@ -9,13 +9,12 @@
       padding:0;
       overflow: hidden;
     }
-    .blocklySvg {
+    html, body, .blocklySvg {
       height: 100%;
       width: 100%;
     }
   </style>
 
-  <script>
-    document.onLoad = init;
-  </script>
+  <body onLoad="init()">
+  </body>
 </apex:page>

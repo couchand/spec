@@ -45,7 +45,7 @@ Blockly.Language.spec_operation = {
     this.setColour(120);
     this.setOutput(true, 'Specification');
     this.appendValueInput('INP1')
-        .setCheck('Specification');
+        .setCheck('Specification')
         .appendTitle(new Blockly.FieldDropdown(this.OPERATORS), 'OP');
     this.appendValueInput('INP2')
         .setCheck('Specification')

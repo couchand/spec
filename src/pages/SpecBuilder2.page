@@ -1,15 +1,17 @@
 <apex:page title="Specification Builder with Blockly" controller="SpecificationController">
   <apex:includeScript value="{!$Resource.builder}" />
   <style>
-    .main, iframe {
-      height: 100%;
+    .main {
+      height: 600px;
       width: 100%;
     }
     iframe {
       border: 1px solid #ccc;
+      height: 100%;
+      width: 100%;
     }
   </style>
   <div class="main">
-    <iframe src="frame.html"></iframe>
+    <iframe src="/apex/BlocklyFrame"></iframe>
   </div>
 </apex:page>
