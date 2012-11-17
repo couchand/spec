@@ -146,6 +146,31 @@ Blockly.Language.spec_operation.TOOLTIPS = {
   OR: Blockly.LANG_LOGIC_OPERATION_TOOLTIP_OR
 };
 
+Blockly.Language.spec_operation_container = {
+  // Container.
+  init: function() {
+    this.setColour(160);
+    this.appendDummyInput()
+        .appendTitle('statement');
+    this.appendStatementInput('STACK');
+    this.setTooltip('A logical statement is a combination of clauses.');
+    this.contextMenu = false;
+  }
+};
+
+Blockly.Language.spec_operation_item = {
+  // Add items.
+  init: function() {
+    this.setColour(160);
+    this.appendDummyInput()
+        .appendTitle('clause');
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('Yet another clause in this logical statement.');
+    this.contextMenu = false;
+  }
+};
+
 Blockly.Language.spec_negate = {
   // Negation.
   category: Blockly.LANG_CATEGORY_LOGIC,
@@ -153,35 +178,10 @@ Blockly.Language.spec_negate = {
   init: function() {
     this.setColour(120);
     this.setOutput(true, 'Specification');
-    this.appendValueInput('BOOL')
+    this.appendValueInput('SPEC')
         .setCheck('Specification')
         .appendTitle(Blockly.LANG_LOGIC_NEGATE_INPUT_NOT);
     this.setTooltip(Blockly.LANG_LOGIC_NEGATE_TOOLTIP_1);
-  }
-};
-
-Blockly.Language.text_create_join_container = {
-  // Container.
-  init: function() {
-    this.setColour(160);
-    this.appendDummyInput()
-        .appendTitle(Blockly.LANG_TEXT_CREATE_JOIN_TITLE_JOIN);
-    this.appendStatementInput('STACK');
-    this.setTooltip(Blockly.LANG_TEXT_CREATE_JOIN_TOOLTIP_1);
-    this.contextMenu = false;
-  }
-};
-
-Blockly.Language.text_create_join_item = {
-  // Add items.
-  init: function() {
-    this.setColour(160);
-    this.appendDummyInput()
-        .appendTitle(Blockly.LANG_TEXT_CREATE_JOIN_ITEM_TITLE_ITEM);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setTooltip(Blockly.LANG_TEXT_CREATE_JOIN_ITEM_TOOLTIP_1);
-    this.contextMenu = false;
   }
 };
 
@@ -190,10 +190,7 @@ Blockly.JavaScript = Blockly.Generator.get('JavaScript');
 function init() {
   // Whitelist of blocks to keep.
   var newLanguage = {};
-  var keepers = ['maze_move', 'maze_turnLeft', 'maze_turnRight',
-      'maze_isWall', 'controls_if', 'controls_if_if', 'controls_if_elseif',
-      'controls_if_else', 'controls_forever', 'controls_whileUntil',
-      'logic_operation', 'logic_negate'];
+  var keepers = ['spec_field_compare', 'spec_operation', 'spec_negate']
   for (var x = 0; x < keepers.length; x++) {
     newLanguage[keepers[x]] = Blockly.Language[keepers[x]];
   }
@@ -207,9 +204,9 @@ function init() {
 
   Blockly.inject(document.body, {path: '../../'});
 
-  if (window.parent.Maze) {
+  if (window.parent.Builder) {
     // Let the top-level application know that Blockly is ready.
-    window.parent.Maze.init(Blockly);
+    window.parent.Builder.init(Blockly);
   } else {
     // Attempt to diagnose the problem.
     var msg = 'Error: Unable to communicate between frames.\n\n';
