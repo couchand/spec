@@ -20,6 +20,7 @@ Blockly.Language.spec_field_compare = {
         .appendTitle('field');
     this.appendValueInput('VALUE')
         .setCheck([Number, Boolean, String])
+        .setAlign(Blockly.ALIGN_RIGHT)
         .appendTitle(new Blockly.FieldDropdown(this.OPERATORS), 'OP');
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
