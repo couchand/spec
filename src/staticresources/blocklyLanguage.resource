@@ -7,8 +7,9 @@ Blockly.Language.spec_field_compare = {
   init: function() {
     this.setColour(120);
     this.setOutput(true, 'Specification');
-    this.appendDummyInput('FIELD')
-        .appendTitle(new Blockly.FieldDropdown(this.FIELDS), 'FIELD');
+    this.appendValueInput('FIELD')
+        .setCheck('Field')
+        .appendTitle('field');
     this.appendValueInput('VALUE')
         .setCheck([Number, Boolean, String])
         .appendTitle(new Blockly.FieldDropdown(this.OPERATORS), 'OP');
@@ -20,10 +21,6 @@ Blockly.Language.spec_field_compare = {
     });
   }
 };
-
-Blockly.Language.spec_field_compare.FIELDS =
-    [['Name', 'Name'],
-     ['Custom Field', 'Custom__c']];
 
 Blockly.Language.spec_field_compare.OPERATORS =
     [['=', 'EQ'],
@@ -41,6 +38,23 @@ Blockly.Language.spec_field_compare.TOOLTIPS = {
   GT: 'Field exceeding',
   GTE: 'Field not less than'
 };
+
+Blockly.Language.spec_field_value = {
+  // Field description for field compare
+  category: 'Fields',
+  helpUrl: '',
+  init: function() {
+    this.setColour(150);
+    this.setOutput(true, 'Field');
+    this.appendDummyInput('FIELD')
+        .appendTitle(new Blockly.FieldDropdown(this.FIELDS), 'FIELD');
+    this.setTooltip('The field to compare against');
+  }
+};
+
+Blockly.Language.spec_field_value.FIELDS =
+    [['Name', 'Name'],
+     ['Custom Field', 'Custom__c']];
 
 Blockly.Language.spec_operation = {
   // Logical operations: 'and', 'or'.
@@ -194,7 +208,8 @@ function init( blocklyPath ) {
 
   // Whitelist of blocks to keep.
   var newLanguage = {};
-  var keepers = ['spec_field_compare', 'spec_operation', 'spec_negate',
+  var keepers = ['spec_field_compare', 'spec_field_value',
+                 'spec_operation', 'spec_negate',
                  'math_number', 'text'];
   for (var x = 0; x < keepers.length; x++) {
     newLanguage[keepers[x]] = Blockly.Language[keepers[x]];
