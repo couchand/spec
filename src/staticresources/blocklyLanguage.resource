@@ -174,21 +174,21 @@ Blockly.Language.spec_operation_item = {
     this.contextMenu = false;
   }
 };
-
+*/
 Blockly.Language.spec_negate = {
   // Negation.
-  category: Blockly.LANG_CATEGORY_LOGIC,
-  helpUrl: Blockly.LANG_LOGIC_NEGATE_HELPURL,
+  category: 'Logic',
+  helpUrl: '',
   init: function() {
     this.setColour(120);
     this.setOutput(true, 'Specification');
     this.appendValueInput('SPEC')
         .setCheck('Specification')
-        .appendTitle(Blockly.LANG_LOGIC_NEGATE_INPUT_NOT);
-    this.setTooltip(Blockly.LANG_LOGIC_NEGATE_TOOLTIP_1);
+        .appendTitle('not');
+    this.setTooltip('The inverse of the Specification passed in');
   }
 };
-
+/*
 Blockly.JavaScript = Blockly.Generator.get('JavaScript');
 */
 function init( blocklyPath ) {
