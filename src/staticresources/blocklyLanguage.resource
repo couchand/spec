@@ -235,7 +235,18 @@ Blockly.Language.spec_operation_item = {
 Blockly.JavaScript.spec_operation = function() {
 
 	var operator = this.getTitleValue('OP');
-	var code = '{ "node": "' + operator + '" }';
+	var clauses = [];
+	var eachClause;
+	var code = '{ "node": "' + operator + '"';
+
+	for (var x = 0; x < this.itemCount_; x++) {
+		eachClause = Blockly.JavaScript.valueToCode(this, 'INP' + x, Blockly.JavaScript.ORDER_COMMA);
+		if (eachClause) {
+			code += ', ' + eachClause;
+		}
+	}
+
+	code += '}';
 	return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
