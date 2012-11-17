@@ -59,13 +59,23 @@ Blockly.JavaScript.spec_field_compare = function() {
 
 	switch(operator){
 	case 'EQ':
-		nodeType = 'FieldEqualTo';
+		nodeType = 'fe';
 		break;
 	case 'NEQ':
-		nodeType = 'FieldNotEqualTo';
+		nodeType = 'fne';
 		break;
+	case 'LT':
+		nodeType = 'flt';
+		break;
+	case 'LTE':
+		nodeType = 'flte';
+		break;
+	case 'GT':
+		nodeType = 'fgt';
+		break;
+	case 'GTE':
 	default:
-		nodeType = 'FieldBoundSpecification';
+		nodeType = 'fgte';
 	}
 
 	var code = '{ "node": "' + nodeType + '"' +
@@ -235,7 +245,7 @@ Blockly.Language.spec_operation_item = {
 Blockly.JavaScript.spec_operation = function() {
 
 	var operator = this.getTitleValue('OP');
-	var nodeType = 'AND' === operator ? 'AndSpecification' : 'OrSpecification';
+	var nodeType = 'AND' === operator ? 'and' : 'or';
 	var clauses = [];
 	var eachClause;
 	var code;
