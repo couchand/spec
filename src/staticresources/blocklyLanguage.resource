@@ -1,11 +1,19 @@
 'use strict';
 
+var HUE = 1;
+var ANGLE = 30;
+
+var SPEC_COLOUR = HUE;
+var OPERATION_COLOUR = ANGLE + SPEC_COLOUR;
+var FIELD_COLOUR = 180 + SPEC_COLOUR;
+var VALUE_COLOUR = ANGLE + FIELD_COLOUR;
+
 Blockly.Language.spec_field_compare = {
   // Comparison operator.
   category: 'Specs',
   helpUrl: '',
   init: function() {
-    this.setColour(120);
+    this.setColour(SPEC_COLOUR);
     this.setOutput(true, 'Specification');
     this.appendValueInput('FIELD')
         .setCheck('Field')
@@ -44,7 +52,7 @@ Blockly.Language.spec_field_value = {
   category: 'Fields',
   helpUrl: '',
   init: function() {
-    this.setColour(150);
+    this.setColour(FIELD_COLOUR);
     this.setOutput(true, 'Field');
     this.appendDummyInput('FIELD')
         .appendTitle(new Blockly.FieldDropdown(this.FIELDS), 'FIELD');
@@ -61,7 +69,7 @@ Blockly.Language.spec_operation = {
   category: 'Logic',
   helpUrl: '',
   init: function() {
-    this.setColour(120);
+    this.setColour(OPERATION_COLOUR);
     this.setOutput(true, 'Specification');
     this.appendValueInput('INP0')
         .setCheck('Specification')
@@ -195,7 +203,7 @@ Blockly.Language.spec_negate = {
   category: 'Logic',
   helpUrl: '',
   init: function() {
-    this.setColour(120);
+    this.setColour(OPERATION_COLOUR);
     this.setOutput(true, 'Specification');
     this.appendValueInput('SPEC')
         .setCheck('Specification')
@@ -214,10 +222,11 @@ function init( blocklyPath ) {
   for (var x = 0; x < keepers.length; x++) {
     newLanguage[keepers[x]] = Blockly.Language[keepers[x]];
   }
-  // Fold control category into logic category.
+  // Fold math and text categories into value category.
   for (var name in newLanguage) {
-    if (newLanguage[name].category == 'Control') {
-      newLanguage[name].category = 'Logic';
+    if (newLanguage[name].category == 'Math' || newLanguage[name].category == 'Text') {
+      newLanguage[name].category = 'Value';
+    //      this.setColour(VALUE_COLOUR);
     }
   }
   Blockly.Language = newLanguage;
