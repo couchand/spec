@@ -237,16 +237,19 @@ Blockly.JavaScript.spec_operation = function() {
 	var operator = this.getTitleValue('OP');
 	var clauses = [];
 	var eachClause;
-	var code = '{ "node": "' + operator + '"';
+	var code;
 
 	for (var x = 0; x < this.itemCount_; x++) {
 		eachClause = Blockly.JavaScript.valueToCode(this, 'INP' + x, Blockly.JavaScript.ORDER_COMMA);
 		if (eachClause) {
-			code += ', ' + eachClause;
+			clauses.push(eachClause);
 		}
 	}
 
-	code += '}';
+	code = '{ "node": "' + operator + '", ';
+	code += '"specifications": [';
+	code += clauses.join(', ');
+	code += ']}';
 	return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
