@@ -1,11 +1,11 @@
 'use strict';
 
 var HUE = 1;
-var ANGLE = 30;
+var ANGLE = 39;
 
-var SPEC_COLOUR = HUE;
-var OPERATION_COLOUR = ANGLE + SPEC_COLOUR;
-var FIELD_COLOUR = 180 + SPEC_COLOUR;
+var OPERATION_COLOUR = HUE;
+var SPEC_COLOUR = ANGLE + OPERATION_COLOUR;
+var FIELD_COLOUR = 180 + OPERATION_COLOUR;
 var VALUE_COLOUR = ANGLE + FIELD_COLOUR;
 
 Blockly.Language.spec_field_compare = {
