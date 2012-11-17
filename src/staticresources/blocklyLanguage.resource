@@ -235,6 +235,7 @@ Blockly.Language.spec_operation_item = {
 Blockly.JavaScript.spec_operation = function() {
 
 	var operator = this.getTitleValue('OP');
+	var nodeType = 'AND' === operator ? 'AndSpecification' : 'OrSpecification';
 	var clauses = [];
 	var eachClause;
 	var code;
@@ -246,7 +247,7 @@ Blockly.JavaScript.spec_operation = function() {
 		}
 	}
 
-	code = '{ "node": "' + operator + '", ';
+	code = '{ "node": "' + nodeType + '", ';
 	code += '"specifications": [';
 	code += clauses.join(', ');
 	code += ']}';
