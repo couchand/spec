@@ -8,6 +8,8 @@ var SPEC_COLOUR = ANGLE + OPERATION_COLOUR;
 var FIELD_COLOUR = 180 + OPERATION_COLOUR;
 var VALUE_COLOUR = ANGLE + FIELD_COLOUR;
 
+Blockly.JavaScript = Blockly.Generator.get('JavaScript');
+
 Blockly.Language.spec_field_compare = {
   // Comparison operator.
   category: 'Specs',
@@ -46,6 +48,31 @@ Blockly.Language.spec_field_compare.TOOLTIPS = {
   LTE: 'Field not exceeding',
   GT: 'Field exceeding',
   GTE: 'Field not less than'
+};
+
+Blockly.JavaScript.spec_field_compare = function() {
+
+	var operator = this.getTitleValue('OP');
+	var nodeType;
+	var field = Blockly.JavaScript.valueToCode(this, 'FIELD', Blockly.JavaScript.ORDER_COMMA) || 'Id';
+	var value = Blockly.JavaScript.valueToCode(this, 'VALUE', Blockly.JavaScript.ORDER_COMMA) || 'null';
+
+	switch(operator){
+	case 'EQ':
+		nodeType = 'FieldEqualTo';
+		break;
+	case 'NEQ':
+		nodeType = 'FieldNotEqualTo';
+		break;
+	default:
+		nodeType = 'FieldBoundSpecification';
+	}
+
+	var code = '{ "node": ' + nodeType +
+                   ', "field": "' + field + '"' +
+                   ', "value": ' + value + ' }';
+
+	return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
 Blockly.Language.spec_field_value = {
@@ -238,7 +265,7 @@ function init( blocklyPath ) {
   Blockly.Language = newLanguage;
 
   Blockly.inject(document.body, {path: blocklyPath});
-/*
+
   if (window.parent.Builder) {
     // Let the top-level application know that Blockly is ready.
     window.parent.Builder.init(Blockly);
@@ -254,5 +281,4 @@ function init( blocklyPath ) {
     }
     alert(msg);
   }
-*/
 }

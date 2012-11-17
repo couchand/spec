@@ -18,7 +18,7 @@ Builder.init = function(blockly) {
   };
 
   // Load the editor with a starting block.
-
+/*
   var xml = Blockly.Xml.textToDom(
       '<xml>' +
       '  <block type="spec_operation" x="185" y="145">' +
@@ -37,7 +37,7 @@ Builder.init = function(blockly) {
       '  </block>' +
       '</xml>');
   Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
-
+*/
 };
 
 /*
@@ -46,8 +46,10 @@ Builder.init = function(blockly) {
 Builder.reloadMatches = function(){
 
 	var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
+	var code = Blockly.Generator.workspaceToCode('JavaScript');
 
 	// Do something
 
 	console.log( xml );
+	console.log( code );
 };
