@@ -226,7 +226,12 @@ function init( blocklyPath ) {
   for (var name in newLanguage) {
     if (newLanguage[name].category == 'Math' || newLanguage[name].category == 'Text') {
       newLanguage[name].category = 'Value';
-    //      this.setColour(VALUE_COLOUR);
+      newLanguage[name].init = ((function(oldInit){
+        return function(){
+            oldInit.apply(this);
+            this.setColour(VALUE_COLOUR);
+        };
+      })(newLanguage[name].init));
     }
   }
   Blockly.Language = newLanguage;
