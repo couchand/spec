@@ -68,7 +68,7 @@ Blockly.JavaScript.spec_field_compare = function() {
 		nodeType = 'FieldBoundSpecification';
 	}
 
-	var code = '{ "node": ' + nodeType +
+	var code = '{ "node": "' + nodeType + '"' +
                    ', "field": "' + field + '"' +
                    ', "value": ' + value + ' }';
 
