@@ -18,11 +18,26 @@ Builder.init = function(blockly) {
   };
 
   // Load the editor with a starting block.
+
   var xml = Blockly.Xml.textToDom(
       '<xml>' +
-      '  <block type="spec_operation" x="85" y="100"></block>' +
+      '  <block type="spec_operation" x="185" y="145">' +
+      '    <mutation items="2"></mutation>' +
+      '    <title name="OP">AND</title>' +
+      '    <value name="INP0">' +
+      '      <block type="spec_negate" inline="false">' +
+      '        <value name="SPEC">' +
+      '          <block type="spec_field_compare" inline="false">' +
+      '            <title name="FIELD">Name</title>' +
+      '            <title name="OP">EQ</title>' +
+      '          </block>' +
+      '        </value>' +
+      '      </block>' +
+      '    </value>' +
+      '  </block>' +
       '</xml>');
   Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
+
 };
 
 /*
