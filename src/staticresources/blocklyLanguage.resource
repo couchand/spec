@@ -1,12 +1,12 @@
 'use strict';
 
-Blockly.Language.logic_compare = {
+Blockly.Language.spec_field_compare = {
   // Comparison operator.
   category: Blockly.LANG_CATEGORY_LOGIC,
   helpUrl: Blockly.LANG_LOGIC_COMPARE_HELPURL,
   init: function() {
     this.setColour(120);
-    this.setOutput(true, Boolean);
+    this.setOutput(true, 'Specification');
     this.appendValueInput('A');
     this.appendValueInput('B')
         .appendTitle(new Blockly.FieldDropdown(this.OPERATORS), 'OP');
@@ -15,12 +15,12 @@ Blockly.Language.logic_compare = {
     var thisBlock = this;
     this.setTooltip(function() {
       var op = thisBlock.getTitleValue('OP');
-      return Blockly.Language.logic_compare.TOOLTIPS[op];
+      return thisBlock.TOOLTIPS[op];
     });
   }
 };
 
-Blockly.Language.logic_compare.OPERATORS =
+Blockly.Language.spec_field_compare.OPERATORS =
     [['=', 'EQ'],
      ['\u2260', 'NEQ'],
      ['<', 'LT'],
@@ -28,7 +28,7 @@ Blockly.Language.logic_compare.OPERATORS =
      ['>', 'GT'],
      ['\u2265', 'GTE']];
 
-Blockly.Language.logic_compare.TOOLTIPS = {
+Blockly.Language.spec_field_compare.TOOLTIPS = {
   EQ: Blockly.LANG_LOGIC_COMPARE_TOOLTIP_EQ,
   NEQ: Blockly.LANG_LOGIC_COMPARE_TOOLTIP_NEQ,
   LT: Blockly.LANG_LOGIC_COMPARE_TOOLTIP_LT,
@@ -37,64 +37,26 @@ Blockly.Language.logic_compare.TOOLTIPS = {
   GTE: Blockly.LANG_LOGIC_COMPARE_TOOLTIP_GTE
 };
 
-Blockly.Language.logic_operation = {
+Blockly.Language.spec_operation = {
   // Logical operations: 'and', 'or'.
   category: Blockly.LANG_CATEGORY_LOGIC,
   helpUrl: Blockly.LANG_LOGIC_OPERATION_HELPURL,
   init: function() {
     this.setColour(120);
-    this.setOutput(true, Boolean);
-    this.appendValueInput('A')
-        .setCheck(Boolean);
-    this.appendValueInput('B')
-        .setCheck(Boolean)
+    this.setOutput(true, 'Specification');
+    this.appendValueInput('INP1')
+        .setCheck('Specification');
         .appendTitle(new Blockly.FieldDropdown(this.OPERATORS), 'OP');
-    this.setInputsInline(true);
+    this.appendValueInput('INP2')
+        .setCheck('Specification')
+    this.setMutator(new Blockly.Mutator(['spec_operation_item']));
+    this.itemCount_ = 2;
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
     this.setTooltip(function() {
       var op = thisBlock.getTitleValue('OP');
-      return Blockly.Language.logic_operation.TOOLTIPS[op];
+      return Blockly.Language.spec_operation.TOOLTIPS[op];
     });
-  }
-};
-
-Blockly.Language.logic_operation.OPERATORS =
-    [[Blockly.LANG_LOGIC_OPERATION_AND, 'AND'],
-     [Blockly.LANG_LOGIC_OPERATION_OR, 'OR']];
-
-Blockly.Language.logic_operation.TOOLTIPS = {
-  AND: Blockly.LANG_LOGIC_OPERATION_TOOLTIP_AND,
-  OR: Blockly.LANG_LOGIC_OPERATION_TOOLTIP_OR
-};
-
-Blockly.Language.logic_negate = {
-  // Negation.
-  category: Blockly.LANG_CATEGORY_LOGIC,
-  helpUrl: Blockly.LANG_LOGIC_NEGATE_HELPURL,
-  init: function() {
-    this.setColour(120);
-    this.setOutput(true, Boolean);
-    this.appendValueInput('BOOL')
-        .setCheck(Boolean)
-        .appendTitle(Blockly.LANG_LOGIC_NEGATE_INPUT_NOT);
-    this.setTooltip(Blockly.LANG_LOGIC_NEGATE_TOOLTIP_1);
-  }
-};
-
-Blockly.Language.text_join = {
-  // Create a string made up of any number of elements of any type.
-  category: Blockly.LANG_CATEGORY_TEXT,
-  helpUrl: Blockly.LANG_TEXT_JOIN_HELPURL,
-  init: function() {
-    this.setColour(160);
-    this.appendValueInput('ADD0')
-        .appendTitle(Blockly.LANG_TEXT_JOIN_TITLE_CREATEWITH);
-    this.appendValueInput('ADD1');
-    this.setOutput(true, String);
-    this.setMutator(new Blockly.Mutator(['text_create_join_item']));
-    this.setTooltip(Blockly.LANG_TEXT_JOIN_TOOLTIP_1);
-    this.itemCount_ = 2;
   },
   mutationToDom: function() {
     var container = document.createElement('mutation');
@@ -107,26 +69,24 @@ Blockly.Language.text_join = {
     }
     this.itemCount_ = window.parseInt(xmlElement.getAttribute('items'), 10);
     for (var x = 0; x < this.itemCount_; x++) {
-      var input = this.appendValueInput('ADD' + x);
+      var input = this.appendValueInput('INP' + x)
+                      .setCheck('Specification');
       if (x == 0) {
-        input.appendTitle(Blockly.LANG_TEXT_JOIN_TITLE_CREATEWITH);
+        input.appendTitle(new Blockly.FieldDropdown(this.OPERATORS), 'OP');
       }
     }
     if (this.itemCount_ == 0) {
       this.appendDummyInput('EMPTY')
-          .appendTitle(new Blockly.FieldImage(Blockly.pathToBlockly +
-          'media/quote0.png', 12, 12))
-          .appendTitle(new Blockly.FieldImage(Blockly.pathToBlockly +
-          'media/quote1.png', 12, 12));
+          .appendTitle(new Blockly.FieldDropdown(this.OPERATORS), 'OP');
     }
   },
   decompose: function(workspace) {
     var containerBlock = new Blockly.Block(workspace,
-                                           'text_create_join_container');
+                                           'spec_operation_container');
     containerBlock.initSvg();
     var connection = containerBlock.getInput('STACK').connection;
     for (var x = 0; x < this.itemCount_; x++) {
-      var itemBlock = new Blockly.Block(workspace, 'text_create_join_item');
+      var itemBlock = new Blockly.Block(workspace, 'spec_operation_item');
       itemBlock.initSvg();
       connection.connect(itemBlock.previousConnection);
       connection = itemBlock.nextConnection;
@@ -139,16 +99,16 @@ Blockly.Language.text_join = {
       this.removeInput('EMPTY');
     } else {
       for (var x = this.itemCount_ - 1; x >= 0; x--) {
-        this.removeInput('ADD' + x);
+        this.removeInput('INP' + x);
       }
     }
     this.itemCount_ = 0;
     // Rebuild the block's inputs.
     var itemBlock = containerBlock.getInputTargetBlock('STACK');
     while (itemBlock) {
-      var input = this.appendValueInput('ADD' + this.itemCount_);
+      var input = this.appendValueInput('INP' + this.itemCount_);
       if (this.itemCount_ == 0) {
-        input.appendTitle(Blockly.LANG_TEXT_JOIN_TITLE_CREATEWITH);
+        input.appendTitle(new Blockly.FieldDropdown(this.OPERATORS), 'OP');
       }
       // Reconnect any child blocks.
       if (itemBlock.valueConnection_) {
@@ -160,10 +120,7 @@ Blockly.Language.text_join = {
     }
     if (this.itemCount_ == 0) {
       this.appendDummyInput('EMPTY')
-          .appendTitle(new Blockly.FieldImage(Blockly.pathToBlockly +
-          'media/quote0.png', 12, 12))
-          .appendTitle(new Blockly.FieldImage(Blockly.pathToBlockly +
-          'media/quote1.png', 12, 12));
+          .appendTitle(new Blockly.FieldDropdown(this.OPERATORS), 'OP');
     }
   },
   saveConnections: function(containerBlock) {
@@ -171,12 +128,35 @@ Blockly.Language.text_join = {
     var itemBlock = containerBlock.getInputTargetBlock('STACK');
     var x = 0;
     while (itemBlock) {
-      var input = this.getInput('ADD' + x);
+      var input = this.getInput('INP' + x);
       itemBlock.valueConnection_ = input && input.connection.targetConnection;
       x++;
       itemBlock = itemBlock.nextConnection &&
           itemBlock.nextConnection.targetBlock();
     }
+  }
+};
+
+Blockly.Language.spec_operation.OPERATORS =
+    [[Blockly.LANG_LOGIC_OPERATION_AND, 'AND'],
+     [Blockly.LANG_LOGIC_OPERATION_OR, 'OR']];
+
+Blockly.Language.spec_operation.TOOLTIPS = {
+  AND: Blockly.LANG_LOGIC_OPERATION_TOOLTIP_AND,
+  OR: Blockly.LANG_LOGIC_OPERATION_TOOLTIP_OR
+};
+
+Blockly.Language.spec_negate = {
+  // Negation.
+  category: Blockly.LANG_CATEGORY_LOGIC,
+  helpUrl: Blockly.LANG_LOGIC_NEGATE_HELPURL,
+  init: function() {
+    this.setColour(120);
+    this.setOutput(true, 'Specification');
+    this.appendValueInput('BOOL')
+        .setCheck('Specification')
+        .appendTitle(Blockly.LANG_LOGIC_NEGATE_INPUT_NOT);
+    this.setTooltip(Blockly.LANG_LOGIC_NEGATE_TOOLTIP_1);
   }
 };
 
