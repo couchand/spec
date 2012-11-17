@@ -234,8 +234,8 @@ Blockly.Language.spec_operation_item = {
 
 Blockly.JavaScript.spec_operation = function() {
 
-	var operation = this.getTitleValue('OP');
-	var code = '{ "node": "' + operation + '" }';
+	var operator = this.getTitleValue('OP');
+	var code = '{ "node": "' + operator + '" }';
 	return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
