@@ -92,6 +92,12 @@ Blockly.Language.spec_field_value.FIELDS =
     [['Name', 'Name'],
      ['Custom Field', 'Custom__c']];
 
+Blockly.JavaScript.spec_field_value = function() {
+
+	var field = this.getTitleValue('FIELD');
+	return [field, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
 Blockly.Language.spec_operation = {
   // Logical operations: 'and', 'or'.
   category: 'Logic',
