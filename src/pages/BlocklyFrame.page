@@ -14,7 +14,16 @@
       width: 100%;
     }
   </style>
+  <script>
+	function pageLoad(){
 
-  <body onLoad="init()">
+		var resource, folder;
+		resource = "{!URLFOR($Resource.blocklyMedia,'media/blockly.css')}";
+		folder = resource.replace('media/blockly.css','');
+		init( folder );
+	}
+  </script>
+
+  <body onLoad="pageLoad()">
   </body>
 </apex:page>

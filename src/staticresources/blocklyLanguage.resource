@@ -2,15 +2,15 @@
 
 Blockly.Language.spec_field_compare = {
   // Comparison operator.
-  category: Blockly.LANG_CATEGORY_LOGIC,
-  helpUrl: Blockly.LANG_LOGIC_COMPARE_HELPURL,
+  category: 'Logic',
+  helpUrl: '',
   init: function() {
     this.setColour(120);
     this.setOutput(true, 'Specification');
-    this.appendValueInput('A');
-    this.appendValueInput('B')
+    this.appendDummyInput('FIELD')
+        .appendTitle(new Blockly.FieldDropdown(this.FIELDS), 'FIELD');
+    this.appendValueInput('VALUE')
         .appendTitle(new Blockly.FieldDropdown(this.OPERATORS), 'OP');
-    this.setInputsInline(true);
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
     this.setTooltip(function() {
@@ -19,6 +19,10 @@ Blockly.Language.spec_field_compare = {
     });
   }
 };
+
+Blockly.Language.spec_field_compare.FIELDS =
+    [['Name', 'Name'],
+     ['Custom Field', 'Custom__c']];
 
 Blockly.Language.spec_field_compare.OPERATORS =
     [['=', 'EQ'],
@@ -29,14 +33,14 @@ Blockly.Language.spec_field_compare.OPERATORS =
      ['\u2265', 'GTE']];
 
 Blockly.Language.spec_field_compare.TOOLTIPS = {
-  EQ: Blockly.LANG_LOGIC_COMPARE_TOOLTIP_EQ,
-  NEQ: Blockly.LANG_LOGIC_COMPARE_TOOLTIP_NEQ,
-  LT: Blockly.LANG_LOGIC_COMPARE_TOOLTIP_LT,
-  LTE: Blockly.LANG_LOGIC_COMPARE_TOOLTIP_LTE,
-  GT: Blockly.LANG_LOGIC_COMPARE_TOOLTIP_GT,
-  GTE: Blockly.LANG_LOGIC_COMPARE_TOOLTIP_GTE
+  EQ: 'Field equal to',
+  NEQ: 'Field not equal to',
+  LT: 'Field less than',
+  LTE: 'Field not exceeding',
+  GT: 'Field exceeding',
+  GTE: 'Field not less than'
 };
-
+/*
 Blockly.Language.spec_operation = {
   // Logical operations: 'and', 'or'.
   category: Blockly.LANG_CATEGORY_LOGIC,
@@ -186,11 +190,12 @@ Blockly.Language.spec_negate = {
 };
 
 Blockly.JavaScript = Blockly.Generator.get('JavaScript');
-
-function init() {
+*/
+function init( blocklyPath ) {
+/*
   // Whitelist of blocks to keep.
   var newLanguage = {};
-  var keepers = ['spec_field_compare', 'spec_operation', 'spec_negate']
+  var keepers = ['spec_field_compare', 'spec_operation', 'spec_negate'];
   for (var x = 0; x < keepers.length; x++) {
     newLanguage[keepers[x]] = Blockly.Language[keepers[x]];
   }
@@ -201,8 +206,8 @@ function init() {
     }
   }
   Blockly.Language = newLanguage;
-
-  Blockly.inject(document.body, {path: '../../'});
+*/
+  Blockly.inject(document.body, {path: blocklyPath});
 
   if (window.parent.Builder) {
     // Let the top-level application know that Blockly is ready.
