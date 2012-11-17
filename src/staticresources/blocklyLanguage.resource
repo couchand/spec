@@ -2,7 +2,7 @@
 
 Blockly.Language.spec_field_compare = {
   // Comparison operator.
-  category: 'Logic',
+  category: 'Specifications',
   helpUrl: '',
   init: function() {
     this.setColour(120);
