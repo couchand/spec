@@ -40,18 +40,18 @@ Blockly.Language.spec_field_compare.TOOLTIPS = {
   GT: 'Field exceeding',
   GTE: 'Field not less than'
 };
-/*
+
 Blockly.Language.spec_operation = {
   // Logical operations: 'and', 'or'.
-  category: Blockly.LANG_CATEGORY_LOGIC,
-  helpUrl: Blockly.LANG_LOGIC_OPERATION_HELPURL,
+  category: 'Logic',
+  helpUrl: '',
   init: function() {
     this.setColour(120);
     this.setOutput(true, 'Specification');
-    this.appendValueInput('INP1')
+    this.appendValueInput('INP0')
         .setCheck('Specification')
         .appendTitle(new Blockly.FieldDropdown(this.OPERATORS), 'OP');
-    this.appendValueInput('INP2')
+    this.appendValueInput('INP1')
         .setCheck('Specification')
     this.setMutator(new Blockly.Mutator(['spec_operation_item']));
     this.itemCount_ = 2;
@@ -69,7 +69,7 @@ Blockly.Language.spec_operation = {
   },
   domToMutation: function(xmlElement) {
     for (var x = 0; x < this.itemCount_; x++) {
-      this.removeInput('ADD' + x);
+      this.removeInput('INP' + x);
     }
     this.itemCount_ = window.parseInt(xmlElement.getAttribute('items'), 10);
     for (var x = 0; x < this.itemCount_; x++) {
@@ -142,12 +142,12 @@ Blockly.Language.spec_operation = {
 };
 
 Blockly.Language.spec_operation.OPERATORS =
-    [[Blockly.LANG_LOGIC_OPERATION_AND, 'AND'],
-     [Blockly.LANG_LOGIC_OPERATION_OR, 'OR']];
+    [['and', 'AND'],
+     ['or', 'OR']];
 
 Blockly.Language.spec_operation.TOOLTIPS = {
-  AND: Blockly.LANG_LOGIC_OPERATION_TOOLTIP_AND,
-  OR: Blockly.LANG_LOGIC_OPERATION_TOOLTIP_OR
+  AND: 'A logical conjunction of the Specifications',
+  OR: 'A logical disjunction of the Specifications'
 };
 
 Blockly.Language.spec_operation_container = {
@@ -174,7 +174,7 @@ Blockly.Language.spec_operation_item = {
     this.contextMenu = false;
   }
 };
-*/
+
 Blockly.Language.spec_negate = {
   // Negation.
   category: 'Logic',
