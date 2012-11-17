@@ -189,11 +189,9 @@ Blockly.Language.spec_negate = {
     this.setTooltip('The inverse of the Specification passed in');
   }
 };
-/*
-Blockly.JavaScript = Blockly.Generator.get('JavaScript');
-*/
+
 function init( blocklyPath ) {
-/*
+
   // Whitelist of blocks to keep.
   var newLanguage = {};
   var keepers = ['spec_field_compare', 'spec_operation', 'spec_negate'];
@@ -207,7 +205,7 @@ function init( blocklyPath ) {
     }
   }
   Blockly.Language = newLanguage;
-*/
+
   Blockly.inject(document.body, {path: blocklyPath});
 
   if (window.parent.Builder) {
