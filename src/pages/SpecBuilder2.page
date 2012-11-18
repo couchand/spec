@@ -1,4 +1,4 @@
-<apex:page title="Specification Builder with Blockly" controller="SpecificationController">
+<apex:page title="Specification Builder with Blockly" controller="SpecificationController2">
   <apex:includeScript value="{!$Resource.builder}" />
   <style>
     .main {
@@ -11,7 +11,14 @@
       width: 100%;
     }
   </style>
-  <input type="button" onClick="Builder.reloadMatches()" value="find matches" />
+  <script>
+	function refreshSatisfiers( code ){
+		Spec.SpecificationController2.getSatisfiers( code, function( result, event ){
+			console.log( result );
+		});
+	}
+  </script>
+  <input type="button" onClick="Builder.exportJson(refreshSatisfiers)" value="find matches" />
   <div class="main">
     <iframe src="/apex/BlocklyFrame"></iframe>
   </div>

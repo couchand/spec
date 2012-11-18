@@ -43,13 +43,14 @@ Builder.init = function(blockly) {
 /*
  * Simulate a call to a RemoteAction. Or facade.
  */
-Builder.reloadMatches = function(){
+Builder.exportJson = function(callback){
 
-	var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
-	var code = Blockly.Generator.workspaceToCode('JavaScript');
+	var code = Blockly.Generator.workspaceToCode('JavaScript')
+			.replace(/'/g,'"')
+			.replace(';\n','');
 
 	// Do something
+	callback( code );
 
-	console.log( xml );
 	console.log( code );
 };
