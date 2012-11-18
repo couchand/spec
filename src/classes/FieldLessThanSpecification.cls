@@ -33,8 +33,8 @@ global virtual class FieldLessThanSpecification extends FieldBoundSpecification
 	 * Properties
 	 */
 
-	public static String NODE_TYPE = 'flt';
-	public String node = NODE_TYPE;
+	global static final String NODE_TYPE = 'flt';
+	global final String node = NODE_TYPE;
 
 	/*
 	 * Constructors
