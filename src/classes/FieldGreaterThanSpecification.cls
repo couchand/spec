@@ -30,8 +30,21 @@
 global virtual class FieldGreaterThanSpecification extends FieldBoundSpecification
 {
 	/*
+	 * Properties
+	 */
+
+	global static final String NODE_TYPE = 'fgt';
+	global final String node = NODE_TYPE;
+
+	/*
 	 * Constructors
 	 */
+
+	// Only for complex construction
+	global FieldGreaterThanSpecification()
+	{
+		super( null, null );
+	}
 
 	global FieldGreaterThanSpecification( String field, Object value )
 	{
@@ -65,7 +78,7 @@ global virtual class FieldGreaterThanSpecification extends FieldBoundSpecificati
 
 	global virtual override al.Condition toCondition()
 	{
-		throw new Exceptions.UnimplementedFeatureException();
+		return new al.FieldCondition( field ).greaterThan( value );
 	}
 
 	global virtual override String toSoql()

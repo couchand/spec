@@ -30,8 +30,21 @@
 global virtual class FieldGreaterThanOrEqualToSpecification extends FieldBoundSpecification
 {
 	/*
+	 * Properties
+	 */
+
+	global static final String NODE_TYPE = 'fgte';
+	global final String node = NODE_TYPE;
+
+	/*
 	 * Constructors
 	 */
+
+	// Only for complex construction
+	global FieldGreaterThanOrEqualToSpecification()
+	{
+		super( null, null );
+	}
 
 	global FieldGreaterThanOrEqualToSpecification( String field, Object value )
 	{
@@ -65,7 +78,7 @@ global virtual class FieldGreaterThanOrEqualToSpecification extends FieldBoundSp
 
 	global virtual override al.Condition toCondition()
 	{
-		throw new Exceptions.UnimplementedFeatureException();
+		return new al.FieldCondition( field ).greaterThanOrEqualTo( value );
 	}
 
 	/*

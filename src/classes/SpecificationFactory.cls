@@ -8,6 +8,8 @@ global class SpecificationFactory
 		FieldNotEqualTo.NODE_TYPE			=> 'FieldNotEqualTo',
 		FieldLessThanSpecification.NODE_TYPE		=> 'FieldLessThanSpecification',
 		FieldLessThanOrEqualToSpecification.NODE_TYPE	=> 'FieldLessThanOrEqualToSpecification',
+		FieldGreaterThanSpecification.NODE_TYPE		=> 'FieldGreaterThanSpecification',
+		FieldGreaterThanOrEqualToSpecification.NODE_TYPE=> 'FieldGreaterThanOrEqualToSpecification',
 		TypeSpecification.NODE_TYPE			=> 'TypeSpecification'
 	};
 
