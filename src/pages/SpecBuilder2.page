@@ -1,9 +1,15 @@
 <apex:page title="Specification Builder with Blockly" controller="SpecificationController2">
+  <apex:includeScript value="http://code.jquery.com/jquery-1.8.3.min.js" />
   <apex:includeScript value="{!$Resource.builder}" />
   <style>
+    .right {
+      width: 35%;
+      float: right;
+    }
     .main {
+      float: left;
       height: 600px;
-      width: 100%;
+      width: 60%;
     }
     iframe {
       border: 1px solid #ccc;
@@ -14,12 +20,19 @@
   <script>
 	function refreshSatisfiers( code ){
 		Spec.SpecificationController2.getSatisfiers( code, function( result, event ){
-			console.log( result );
+			var satisfiers = jQuery('#satisfiers').empty();
+
+			jQuery.each( result, function( index, satisfier ){
+				satisfiers.append( jQuery('<li>').text( satisfier.obj.Name ) );
+			});
 		});
 	}
   </script>
   <input type="button" onClick="Builder.exportJson(refreshSatisfiers)" value="find matches" />
   <div class="main">
     <iframe src="/apex/BlocklyFrame"></iframe>
+  </div>
+  <div class="right">
+    <ul id="satisfiers"></ul>
   </div>
 </apex:page>
