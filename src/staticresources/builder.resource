@@ -45,9 +45,9 @@ Builder.init = function(blockly) {
  */
 Builder.exportJson = function(callback){
 
-	var code = Blockly.Generator.workspaceToCode('JavaScript')
-			.replace(/'/g,'"')
-			.replace(';\n','');
+	var code = Blockly.Generator.workspaceToCode('JavaScript');
+	code = code.substring(0, code.indexOf(';'))
+			.replace(/'/g,'"');
 
 	// Do something
 	callback( code );
