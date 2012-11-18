@@ -30,10 +30,23 @@
 global virtual class FieldEqualTo extends FieldBoundSpecification
 {
 	/*
+	 * Properties
+	 */
+
+	global static final String NODE_TYPE = 'fe';
+	global final String node = NODE_TYPE;
+
+	/*
 	 * Constructors
 	 */
 
-	global FieldEqualTo ( String field, Object value )
+	// Only for complex construction
+	global FieldEqualTo()
+	{
+		super( null, null );
+	}
+
+	global FieldEqualTo( String field, Object value )
 	{
 		super( field, value );
 	}

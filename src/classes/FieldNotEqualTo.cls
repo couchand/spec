@@ -30,10 +30,23 @@
 global virtual class FieldNotEqualTo extends FieldBoundSpecification
 {
 	/*
+	 * Properties
+	 */
+
+	global static final String NODE_TYPE = 'fne';
+	global final String node = NODE_TYPE;
+
+	/*
 	 * Constructors
 	 */
 
-	global FieldNotEqualTo ( String field, Object value )
+	// Only for complex construction
+	global FieldNotEqualTo()
+	{
+		super( null, null );
+	}
+
+	global FieldNotEqualTo( String field, Object value )
 	{
 		super( field, value );
 	}
