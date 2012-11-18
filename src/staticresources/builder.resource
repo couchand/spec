@@ -49,8 +49,6 @@ Builder.exportJson = function(callback){
 	code = code.substring(0, code.indexOf(';'))
 			.replace(/'/g,'"');
 
-	// Do something
-	callback( code );
-
 	console.log( code );
+	callback( code );
 };
