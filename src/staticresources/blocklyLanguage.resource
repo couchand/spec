@@ -284,6 +284,7 @@ function init( blocklyPath ) {
   var newLanguage = {};
   var keepers = ['spec_field_compare', 'spec_field_value',
                  'spec_operation', 'spec_negate',
+                 'spec_operation_container', 'spec_operation_item',
                  'math_number', 'text'];
   for (var x = 0; x < keepers.length; x++) {
     newLanguage[keepers[x]] = Blockly.Language[keepers[x]];
