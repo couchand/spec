@@ -4,6 +4,8 @@ global class SpecificationFactory
 	{
 		AndSpecification.NODE_TYPE			=> 'AndSpecification',
 		OrSpecification.NODE_TYPE			=> 'OrSpecification',
+		FieldEqualTo.NODE_TYPE				=> 'FieldEqualTo',
+		FieldNotEqualTo.NODE_TYPE			=> 'FieldNotEqualTo',
 		FieldLessThanSpecification.NODE_TYPE		=> 'FieldLessThanSpecification',
 		FieldLessThanOrEqualToSpecification.NODE_TYPE	=> 'FieldLessThanOrEqualToSpecification',
 		TypeSpecification.NODE_TYPE			=> 'TypeSpecification'

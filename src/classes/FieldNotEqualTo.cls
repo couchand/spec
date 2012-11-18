@@ -78,7 +78,7 @@ global virtual class FieldNotEqualTo extends FieldBoundSpecification
 
 	global virtual override al.Condition toCondition()
 	{
-		throw new Exceptions.UnimplementedFeatureException();
+		return new al.FieldCondition( field ).notEquals( value );
 	}
 
 	global virtual override String toSoql()
