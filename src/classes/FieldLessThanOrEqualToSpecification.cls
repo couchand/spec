@@ -33,12 +33,18 @@ global virtual class FieldLessThanOrEqualToSpecification extends FieldBoundSpeci
 	 * Properties
 	 */
 
-	public static String NODE_TYPE = 'flte';
-	public String node = NODE_TYPE;
+	global static final String NODE_TYPE = 'flte';
+	global final String node = NODE_TYPE;
 
 	/*
 	 * Constructors
 	 */
+
+	// Only for complex construction
+	global FieldLessThanOrEqualToSpecification()
+	{
+		super( null, null );
+	}
 
 	global FieldLessThanOrEqualToSpecification( String field, Object value )
 	{
@@ -72,7 +78,7 @@ global virtual class FieldLessThanOrEqualToSpecification extends FieldBoundSpeci
 
 	global virtual override al.Condition toCondition()
 	{
-		throw new Exceptions.UnimplementedFeatureException();
+		return new al.FieldCondition( field ).lessThanOrEqualTo( value );
 	}
 
 	/*
