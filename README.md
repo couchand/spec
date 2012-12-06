@@ -84,6 +84,14 @@ Now...
 	List<Opportunity> interestingOpportunties = interestingOpportunitySpec.findSatisfiers( Trigger.new );
 	doSomethingImportant( interestingOpportunities );
 
+Check if one spec is a generalization of another.
+
+	spec.SObjectSpecification bigOpportunitySpec = new spec.FieldGreaterThan( 'Amount', 500 );
+	spec.SObjectSpecification reallyBigOpportunitySpec = new spec.FieldGreaterThan( 'Amount', 5000 );
+
+	bigOpportunitySpec.isSpecialCaseOf( reallyBigOpportunitySpec ); // true
+	reallyBigOpportunitySpec.isGeneralizationOf( bigOpportunitySpec ); // true
+
 Further Reading
 ---------------
 
