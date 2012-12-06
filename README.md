@@ -50,50 +50,44 @@ Any time you would directly make a query, instead
 develop an appropriate Specification.  This encourages
 the use of reusable code.
 
-	  // Previously
-	  List<Opportunity> opportunities =
-	    [SELECT Id FROM Opportunity
-	     WHERE Amount > 5.0 AND StageName = 'Closed/Won'];
+Previously
 
-	  // Now
-	  SObjectSpecification opportunitySpec =
-	    new TypeSpecification( 'Opportunity' );
-	  SObjectSpecification amountMoreThanFive =
-	    new FieldGreaterThanSpecification( 'Amount', 5.0 );
-	  SObjectSpecification stageClosedWon =
-	    new FieldEqualSpecification( 'StageName', 'Closed/Won' );
-	  SObjectSpecification interestingOpportunitySpec =
-	    opportunitySpec.and( amountMoreThanFive ).and( stageClosedWon );
+	List<Opportunity> opportunities = [SELECT Id FROM Opportunity WHERE Amount > 5.0 AND StageName = 'Closed/Won'];
 
-	  List<Opportunity> opportunities =
-	    interestingOpportunitySpec.findSatisfiers();
+Now
+
+	spec.SObjectSpecification opportunitySpec = new spec.Type( 'Opportunity' );
+	spec.SObjectSpecification amountMoreThanFive = new spec.FieldGreaterThan( 'Amount', 5.0 );
+	spec.SObjectSpecification stageClosedWon = new spec.FieldEqual( 'StageName', 'Closed/Won' );
+	spec.SObjectSpecification interestingOpportunitySpec = opportunitySpec.and( amountMoreThanFive ).and( stageClosedWon );
+
+	List<Opportunity> opportunities = interestingOpportunitySpec.findSatisfiers();
 
 They also make short work of trigger filtering.
 
-	  // Previously
-	  List<Opportunity> interestingOpportunities =
-	    new List<Opportunity>();
+Previously
 
-	  for( Opportunity anOpportunity : Trigger.new )
-	  {
-	    if( anOpportunity.Amount > 5.0 &&
-		anOpportunity.StageName == 'Closed/Won' )
-	    {
-	      interestingOpportunities.add( anOpportunity );
-	    }
-	  }
+	List<Opportunity> interestingOpportunities = new List<Opportunity>();
 
-	  doSomethingImportant( interestingOpportunities );
+	for( Opportunity anOpportunity : Trigger.new )
+	{
+		if( anOpportunity.Amount > 5.0 && anOpportunity.StageName == 'Closed/Won' )
+		{
+			interestingOpportunities.add( anOpportunity );
+		}
+	}
 
-	  // Now
-	  List<Opportunity> interestingOpportunties =
-	    interestingOpportunitySpec.findSatisfiers( Trigger.new );
-	  doSomethingImportant( interestingOpportunities );
+	doSomethingImportant( interestingOpportunities );
+
+Now
+
+	List<Opportunity> interestingOpportunties = interestingOpportunitySpec.findSatisfiers( Trigger.new );
+	doSomethingImportant( interestingOpportunities );
 
 Further Reading
 ---------------
 
- * Specifications, Martin Fowler, martinfowler.com/apsupp/spec.pdf
+ * Specifications, Martin Fowler, [martinfowler.com/apsupp/spec.pdf](http://martinfowler.com/apsupp/spec.pdf)
  * Domain-Driven Design, Eric Evans, 2004, pages 224-229 & 273-281
 
 Implementation Specifics
