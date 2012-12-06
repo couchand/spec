@@ -22,8 +22,7 @@ Overview of Specification Pattern
 
 A `Specification` is a pattern to describe a minimum set of
 acceptable criteria for an object.  It is used for three
-primary purposes: validation, selection, and making-to-
-order.
+primary purposes: validation, selection, and making-to-order.
 
 In the context of Apex, this pattern is applied to
 SObjects.  In particular, this means:
