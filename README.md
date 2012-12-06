@@ -50,11 +50,11 @@ Any time you would directly make a query, instead
 develop an appropriate Specification.  This encourages
 the use of reusable code.
 
-Previously
+Previously...
 
 	List<Opportunity> opportunities = [SELECT Id FROM Opportunity WHERE Amount > 5.0 AND StageName = 'Closed/Won'];
 
-Now
+Now...
 
 	spec.SObjectSpecification opportunitySpec = new spec.Type( 'Opportunity' );
 	spec.SObjectSpecification amountMoreThanFive = new spec.FieldGreaterThan( 'Amount', 5.0 );
@@ -65,7 +65,7 @@ Now
 
 They also make short work of trigger filtering.
 
-Previously
+Previously...
 
 	List<Opportunity> interestingOpportunities = new List<Opportunity>();
 
@@ -79,7 +79,7 @@ Previously
 
 	doSomethingImportant( interestingOpportunities );
 
-Now
+Now...
 
 	List<Opportunity> interestingOpportunties = interestingOpportunitySpec.findSatisfiers( Trigger.new );
 	doSomethingImportant( interestingOpportunities );
