@@ -20,7 +20,7 @@ Please see the file LICENSE for details.
 Overview of Specification Pattern
 ---------------------------------
 
-A Specification is a pattern to describe a minimum set of
+A `Specification` is a pattern to describe a minimum set of
 acceptable criteria for an object.  It is used for three
 primary purposes: validation, selection, and making-to-
 order.
@@ -101,8 +101,8 @@ Further Reading
 Implementation Specifics
 ------------------------
 
-The subsumption methods isGeneralization of and
-isSpecialCaseOf are implemented using the Visitor pattern,
+The subsumption methods `isGeneralizationOf` and
+`isSpecialCaseOf` are implemented using the Visitor pattern,
 as suggested by	Fowler and Evans.  Because the polymorphic
 capabilities of Apex are quite limited, the double
 dispatch is necessarily performed by an external dispatch
@@ -133,4 +133,4 @@ callee, so it probably is simply this.
 	> true
 
 That is, unless we only implement the husk subsumption
-methods on BaseSpecification and do the ping-pong.
+methods on `BaseSpecification` and do the ping-pong.
