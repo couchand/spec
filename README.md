@@ -110,19 +110,17 @@ class.  One such dispatcher exists for each level of the
 inheritance hierarchy, so all calls to the subsumption
 methods go through a ping-pong down the hierarchy.
 
-	  BaseSpecification lessThanFive =
-	    new FieldLessThanSpecification( 'Amount', 5.0 );
-	  BaseSpecification lessThanThree =
-	    new FieldLessThanSpecification( 'Amount', 3.0 );
+	BaseSpecification lessThanFive = new FieldLessThanSpecification( 'Amount', 5.0 );
+	BaseSpecification lessThanThree = new FieldLessThanSpecification( 'Amount', 3.0 );
 
 	> lessThanThree.isSpecialCaseOf( lessThanFive );
 	  > (new BaseDispatcher()).isSpecialCaseOf( lessThanThree, lessThanFive );
 	    > ((SoqlableSpecification)lessThanThree).isSpecialCaseOf( (SoqlableSpecification)lessThanFive );
 	      > (new SoqlableDispatcher()).isSpecialCaseOf( lessThanThree, lessThanFive );
-		> ((FieldBoundSpecification)lessThanThree).isSpecialCaseOf( (FieldBoundSpecification)lessThanFive );
-		  > (new FieldBoundDispatcher()).isSpecialCaseOf( lessThanFive );
-		    > ((FieldLessThanSpecification)lessThanThree).isSpecialCaseOfDispatch( (FieldLessThanSpecification)lessThanFive );
-		      > return lessThanThree.bound < lessThanFive.bound;
+	        > ((FieldBoundSpecification)lessThanThree).isSpecialCaseOf( (FieldBoundSpecification)lessThanFive );
+	          > (new FieldBoundDispatcher()).isSpecialCaseOf( lessThanFive );
+	            > ((FieldLessThanSpecification)lessThanThree).isSpecialCaseOfDispatch( (FieldLessThanSpecification)lessThanFive );
+	              > return lessThanThree.bound < lessThanFive.bound;
 	> true
 
 Except I think Apex at least resolves the class of the
