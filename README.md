@@ -5,6 +5,7 @@ An implementation of the specification pattern in Apex
 
 
  * License
+ * A Warning
  * Overview of Specification Pattern
  * How To Use Specifications
  * Further Reading
@@ -16,6 +17,17 @@ License
 
 This project is released under the MIT/X11 license.
 Please see the file LICENSE for details.
+
+A Warning
+---------
+
+This readme is intended to be proscriptive, not descriptive.
+As such, it may describe features that are partially or
+entirely unimplemented.  It regularly uses names of files
+which have yet to exist.
+
+As in any software development project, the `code` is the
+only current and accurate documentation.
 
 Overview of Specification Pattern
 ---------------------------------
